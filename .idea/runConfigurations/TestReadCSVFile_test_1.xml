@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="TestReadCSVFile.test_1" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="liga-java-study" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="ru.liga.service.help.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="ru.liga.service.help" />
+    <option name="MAIN_CLASS_NAME" value="ru.liga.service.help.TestReadCSVFile" />
+    <option name="METHOD_NAME" value="test_1" />
+    <option name="TEST_OBJECT" value="method" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
