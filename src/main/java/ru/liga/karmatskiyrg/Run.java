@@ -5,12 +5,11 @@ import ru.liga.karmatskiyrg.controller.CommandController;
 import ru.liga.karmatskiyrg.controller.ParameterController;
 import ru.liga.karmatskiyrg.controller.observers.CommandLeadAction;
 import ru.liga.karmatskiyrg.controller.observers.ParameterLeadAction;
-import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
-import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
 import ru.liga.karmatskiyrg.model.dicts.DLineCommands;
 import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
 import ru.liga.karmatskiyrg.service.currency.PredictCurrencyRate;
+import ru.liga.karmatskiyrg.service.initialize.Init;
 import ru.liga.karmatskiyrg.service.interfaces.CurrencyPredict;
 import ru.liga.karmatskiyrg.service.loop.LoopClass;
 import ru.liga.karmatskiyrg.utils.loop.Context;
@@ -27,7 +26,7 @@ public class Run {
         var loop = new LoopClass();
         loop.setInitAction(x -> {
             initCommands(x);
-            initCurrencyDict();
+            Init.initDicts();
         });
         loop.setAction(Run::context);
         loop.run();
@@ -62,14 +61,17 @@ public class Run {
         leadParameter.addVariant(DLineParameters.WEK, controller::getCurrencyRateWeek);
     }
 
-    private static void initCurrencyDict() {
-        IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class + "1", DCurrencyTypes::getType);
-        IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class, (name) -> {
-            try {
-                return DCurrencyTypes.valueOf(name);
-            } catch (IllegalArgumentException e) {
-                return null;
-            }
-        });
-    }
+//    private static void initDicts() {
+//        IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class + "1", DCurrencyTypes::getType);
+//        IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class, (name) -> {
+//            try {
+//                return DCurrencyTypes.valueOf(name);
+//            } catch (IllegalArgumentException e) {
+//                return null;
+//            }
+//        });
+//
+//        IsCommandString.getSingleton().addVariant(DLineCommands.class, DLineCommands::getType);
+//        IsParameterString.getSingleton().addVariant(DLineCommands.class, DLineParameters::getType);
+//    }
 }

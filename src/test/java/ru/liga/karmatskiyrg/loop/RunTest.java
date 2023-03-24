@@ -3,7 +3,7 @@ package ru.liga.karmatskiyrg.loop;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
-import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
+import ru.liga.karmatskiyrg.service.initialize.Init;
 import ru.liga.karmatskiyrg.utils.loop.Context;
 
 import java.io.ByteArrayInputStream;
@@ -23,16 +23,7 @@ public class RunTest {
             """.getBytes(StandardCharsets.UTF_8));
     private static final Scanner scanner = new Scanner(input);
 
-    private static void init(Context context) {
-        IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class + "1", DCurrencyTypes::getType);
-        IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class, (name) -> {
-            try {
-                return DCurrencyTypes.valueOf(name);
-            } catch (IllegalArgumentException e) {
-                return null;
-            }
-        });
-    }
+
 
     private static void context(Context context) {
         var text = scanner.next();
@@ -48,7 +39,7 @@ public class RunTest {
     @Test
     public void main() {
         var loop = new TestLoop();
-        loop.setInitAction(RunTest::init);
+        loop.setInitAction(x -> Init.initDicts());
         loop.setAction(RunTest::context);
         loop.run();
     }

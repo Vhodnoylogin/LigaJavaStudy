@@ -1,16 +1,13 @@
 package ru.liga.karmatskiyrg;
 
 import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
-import ru.liga.karmatskiyrg.controller.observers.dicts.IsCommandString;
-import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
-import ru.liga.karmatskiyrg.controller.observers.dicts.IsParameterString;
-import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
 import ru.liga.karmatskiyrg.model.dicts.DLineCommands;
 import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
 import ru.liga.karmatskiyrg.service.context.ParseStringToContext;
 import ru.liga.karmatskiyrg.service.context.RateContext;
 import ru.liga.karmatskiyrg.service.currency.PredictCurrencyRate;
+import ru.liga.karmatskiyrg.service.initialize.Init;
 import ru.liga.karmatskiyrg.views.basic.EmptyView;
 import ru.liga.karmatskiyrg.views.basic.ExceptionView;
 import ru.liga.karmatskiyrg.views.basic.ExitView;
@@ -32,7 +29,7 @@ public class SimpleRun {
         String text;
         var context = new RateContext(null);
         boolean exit = false;
-        initCurrencyDict();
+        Init.initDicts();
 
         while (!exit) {
             try {
@@ -64,19 +61,5 @@ public class SimpleRun {
                 view.show();
             }
         }
-    }
-
-    private static void initCurrencyDict() {
-        IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class + "1", DCurrencyTypes::getType);
-        IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class, (name) -> {
-            try {
-                return DCurrencyTypes.valueOf(name.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                return null;
-            }
-        });
-
-        IsCommandString.getSingleton().addVariant(DLineCommands.class, DLineCommands::getType);
-        IsParameterString.getSingleton().addVariant(DLineCommands.class, DLineParameters::getType);
     }
 }
