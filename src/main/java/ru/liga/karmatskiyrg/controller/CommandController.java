@@ -1,23 +1,27 @@
 package ru.liga.karmatskiyrg.controller;
 
-import ru.liga.karmatskiyrg.utils.loop.Loop;
-import ru.liga.karmatskiyrg.views.basic.EmptyView;
+import lombok.AllArgsConstructor;
+import ru.liga.karmatskiyrg.controller.observers.ParameterLeadAction;
+import ru.liga.karmatskiyrg.service.context.RateContext;
 import ru.liga.karmatskiyrg.views.basic.ExitView;
+import ru.liga.karmatskiyrg.views.currency.CurrencyView;
 
+@AllArgsConstructor
 public class CommandController {
 
-    protected final Loop.LoopControl control;
+    private final RateContext context;
 
-    public CommandController(Loop.LoopControl control) {
-        this.control = control;
-    }
 
     public void rate() {
-        new EmptyView().show();
+        var func = ParameterLeadAction.getSingleton().getFirstVariant(context.getParameter());
+        var res = func.apply(context.getCurrencyType());
+        new CurrencyView(res).show();
     }
 
     public void exit() {
         new ExitView().show();
-        control.exitLoop();
+        this.context
+                .getControl()
+                .exitLoop();
     }
 }
