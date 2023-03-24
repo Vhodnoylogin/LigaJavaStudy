@@ -32,7 +32,7 @@ public abstract class Loop<T extends Context> {
     public static class LoopControl<T extends Context> {
         private final Loop<T> loop;
 
-        protected LoopControl(Loop<T> loop) {
+        public LoopControl(Loop<T> loop) {
             this.loop = loop;
         }
 

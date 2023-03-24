@@ -1,11 +1,10 @@
-package ru.liga.karmatskiyrg;
+package ru.liga.karmatskiyrg.loop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
 import ru.liga.karmatskiyrg.utils.loop.Context;
-import ru.liga.karmatskiyrg.utils.loop.LoopClass;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -48,7 +47,7 @@ public class RunTest {
 
     @Test
     public void main() {
-        var loop = new LoopClass();
+        var loop = new TestLoop();
         loop.setInitAction(RunTest::init);
         loop.setAction(RunTest::context);
         loop.run();

@@ -12,8 +12,8 @@ import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
 import ru.liga.karmatskiyrg.service.currency.PredictCurrencyRate;
 import ru.liga.karmatskiyrg.service.interfaces.CurrencyPredict;
+import ru.liga.karmatskiyrg.service.loop.LoopClass;
 import ru.liga.karmatskiyrg.utils.loop.Context;
-import ru.liga.karmatskiyrg.utils.loop.LoopClass;
 import ru.liga.karmatskiyrg.utils.parse.ParseCommandLine;
 
 import java.util.Scanner;
@@ -45,21 +45,21 @@ public class Run {
 
     private static void initCommands(Context context) {
 
-        var isLineCommand = CommandLeadAction.getSingleton();
+        var leadCommand = CommandLeadAction.getSingleton();
         var controller = new CommandController(context.getControl());
 
-        isLineCommand.addVariant(DLineCommands.EXIT, controller::exit);
-        isLineCommand.addVariant(DLineCommands.RATE, controller::rate);
+        leadCommand.addVariant(DLineCommands.EXIT, controller::exit);
+        leadCommand.addVariant(DLineCommands.RATE, controller::rate);
     }
 
     private static void initParameters() {
-        var isLineCommand = ParameterLeadAction.getSingleton();
+        var leadParameter = ParameterLeadAction.getSingleton();
         var db = new CurrencyRepoRAM();
         CurrencyPredict predication = new PredictCurrencyRate(db);
         var controller = new ParameterController(predication);
 
-        isLineCommand.addVariant(DLineParameters.TMR, controller::getCurrencyRateTomorrow);
-        isLineCommand.addVariant(DLineParameters.WEK, controller::getCurrencyRateWeek);
+        leadParameter.addVariant(DLineParameters.TMR, controller::getCurrencyRateTomorrow);
+        leadParameter.addVariant(DLineParameters.WEK, controller::getCurrencyRateWeek);
     }
 
     private static void initCurrencyDict() {
