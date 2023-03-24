@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 @Slf4j
 public class CurrencyRepoRAM implements CurrencyDB {
-    protected Map<DCurrencyType, List<CurrencyRate>> data = new HashMap<>();
+    private final Map<DCurrencyType, List<CurrencyRate>> data = new HashMap<>();
 
     @Override
     public void save(CurrencyRate rate) {

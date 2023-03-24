@@ -10,7 +10,6 @@ import java.util.List;
 
 @Slf4j
 public class CsvToCurrency implements GetCurrencyRate {
-
     @Override
     public List<CurrencyRate> getCurrencyRate(InputStream in) {
         return ReadCSVFile.csvToModel(in, CurrencyRate.class);

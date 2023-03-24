@@ -6,6 +6,12 @@ import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsParameterString;
 import ru.liga.karmatskiyrg.utils.parse.ParseCommandLine;
 
+
+/**
+ * Эту штуку надо переделать.*
+ * Смысл в том, что каждая команда может иметь разное число аргументов.
+ * Необходимо парсить лишь начало строки, оставляя остальное на потом.
+ */
 public class ParseStringToContext {
     public static void parseArgs(RateContext context, String commandLine) throws NotValidCommand {
         var args = ParseCommandLine.parseCommand(commandLine);

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
+import ru.liga.karmatskiyrg.service.currency.CsvToCurrency;
 import ru.liga.karmatskiyrg.service.initialize.Init;
 import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
 import ru.liga.karmatskiyrg.utils.csv.ReadCSVFile;
@@ -27,7 +28,7 @@ public class TestRepo {
     static void init() {
         Init.initDicts();
         try (var inputStream = CsvFileLayout.csvFile) {
-            list = ReadCSVFile.csvToModel(inputStream, CurrencyRate.class);
+            list = new CsvToCurrency().getCurrencyRate(inputStream);
         } catch (IOException e) {
             log.error(e.getLocalizedMessage());
             list = Collections.emptyList();

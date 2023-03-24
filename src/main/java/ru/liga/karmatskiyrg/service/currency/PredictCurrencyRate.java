@@ -14,37 +14,37 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class PredictCurrencyRate implements CurrencyPredict {
-    protected final Integer PREDICT_LEVEL = 7;
-    protected final Comparator<CurrencyRate> dateComparator = (x, y) -> {
+    private final Integer PREDICT_LEVEL = 7;
+    private final Comparator<CurrencyRate> dateComparator = (x, y) -> {
         if (x.getDate().isAfter(y.getDate())) return -1;
         if (x.getDate().isBefore(y.getDate())) return 1;
         return 0;
     };
-    protected final CurrencyDB repo;
+    private final CurrencyDB repo;
 
     public PredictCurrencyRate(CurrencyDB repo) {
         this.repo = repo;
     }
 
 
-    protected List<CurrencyRate> initPredictList(DCurrencyType type) {
+    private List<CurrencyRate> initPredictList(DCurrencyType type) {
         Predicate<CurrencyRate> notFutureDates = x -> !x.getDate().isAfter(LocalDate.now());
         return this.repo.getSlice(type).stream()
                 .filter(notFutureDates)
                 .sorted(dateComparator)
                 .limit(PREDICT_LEVEL)
-                .peek(x -> log.debug("", x))
+                .peek(x -> log.debug(String.valueOf(x)))
                 .collect(Collectors.toList());
     }
 
-    protected CurrencyRate predictNext(List<CurrencyRate> currencyRateList) {
+    private CurrencyRate predictNext(List<CurrencyRate> currencyRateList) {
         var rate = currencyRateList.stream()
                 .limit(PREDICT_LEVEL)
                 .mapToDouble(x -> x.getRate() * x.getNominal())
                 .sum();
         var nominal = currencyRateList.stream()
                 .limit(PREDICT_LEVEL)
-                .mapToInt(x -> x.getNominal())
+                .mapToInt(CurrencyRate::getNominal)
                 .sum();
 
         var prev = currencyRateList.stream()
