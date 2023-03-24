@@ -6,6 +6,7 @@ import com.opencsv.bean.CsvDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,27 +17,27 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 public class TestReadCSVFile {
-
-    public static Model[] standartModel = new Model[2];
-
-    protected static InputStream in;
+    public static List<Model> standardModel = new ArrayList<>();
+    public static InputStream in;
 
     @BeforeAll
     public static void initClass() {
-        standartModel[0] = Model.builder()
+        standardModel.add(Model.builder()
                 .fieldInteger(1)
                 .fieldDate(LocalDate.parse("2023-01-01", DateTimeFormatter.ofPattern("yyyy-MM-dd")))
-                .build();
-
-        standartModel[1] = Model.builder()
+                .build());
+        standardModel.add(Model.builder()
                 .fieldInteger(3)
                 .fieldDate(LocalDate.parse("2023-01-02", DateTimeFormatter.ofPattern("yyyy-MM-dd")))
-                .build();
+                .build());
     }
 
     @BeforeEach
@@ -53,9 +54,10 @@ public class TestReadCSVFile {
     public void testCsvToModelWithClass() {
         var res = ReadCSVFile.csvToModel(in, Model.class);
 
-        log.info(res.toString());
-//        assertThat(res.toArray())
-//                .hasSameElementsAs(standartModel);
+        log.info(String.valueOf(res));
+        assertThat(res)
+                .isNotEmpty()
+                .hasSameElementsAs(standardModel);
     }
 
     @Test
@@ -67,9 +69,9 @@ public class TestReadCSVFile {
 
         var res = ReadCSVFile.csvToModel(in, func);
 
-        log.info(res.toString());
-//        assertThat(res.toArray())
-//                .hasSameElementsAs(standartModel);
+        log.info(String.valueOf(res));
+        assertThat(res)
+                .hasSameElementsAs(standardModel);
     }
 
     @Test
@@ -80,10 +82,10 @@ public class TestReadCSVFile {
         );
 
         var res = ReadCSVFile.csvToModel(in, Model.class);
-        log.info(res.toString());
-//        assertThat(res.toArray())
-//                .hasSameElementsAs()
-//                .containsAll(standartModel);
+
+        log.info(String.valueOf(res));
+        assertThat(res)
+                .hasSize(0);
     }
 
     @Test
@@ -93,16 +95,16 @@ public class TestReadCSVFile {
         );
 
         var res = ReadCSVFile.csvToModel(in, Model.class);
-        log.info(res.toString());
+
+        log.info(String.valueOf(res));
+        assertThat(res)
+                .hasSize(0);
     }
 
-
     @Data
-//    @Value
-    @Builder
-//    @Getter
-//    @Setter
+    @NoArgsConstructor
     @AllArgsConstructor
+    @Builder
     public static class Model {
         @CsvBindByName(column = "date")
         @CsvDate("yyyy-MM-dd")
@@ -112,4 +114,5 @@ public class TestReadCSVFile {
         @CsvBindByName(column = "field1")
         protected Integer fieldInteger;
     }
+
 }

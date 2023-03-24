@@ -5,45 +5,52 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
-import ru.liga.karmatskiyrg.test.SuperTest;
+import ru.liga.karmatskiyrg.service.initialize.Init;
 import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
 import ru.liga.karmatskiyrg.utils.csv.ReadCSVFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 
 @Slf4j
-public class TestRepo extends SuperTest {
+public class TestRepo {
     protected static List<CurrencyRate> list;
 
-
     @BeforeAll
-    static void init() throws IOException {
+    static void init() {
+        Init.initDicts();
         try (var inputStream = CsvFileLayout.csvFile) {
             list = ReadCSVFile.csvToModel(inputStream, CurrencyRate.class);
+        } catch (IOException e) {
+            log.error(e.getLocalizedMessage());
+            list = Collections.emptyList();
+            fail(e.getLocalizedMessage());
         }
     }
 
     @Test
     void testListToDBEqualListFromDB() {
         var repo = new CurrencyRepoRAM();
-
         repo.save(list);
+
         var res = repo.getAll();
 
-        assertEquals(list.size(), res.size());
-        assertEquals(new HashSet<>(list), new HashSet<>(res));
+        log.info(String.valueOf(res.size()));
+        assertThat(res)
+                .hasSize(list.size())
+                .containsAll(list);
+
     }
 
     @Test
-    void testnputToDBWorkWell() {
+    void testInputToDBWorkWell() {
         InputStream testFile1 = new ByteArrayInputStream(("""
                 nominal;data;curs;cdx
                 10;3/16/2023;39.9324;Турецкая лира
@@ -68,34 +75,37 @@ public class TestRepo extends SuperTest {
                 """).getBytes());
 
         var repo = new CurrencyRepoRAM();
-
         repo.save(ReadCSVFile.csvToModel(testFile1, CurrencyRate.class));
         repo.save(ReadCSVFile.csvToModel(testFile2, CurrencyRate.class));
         repo.save(ReadCSVFile.csvToModel(testFile3, CurrencyRate.class));
         repo.save(ReadCSVFile.csvToModel(testFile4, CurrencyRate.class));
+
         var res = repo.getAll();
 
-        log.info("All pass good", res);
+        log.info(String.valueOf(res.size()));
+        assertThat(res)
+                .hasSizeGreaterThan(5);
     }
 
     @Test
-    public void test3() {
+    public void testInputToDBRejectNonCurrencyType() {
         InputStream testFile = new ByteArrayInputStream(("""
                 nominal;data;curs;cdx
                 1;12/25/2007;24.7196;Хрень
                 """).getBytes());
 
         var repo = new CurrencyRepoRAM();
-
         repo.save(ReadCSVFile.csvToModel(testFile, CurrencyRate.class));
+
         var res = repo.getAll();
 
-        log.info("All pass good", res);
-        assertEquals(new LinkedList<>(), res);
+        log.info(String.valueOf(res.size()));
+        assertThat(res)
+                .isEmpty();
     }
 
     @Test
-    public void test4() {
+    public void testTryToFindTypeNotInDB() {
         InputStream testFile = new ByteArrayInputStream(("""
                 nominal;data;curs;cdx
                 1;12/25/2007;24.7196;Хрень
@@ -103,16 +113,17 @@ public class TestRepo extends SuperTest {
                 """).getBytes());
 
         var repo = new CurrencyRepoRAM();
-
         repo.save(ReadCSVFile.csvToModel(testFile, CurrencyRate.class));
+
         var res = repo.getSlice(DCurrencyTypes.EUR);
 
-        log.info("All pass good", res);
-        assertEquals(new LinkedList<>(), res);
+        log.info(String.valueOf(res.size()));
+        assertThat(res)
+                .isEmpty();
     }
 
     @Test
-    public void test5() {
+    public void testGetSlice() {
         InputStream testFile = new ByteArrayInputStream(("""
                 nominal;data;curs;cdx
                 1;12/25/2007;24.7196;Хрень
@@ -120,11 +131,12 @@ public class TestRepo extends SuperTest {
                 """).getBytes());
 
         var repo = new CurrencyRepoRAM();
-
         repo.save(ReadCSVFile.csvToModel(testFile, CurrencyRate.class));
+
         var res = repo.getSlice(DCurrencyTypes.USD);
 
-        log.info("All pass good", res);
-        assertEquals(repo.getAll(), res);
+        log.info(String.valueOf(res.size()));
+        assertThat(res)
+                .hasSize(1);
     }
 }

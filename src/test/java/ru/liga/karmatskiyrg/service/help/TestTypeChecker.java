@@ -1,73 +1,113 @@
 package ru.liga.karmatskiyrg.service.help;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
 import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
-import ru.liga.karmatskiyrg.test.SuperTest;
+import ru.liga.karmatskiyrg.service.initialize.Init;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 @Slf4j
-public class TestTypeChecker extends SuperTest {
-    protected static String[] curs = new String[]{"Турецкая лира", "Доллар США", "Евро", "Хрень какя-то"};
-
-
+public class TestTypeChecker {
+    public static List<String> standardModel = new ArrayList<>();
     protected IsCurrencyString isCurrencyString = IsCurrencyString.getSingleton();
 
-    @Test
-    public void test1() {
-        Arrays.stream(curs).map(isCurrencyString::isVariant).forEach(x -> log.info("this", x));
+    @BeforeAll
+    public static void initClass() {
+        Init.initDicts();
+        standardModel.add("Турецкая лира");
+        standardModel.add("Доллар США");
+        standardModel.add("Хрень какя-то");
     }
 
     @Test
-    public void test2() {
-        Arrays.stream(curs).map(isCurrencyString::getFirstVariant).forEach(x -> log.info("this", x));
+    public void testCheckingTypes() {
+        var res = standardModel.stream()
+                .map(isCurrencyString::isVariant)
+                .peek(x -> log.info(String.valueOf(x)))
+                .toList();
+        assertThat(res)
+                .containsAnyOf(true, false);
     }
 
     @Test
-    public void test3() {
+    public void testFindTypesAndReturnItsValue() {
+        var res = standardModel.stream()
+                .map(isCurrencyString::getFirstVariant)
+                .peek(x -> log.info(String.valueOf(x)))
+                .toList();
+        assertThat(res)
+                .containsNull()
+                .containsAnyOf(DCurrencyTypes.USD, DCurrencyTypes.TRY)
+                .doesNotContain(DCurrencyTypes.EUR)
+                .hasSize(3);
+    }
+
+    @Test
+    public void testFindTypeByItsLongName() {
         var type = DCurrencyTypes.EUR;
-
         var res = isCurrencyString.getFirstVariant(type.getLongName());
-        log.info("this", res);
-        assertEquals(type, res);
+
+        log.info(String.valueOf(res));
+        assertThat(res)
+                .isEqualTo(type);
     }
 
     @Test
-    public void test31() {
+    public void testFindTypeByItsTypeName() {
         var type = DCurrencyTypes.EUR;
-
         var res = isCurrencyString.getFirstVariant(type.name());
-        log.info("this", res);
-        assertEquals(type, res);
+
+        log.info(String.valueOf(res));
+        assertThat(res)
+                .isEqualTo(type);
     }
 
 
     @Test
-    public void test4() {
+    public void testNewTypeNotInDict() {
         DCurrencyType type = () -> "New";
 
-        isCurrencyString.addVariant("NEW", (x) -> Objects.equals(type.getLongName(), x) ? type : null);
-
+        isCurrencyString.addVariant("testNewTypeNotInDict", (x) -> Objects.equals(type.getLongName(), x) ? type : null);
         var res = isCurrencyString.getFirstVariant(type.getLongName());
-        log.info("this", res);
-        assertEquals(type, res);
+
+        log.info(String.valueOf(res));
+        assertThat(res)
+                .isEqualTo(type);
     }
 
     @Test
-    public void test5() {
-        DCurrencyType type = () -> "New";
-        DCurrencyType type1 = () -> "New1";
+    public void testNewTypeInDictNotEqual() {
+        DCurrencyType type = "New"::toLowerCase;
+        DCurrencyType type1 = "New1"::toLowerCase;
 
-        isCurrencyString.addVariant("NEW", (x) -> Objects.equals(type.getLongName(), x) ? type : null);
+        isCurrencyString.addVariant("testNewTypeInDictNotEqual", (x) -> Objects.equals(type.getLongName(), x) ? type : null);
+        var res = isCurrencyString.getFirstVariant(type.getLongName());
 
+        log.info(String.valueOf(res));
+        assertThat(res)
+                .isEqualTo(type)
+                .isNotEqualTo(type1);
+    }
+
+    @Test
+    public void testNewTypeNotInDictNotEqual() {
+        DCurrencyType type = "New"::toLowerCase;
+        DCurrencyType type1 = "New1"::toLowerCase;
+
+        isCurrencyString.addVariant("testNewTypeNotInDictNotEqual", (x) -> Objects.equals(type.getLongName(), x) ? type : null);
         var res = isCurrencyString.getFirstVariant(type1.getLongName());
-        log.info("this", res);
-        assertEquals(type, res);
+
+        log.info(String.valueOf(res));
+        assertThat(res)
+                .isNull();
     }
 }
