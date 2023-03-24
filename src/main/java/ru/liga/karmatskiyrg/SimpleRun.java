@@ -1,5 +1,6 @@
 package ru.liga.karmatskiyrg;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
 import ru.liga.karmatskiyrg.model.dicts.DLineCommands;
 import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
@@ -17,11 +18,11 @@ import ru.liga.karmatskiyrg.views.interfaces.View;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+@Slf4j
 public class SimpleRun {
 
     private static final View EMPTY_VIEW = new EmptyView();
     private static final PredictCurrencyRate predictF = new PredictCurrencyRate(new CurrencyRepoRAM());
-    private static View view = new EmptyView();
 
     public static void main(String[] args) {
         var scanner = new Scanner(System.in);
@@ -31,6 +32,7 @@ public class SimpleRun {
         boolean exit = false;
         Init.initDicts();
 
+        View view;
         while (!exit) {
             try {
                 text = scanner.nextLine();
@@ -45,9 +47,11 @@ public class SimpleRun {
                     var param = context.getParameter();
                     if (param == DLineParameters.TMR) {
                         var res = predictF.predictToDate(context.getCurrencyType(), LocalDate.now().plusDays(1));
+                        log.debug(String.valueOf(res));
                         view = new CurrencyView(res);
                     } else if (param == DLineParameters.WEK) {
                         var res = predictF.predictToDate(context.getCurrencyType(), LocalDate.now().plusDays(1));
+                        log.debug(String.valueOf(res));
                         view = new CurrencyView(res);
                     } else {
                         view = EMPTY_VIEW;
@@ -57,9 +61,8 @@ public class SimpleRun {
                 }
             } catch (NotValidCommand e) {
                 view = new ExceptionView(e);
-            } finally {
-                view.show();
             }
+            view.show();
         }
     }
 }
