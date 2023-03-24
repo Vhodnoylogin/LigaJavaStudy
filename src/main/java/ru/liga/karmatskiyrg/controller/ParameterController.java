@@ -18,13 +18,14 @@ public class ParameterController extends Controller<RateContext> {
     }
 
     public List<CurrencyRate> getCurrencyRateTomorrow(DCurrencyType type) {
-        return this.prediction.predictToDate(type, LocalDate.now().plusDays(1))
-                .stream()
-                .limit(1)
-                .toList();
+        return this.prediction.predictToDate(type, LocalDate.now().plusDays(1));
+
     }
 
     public List<CurrencyRate> getCurrencyRateWeek(DCurrencyType type) {
-        return this.prediction.predictToDate(type, LocalDate.now().plusDays(8));
+        return this.prediction.predictToDate(type, LocalDate.now().plusDays(7))
+                .stream()
+                .limit(1)
+                .toList();
     }
 }

@@ -7,8 +7,10 @@ import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
 import ru.liga.karmatskiyrg.service.context.ParseStringToContext;
 import ru.liga.karmatskiyrg.service.context.RateContext;
+import ru.liga.karmatskiyrg.service.currency.CsvToCurrency;
 import ru.liga.karmatskiyrg.service.currency.PredictCurrencyRate;
 import ru.liga.karmatskiyrg.service.initialize.Init;
+import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
 import ru.liga.karmatskiyrg.views.basic.EmptyView;
 import ru.liga.karmatskiyrg.views.basic.ExceptionView;
 import ru.liga.karmatskiyrg.views.basic.ExitView;
@@ -20,9 +22,7 @@ import java.util.Scanner;
 
 @Slf4j
 public class SimpleRun {
-
     private static final View EMPTY_VIEW = new EmptyView();
-    private static final PredictCurrencyRate predictF = new PredictCurrencyRate(new CurrencyRepoRAM());
 
     public static void main(String[] args) {
         var scanner = new Scanner(System.in);
@@ -31,6 +31,10 @@ public class SimpleRun {
         var context = new RateContext(null);
         boolean exit = false;
         Init.initDicts();
+
+        var db = new CurrencyRepoRAM();
+        db.save(new CsvToCurrency().getCurrencyRate(CsvFileLayout.csvFile));
+        PredictCurrencyRate predictF = new PredictCurrencyRate(db);
 
         View view;
         while (!exit) {
@@ -50,7 +54,7 @@ public class SimpleRun {
                         log.debug(String.valueOf(res));
                         view = new CurrencyView(res);
                     } else if (param == DLineParameters.WEK) {
-                        var res = predictF.predictToDate(context.getCurrencyType(), LocalDate.now().plusDays(1));
+                        var res = predictF.predictToDate(context.getCurrencyType(), LocalDate.now().plusDays(7));
                         log.debug(String.valueOf(res));
                         view = new CurrencyView(res);
                     } else {
