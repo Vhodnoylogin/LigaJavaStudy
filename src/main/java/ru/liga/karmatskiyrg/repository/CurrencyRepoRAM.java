@@ -35,10 +35,9 @@ public class CurrencyRepoRAM implements CurrencyDB {
     public void save(List<CurrencyRate> rate) {
         var isCurrencyString = IsCurrencyString.getSingleton();
 
-        Consumer<CurrencyRate> logInputVar = x -> log.debug("", x);
-        Consumer<CurrencyRate> logTypeOfInputRow = x -> log.info("",
-                isCurrencyString.getFirstVariant(x.getName())
-        );
+        Consumer<CurrencyRate> logInputVar = x -> log.debug(String.valueOf(x));
+        Consumer<CurrencyRate> logTypeOfInputRow =
+                x -> log.info(String.valueOf(isCurrencyString.getFirstVariant(x.getName())));
 
         //init map
         Consumer<CurrencyRate> initMapIfNeed = x -> this.data.put(
