@@ -1,18 +1,20 @@
 package ru.liga.karmatskiyrg.controller;
 
+import ru.liga.karmatskiyrg.controller.base.Controller;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
+import ru.liga.karmatskiyrg.service.context.RateContext;
 import ru.liga.karmatskiyrg.service.interfaces.CurrencyPredict;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public class ParameterController {
-
+public class ParameterController extends Controller<RateContext> {
     private final CurrencyPredict prediction;
 
-    public ParameterController(CurrencyPredict prediction) {
+    public ParameterController(RateContext context, CurrencyPredict prediction) {
         this.prediction = prediction;
+        this.context = context;
     }
 
     public List<CurrencyRate> getCurrencyRateTomorrow(DCurrencyType type) {
