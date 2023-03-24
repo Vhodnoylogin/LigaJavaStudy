@@ -9,13 +9,13 @@ public enum DLineCommands implements DLineCommand {
     RATE("rate"),
     EXIT("exit");
     private final static Map<String, DLineCommand> lib = new HashMap<>() {{
-        put(RATE.name, RATE);
-        put(EXIT.name, EXIT);
+        put(RATE.commandName, RATE);
+        put(EXIT.commandName, EXIT);
     }};
-    private final String name;
+    private final String commandName;
 
     DLineCommands(String s) {
-        this.name = s;
+        this.commandName = s.toLowerCase();
     }
 
     public static DLineCommand getType(String name) {
@@ -24,6 +24,6 @@ public enum DLineCommands implements DLineCommand {
 
     @Override
     public String getLongName() {
-        return this.name;
+        return this.commandName;
     }
 }

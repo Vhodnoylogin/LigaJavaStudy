@@ -10,23 +10,23 @@ public enum DCurrencyTypes implements DCurrencyType {
     USD("Доллар США"),
     TRY("Турецкая лира");
     private final static Map<String, DCurrencyType> lib = new HashMap<>() {{
-        put(EUR.name, EUR);
-        put(USD.name, USD);
-        put(TRY.name, TRY);
+        put(EUR.longName, EUR);
+        put(USD.longName, USD);
+        put(TRY.longName, TRY);
     }};
-    private final String name;
+    private final String longName;
 
     DCurrencyTypes(String s) {
-        this.name = s;
+        this.longName = s.toLowerCase();
     }
 
     public static DCurrencyType getType(String name) {
-        return lib.getOrDefault(name, null);
+        return lib.getOrDefault(name.toLowerCase(), null);
     }
 
     @Override
     public String getLongName() {
-        return this.name;
+        return this.longName;
     }
 
 

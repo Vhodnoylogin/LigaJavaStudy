@@ -9,13 +9,13 @@ public enum DLineParameters implements DLineParameter {
     TMR("tomorrow"),
     WEK("week");
     private final static Map<String, DLineParameter> lib = new HashMap<>() {{
-        put(TMR.name, TMR);
-        put(WEK.name, WEK);
+        put(TMR.paramName, TMR);
+        put(WEK.paramName, WEK);
     }};
-    private final String name;
+    private final String paramName;
 
     DLineParameters(String s) {
-        this.name = s;
+        this.paramName = s.toLowerCase();
     }
 
     public static DLineParameter getType(String name) {
@@ -24,6 +24,6 @@ public enum DLineParameters implements DLineParameter {
 
     @Override
     public String getLongName() {
-        return this.name;
+        return this.paramName;
     }
 }
