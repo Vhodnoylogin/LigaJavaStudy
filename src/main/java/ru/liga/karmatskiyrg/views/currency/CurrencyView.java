@@ -8,7 +8,7 @@ import java.util.List;
 
 @Value
 public class CurrencyView implements View {
-    private final List<CurrencyRate> results;
+    List<CurrencyRate> results;
 
 
     @Override
