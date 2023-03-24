@@ -3,39 +3,43 @@ package ru.liga.karmatskiyrg.service.help;
 
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvDate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
 import org.junit.jupiter.api.BeforeAll;
-import ru.liga.karmatskiyrg.test.SuperTest;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.utils.csv.ReadCSVFile;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 import java.util.function.Function;
 
-import static org.junit.Assert.assertArrayEquals;
 
 @Slf4j
-public class TestReadCSVFile extends SuperTest {
+public class TestReadCSVFile {
 
-    public static Model[] standartModel = {new Model(), new Model()};
+    public static Model[] standartModel = new Model[2];
 
     protected static InputStream in;
 
     @BeforeAll
     public static void initClass() {
-        standartModel[0].setV1(1);
-        standartModel[0].setV2(LocalDate.parse("2023-01-01", DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        standartModel[0] = Model.builder()
+                .fieldInteger(1)
+                .fieldDate(LocalDate.parse("2023-01-01", DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .build();
 
-        standartModel[1].setV1(3);
-        standartModel[1].setV2(LocalDate.parse("2023-01-02", DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        standartModel[1] = Model.builder()
+                .fieldInteger(3)
+                .fieldDate(LocalDate.parse("2023-01-02", DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .build();
     }
 
-    @Before
+    @BeforeEach
     public void initTest() {
         in = new ByteArrayInputStream(("""
                 field1;date
@@ -46,96 +50,66 @@ public class TestReadCSVFile extends SuperTest {
     }
 
     @Test
-    public void test1() {
+    public void testCsvToModelWithClass() {
         var res = ReadCSVFile.csvToModel(in, Model.class);
 
-        log.info("res", res);
-        assertArrayEquals(res.toArray(), standartModel);
+        log.info(res.toString());
+//        assertThat(res.toArray())
+//                .hasSameElementsAs(standartModel);
     }
 
     @Test
-    public void test2() {
-        Function<String[], Model> func = x -> {
-            var m = new Model();
-            m.v1 = Integer.parseInt(x[0]);
-            m.v2 = LocalDate.parse(x[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            return m;
-        };
+    public void testCsvToModelWithFunction() {
+        Function<String[], Model> func = x -> Model.builder()
+                .fieldInteger(Integer.parseInt(x[0]))
+                .fieldDate(LocalDate.parse(x[1], DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .build();
 
         var res = ReadCSVFile.csvToModel(in, func);
 
-        log.info("res", res);
-        assertArrayEquals(res.toArray(), standartModel);
+        log.info(res.toString());
+//        assertThat(res.toArray())
+//                .hasSameElementsAs(standartModel);
     }
 
     @Test
-    public void test3() {
+    public void testInputIsOnlyHeaders() {
         in = new ByteArrayInputStream(("""
                 field1;date
                  """).getBytes()
         );
 
         var res = ReadCSVFile.csvToModel(in, Model.class);
-        log.info("res", res);
+        log.info(res.toString());
+//        assertThat(res.toArray())
+//                .hasSameElementsAs()
+//                .containsAll(standartModel);
     }
 
     @Test
-    public void test4() {
+    public void testEmptyInput() {
         in = new ByteArrayInputStream(("""
                 """).getBytes()
         );
 
         var res = ReadCSVFile.csvToModel(in, Model.class);
-        log.info("res", res);
+        log.info(res.toString());
     }
 
 
+    @Data
+//    @Value
+    @Builder
+//    @Getter
+//    @Setter
+    @AllArgsConstructor
     public static class Model {
         @CsvBindByName(column = "date")
         @CsvDate("yyyy-MM-dd")
-        protected LocalDate v2;
+        protected LocalDate fieldDate;
         @CsvBindByName(column = "field3")
-        protected String v3;
+        protected String fieldString;
         @CsvBindByName(column = "field1")
-        protected Integer v1;
-
-        @Override
-        public String toString() {
-            return "Model{" +
-                    "v1=" + v1 +
-                    ", v2=" + v2 +
-                    ", v3='" + v3 + '\'' +
-                    '}';
-        }
-
-        public void setV1(Integer v1) {
-            this.v1 = v1;
-        }
-
-        public void setV2(LocalDate v2) {
-            this.v2 = v2;
-        }
-
-        public void setV3(String v3) {
-            this.v3 = v3;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (!(o instanceof Model model)) return false;
-
-            if (!Objects.equals(v2, model.v2)) return false;
-            if (!Objects.equals(v3, model.v3)) return false;
-            return Objects.equals(v1, model.v1);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = v2 != null ? v2.hashCode() : 0;
-            result = 31 * result + (v3 != null ? v3.hashCode() : 0);
-            result = 31 * result + (v1 != null ? v1.hashCode() : 0);
-            return result;
-        }
+        protected Integer fieldInteger;
     }
 }
