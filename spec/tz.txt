@@ -7,8 +7,7 @@
         nominal;data;curs;cdx
         1;01.02.2022;” 86,5032”;Евро
 
-Данные доступны по ссылке:
-https://www.cbr.ru/currency_base/dynamics/
+Данные доступны по ссылке: https://www.cbr.ru/currency_base/dynamics/
 
 Нужно выгрузить необходимые валюты в формате xls и конвертировать в CSV.
 
