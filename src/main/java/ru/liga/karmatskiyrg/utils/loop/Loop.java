@@ -28,7 +28,6 @@ public abstract class Loop<T extends Context> {
         }
     }
 
-
     public static class LoopControl<T extends Context> {
         private final Loop<T> loop;
 

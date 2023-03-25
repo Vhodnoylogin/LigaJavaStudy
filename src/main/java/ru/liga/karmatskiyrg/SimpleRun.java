@@ -2,6 +2,7 @@ package ru.liga.karmatskiyrg;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
+import ru.liga.karmatskiyrg.controller.initialize.Init;
 import ru.liga.karmatskiyrg.model.dicts.DLineCommands;
 import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
@@ -9,11 +10,8 @@ import ru.liga.karmatskiyrg.service.context.ParseStringToContext;
 import ru.liga.karmatskiyrg.service.context.RateContext;
 import ru.liga.karmatskiyrg.service.currency.CsvToCurrency;
 import ru.liga.karmatskiyrg.service.currency.PredictCurrencyRate;
-import ru.liga.karmatskiyrg.service.initialize.Init;
 import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
-import ru.liga.karmatskiyrg.views.basic.EmptyView;
 import ru.liga.karmatskiyrg.views.basic.ExceptionView;
-import ru.liga.karmatskiyrg.views.basic.ExitView;
 import ru.liga.karmatskiyrg.views.currency.CurrencyView;
 import ru.liga.karmatskiyrg.views.interfaces.View;
 
@@ -22,18 +20,16 @@ import java.util.Scanner;
 
 @Slf4j
 public class SimpleRun {
-    private static final View EMPTY_VIEW = new EmptyView();
-
     public static void main(String[] args) {
         var scanner = new Scanner(System.in);
 
         String text;
         var context = new RateContext(null);
         boolean exit = false;
-        Init.initDicts();
+        Init.initDictionaries();
 
         var db = new CurrencyRepoRAM();
-        db.save(new CsvToCurrency().getCurrencyRate(CsvFileLayout.csvFile));
+        db.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.csvFile));
         PredictCurrencyRate predictF = new PredictCurrencyRate(db);
 
         View view;
@@ -45,7 +41,7 @@ public class SimpleRun {
 
                 var command = context.getCommand();
                 if (command == DLineCommands.EXIT) {
-                    view = new ExitView();
+                    view = View.EXIT_VIEW;
                     exit = true;
                 } else if (command == DLineCommands.RATE) {
                     var param = context.getParameter();
@@ -58,10 +54,10 @@ public class SimpleRun {
                         log.debug(String.valueOf(res));
                         view = new CurrencyView(res);
                     } else {
-                        view = EMPTY_VIEW;
+                        view = View.EMPTY_VIEW;
                     }
                 } else {
-                    view = EMPTY_VIEW;
+                    view = View.EMPTY_VIEW;
                 }
             } catch (NotValidCommand e) {
                 view = new ExceptionView(e);
