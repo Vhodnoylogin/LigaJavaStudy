@@ -19,7 +19,6 @@ public class ParameterController extends Controller<RateContext> {
 
     public List<CurrencyRate> getCurrencyRateTomorrow(DCurrencyType type) {
         return this.prediction.predictToDate(type, LocalDate.now().plusDays(1));
-
     }
 
     public List<CurrencyRate> getCurrencyRateWeek(DCurrencyType type) {

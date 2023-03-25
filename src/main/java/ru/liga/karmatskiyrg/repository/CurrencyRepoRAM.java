@@ -44,8 +44,8 @@ public class CurrencyRepoRAM implements CurrencyTable {
 
         rate.stream()
                 .filter(x -> IsCurrencyString.getSingleton().isVariant(x.getName()))
-                .peek(logInputVar)
-                .peek(logTypeOfInputRow)
+//                .peek(logInputVar)
+//                .peek(logTypeOfInputRow)
                 .forEach(this::save);
     }
 

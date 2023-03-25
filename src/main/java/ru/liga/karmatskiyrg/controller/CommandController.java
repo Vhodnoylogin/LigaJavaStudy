@@ -3,8 +3,8 @@ package ru.liga.karmatskiyrg.controller;
 import ru.liga.karmatskiyrg.controller.base.Controller;
 import ru.liga.karmatskiyrg.controller.observers.ParameterLeadAction;
 import ru.liga.karmatskiyrg.service.context.RateContext;
-import ru.liga.karmatskiyrg.views.basic.ExitView;
 import ru.liga.karmatskiyrg.views.currency.CurrencyView;
+import ru.liga.karmatskiyrg.views.interfaces.View;
 
 
 public class CommandController extends Controller<RateContext> {
@@ -19,7 +19,7 @@ public class CommandController extends Controller<RateContext> {
     }
 
     public void exit() {
-        this.context.setView(new ExitView());
+        this.context.setView(View.EXIT_VIEW);
         this.context
                 .getControl()
                 .exitLoop();

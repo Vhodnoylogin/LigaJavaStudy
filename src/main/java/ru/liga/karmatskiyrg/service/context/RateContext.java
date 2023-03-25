@@ -18,7 +18,7 @@ public class RateContext implements Context {
     private DLineCommand command;
     private DLineParameter parameter;
     private DCurrencyType currencyType;
-    private View view;
+    private View view = View.EMPTY_VIEW;
 
     @Override
     public Loop.LoopControl<? extends Context> getControl() {

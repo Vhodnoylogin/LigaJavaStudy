@@ -1,4 +1,4 @@
-package ru.liga.karmatskiyrg.service.initialize;
+package ru.liga.karmatskiyrg.controller.initialize;
 
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCommandString;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
@@ -8,11 +8,11 @@ import ru.liga.karmatskiyrg.model.dicts.DLineCommands;
 import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
 
 public class Init {
-    public static void initDicts() {
+    public static void initDictionaries() {
         IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class + "1", DCurrencyTypes::getType);
         IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class, (name) -> {
             try {
-                return DCurrencyTypes.valueOf(name);
+                return DCurrencyTypes.valueOf(name.toUpperCase());
             } catch (IllegalArgumentException e) {
                 return null;
             }

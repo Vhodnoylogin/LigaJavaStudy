@@ -33,7 +33,7 @@ public class PredictCurrencyRate implements CurrencyPredict {
                 .filter(notFutureDates)
                 .sorted(dateComparator)
                 .limit(PREDICT_LEVEL)
-                .peek(x -> log.debug(String.valueOf(x)))
+//                .peek(x -> log.debug(String.valueOf(x)))
                 .collect(Collectors.toList());
     }
 

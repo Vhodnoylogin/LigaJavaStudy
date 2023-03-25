@@ -25,9 +25,9 @@ public class ReadCSVFile {
                     .withCSVParser(new CSVParserBuilder().withSeparator(SEPARATOR).build())
                     .build()
                     .readAll().stream()
-                    .peek(x -> log.debug(String.format("Print raw input = %s", (Object[]) x)))
+//                    .peek(x -> log.debug(String.format("Print raw input = %s", (Object[]) x)))
                     .map(map)
-                    .peek(x -> log.debug(String.format("Print converted input =  %s", x)))
+//                    .peek(x -> log.debug(String.format("Print converted input =  %s", x)))
                     .toList();
         } catch (IOException | CsvException e) {
             log.error(e.getLocalizedMessage());
