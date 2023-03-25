@@ -11,6 +11,7 @@ import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
 import ru.liga.karmatskiyrg.utils.csv.ReadCSVFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,12 +41,12 @@ public class TestCSV {
             log.info(String.valueOf(list.size()));
             assertThat(list)
                     .hasSize(list.size());
-        } catch (Exception e) {
+        } catch (IOException | RuntimeException e) {
             // !!!! не отлавливает исключение, не падает тест !!!!
             log.error(e.getLocalizedMessage());
             fail(e.getLocalizedMessage());
         }
-        fail("ALL BAD");
+        fail("ALL BAD"); // закомментировть для честного теста
     }
 
     @Data
