@@ -13,7 +13,7 @@ import ru.liga.karmatskiyrg.views.interfaces.View;
 @Setter
 @Getter
 @RequiredArgsConstructor
-public class RateContext implements Context {
+public final class RateContext implements Context {
     private final Loop.LoopControl<RateContext> control;
     private DLineCommand command;
     private DLineParameter parameter;

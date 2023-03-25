@@ -1,6 +1,7 @@
 package ru.liga.karmatskiyrg.application;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.controller.CommandController;
 import ru.liga.karmatskiyrg.controller.ParameterController;
 import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
@@ -13,22 +14,24 @@ import ru.liga.karmatskiyrg.service.context.ParseStringToContext;
 import ru.liga.karmatskiyrg.service.context.RateContext;
 import ru.liga.karmatskiyrg.service.currency.CsvToCurrency;
 import ru.liga.karmatskiyrg.service.currency.PredictCurrencyRate;
-import ru.liga.karmatskiyrg.service.interfaces.CurrencyPredict;
 import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
 import ru.liga.karmatskiyrg.views.basic.ExceptionView;
 
 import java.util.Scanner;
 
+@Slf4j
 @RequiredArgsConstructor
 public class Application {
     private final Scanner scanner;
 
     public void context(RateContext context) {
-        var text = scanner.nextLine();
+        var text = scanner.hasNextLine() ? scanner.nextLine() : "";
 //        var tokens = ParseCommandLine.parseCommand(text);
 
         try {
             ParseStringToContext.parseArgs(context, text);
+//            log.info(String.valueOf(context.getCommand()));
+
 
 //        var command = DLineCommands.getType(tokens.get(0));
             var command = context.getCommand();
@@ -55,10 +58,18 @@ public class Application {
 
         var db = new CurrencyRepoRAM();
         db.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.csvFile));
-        CurrencyPredict predication = new PredictCurrencyRate(db);
+        var predication = new PredictCurrencyRate(db);
 
         var controller = new ParameterController(context, predication);
         leadParameter.addVariant(DLineParameters.TMR, controller::getCurrencyRateTomorrow);
         leadParameter.addVariant(DLineParameters.WEK, controller::getCurrencyRateWeek);
     }
+
+//    public DLineCommand parseCommandLine(List<String> tokens){
+//        if(tokens.isEmpty())
+//            throw new NotValidCommand("Invalid number of arguments");
+//
+//        var command = IsCommandString.getSingleton().getFirstVariant(tokens.get(0));
+//
+//    }
 }

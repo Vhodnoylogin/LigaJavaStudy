@@ -46,7 +46,7 @@ public class TestLoop {
 
     public static class TestingLoop extends Loop<Context> {
         {
-            this.context = () -> new LoopControl<>(this);
+            this.setContext(() -> new Loop.LoopControl<>(this));
         }
     }
 }
