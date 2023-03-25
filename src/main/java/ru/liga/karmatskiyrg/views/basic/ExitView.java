@@ -1,10 +1,15 @@
 package ru.liga.karmatskiyrg.views.basic;
 
+import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.views.interfaces.View;
 
-public class ExitView implements View {
+@Slf4j
+public final class ExitView implements View {
+    private static final String MESSAGE = "Good by";
+
     @Override
     public void show() {
-        System.out.println("Good by");
+//        System.out.println(MESSAGE);
+        log.info(MESSAGE);
     }
 }
