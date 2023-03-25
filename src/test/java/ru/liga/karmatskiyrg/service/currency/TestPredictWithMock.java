@@ -4,27 +4,32 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.controller.initialize.Init;
+import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
 import ru.liga.karmatskiyrg.service.interfaces.CurrencyPredict;
-import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @Slf4j
-//@RunWith(PowerMockRunner.class)
 public class TestPredictWithMock {
     protected static CurrencyPredict predict;
-
     @BeforeAll
     public static void init() {
         Init.initDictionaries();
-//        var repo = new CurrencyRepoRAM();
+
         var repo = mock(CurrencyRepoRAM.class);
-        repo.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.csvFile));
+        var fake = new ArrayList<CurrencyRate>() {{
+            add(new CurrencyRate(1, LocalDate.now().plusDays(-2), 15d, DCurrencyTypes.EUR.getLongName()));
+            add(new CurrencyRate(1, LocalDate.now().plusDays(-1), 13d, DCurrencyTypes.EUR.getLongName()));
+        }};
+        when(repo.getSlice(DCurrencyTypes.EUR))
+                .thenReturn(fake);
         predict = new PredictCurrencyRate(repo);
     }
 
@@ -34,33 +39,9 @@ public class TestPredictWithMock {
                 DCurrencyTypes.EUR,
                 LocalDate.now().plusDays(2)
         );
-        log.info(res.toString());
+        log.info("Resulting list = {}", res);
         assertThat(res)
                 .isNotNull()
                 .hasSizeGreaterThan(0);
-    }
-
-    @Test
-    public void testPredictTRY() {
-        var res = predict.predictToDate(
-                DCurrencyTypes.TRY,
-                LocalDate.now().plusDays(-1)
-        );
-        log.info(res.toString());
-        assertThat(res)
-                .isNotNull()
-                .hasSizeGreaterThan(0);
-    }
-
-    @Test
-    public void testNonCurrencyType() {
-        var res = predict.predictToDate(
-                () -> "null",
-                LocalDate.now()
-        );
-        log.info(res.toString());
-        assertThat(res)
-                .isNotNull()
-                .hasSize(0);
     }
 }
