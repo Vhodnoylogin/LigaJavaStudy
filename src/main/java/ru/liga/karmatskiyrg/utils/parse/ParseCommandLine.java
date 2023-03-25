@@ -1,6 +1,7 @@
 package ru.liga.karmatskiyrg.utils.parse;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -21,6 +22,6 @@ public class ParseCommandLine {
                     matcher.group(1) != null ? matcher.group(1) : matcher.group(2)
             );
         }
-        return commandList;
+        return Collections.unmodifiableList(commandList);
     }
 }
