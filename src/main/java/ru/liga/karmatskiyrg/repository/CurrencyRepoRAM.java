@@ -1,5 +1,6 @@
 package ru.liga.karmatskiyrg.repository;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
@@ -14,8 +15,10 @@ public class CurrencyRepoRAM implements CurrencyTable {
     private final Map<DCurrencyType, List<CurrencyRate>> data = new HashMap<>();
 
     @Override
-    public void save(CurrencyRate rate) {
-        var type = IsCurrencyString.getSingleton().getFirstVariant(rate.getName());
+    public void save(@NonNull CurrencyRate rate) {
+        var isCurrencyString = IsCurrencyString.getSingleton();
+
+        var type = isCurrencyString.getFirstVariant(rate.getName());
 
         if (type == null) {
             log.debug(String.format("Type %s not found", rate.getName()));
@@ -33,28 +36,17 @@ public class CurrencyRepoRAM implements CurrencyTable {
 
     @Override
     public void save(List<CurrencyRate> rate) {
-        var isCurrencyString = IsCurrencyString.getSingleton();
-
         Consumer<CurrencyRate> logInputVar = x -> log.debug(String.valueOf(x));
         Consumer<CurrencyRate> logTypeOfInputRow =
-                x -> log.info(String.valueOf(isCurrencyString.getFirstVariant(x.getName())));
-
-        //init map
-        Consumer<CurrencyRate> initMapIfNeed = x -> this.data.put(
-                isCurrencyString.getFirstVariant(x.getName()),
-                this.data.getOrDefault(
-                        isCurrencyString.getFirstVariant(x.getName()),
-                        new ArrayList<>()
-                )
-        );
-        Consumer<CurrencyRate> addNewVal = x -> this.data.get(isCurrencyString.getFirstVariant(x.getName())).add(x);
+                x -> log.debug(String.valueOf(
+                        IsCurrencyString.getSingleton().getFirstVariant(x.getName())
+                ));
 
         rate.stream()
-                .filter(x -> isCurrencyString.isVariant(x.getName()))
+                .filter(x -> IsCurrencyString.getSingleton().isVariant(x.getName()))
                 .peek(logInputVar)
                 .peek(logTypeOfInputRow)
-                .peek(initMapIfNeed)
-                .forEach(addNewVal);
+                .forEach(this::save);
     }
 
     @Override
