@@ -10,6 +10,10 @@ import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
+/*
+Багуется, если запустить все тесты разом.
+Каким-то образом луп-контроль от одного приложения перехватывается другим.
+ */
 @Slf4j
 public class TestApplication {
     @Test

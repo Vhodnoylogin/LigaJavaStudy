@@ -31,7 +31,7 @@ public class TestLoop {
         if ("exit".equals(text)) context.getControl().exitLoop();
 
         var res = IsCurrencyString.getSingleton().getFirstVariant(text);
-        log.info(String.valueOf(res));
+        log.info("res = {}", res);
 
         assertThat(res);
     }

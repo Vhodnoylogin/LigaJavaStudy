@@ -54,7 +54,7 @@ public class TestReadCSVFile {
     public void testCsvToModelWithClass() {
         var res = ReadCSVFile.csvToModel(in, Model.class);
 
-        log.info(String.valueOf(res));
+        log.debug("Result list = {}", res);
         assertThat(res)
                 .isNotEmpty()
                 .hasSameElementsAs(standardModel);
@@ -69,7 +69,7 @@ public class TestReadCSVFile {
 
         var res = ReadCSVFile.csvToModel(in, func);
 
-        log.info(String.valueOf(res));
+        log.debug("Result list = {}", res);
         assertThat(res)
                 .hasSameElementsAs(standardModel);
     }
@@ -83,7 +83,7 @@ public class TestReadCSVFile {
 
         var res = ReadCSVFile.csvToModel(in, Model.class);
 
-        log.info(String.valueOf(res));
+        log.debug("Result list = {}", res);
         assertThat(res)
                 .hasSize(0);
     }
@@ -96,7 +96,7 @@ public class TestReadCSVFile {
 
         var res = ReadCSVFile.csvToModel(in, Model.class);
 
-        log.info(String.valueOf(res));
+        log.debug("Result list = {}", res);
         assertThat(res)
                 .hasSize(0);
     }

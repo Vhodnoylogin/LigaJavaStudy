@@ -24,11 +24,11 @@ public class TestCSV {
         try (var inputStream = CsvFileLayout.csvFile) {
             var list = ReadCSVFile.csvToModel(inputStream, CurrencyRate.class);
 
-            log.info(String.valueOf(list.size()));
+            log.debug("Size of list = {}", list.size());
             assertThat(list)
                     .hasSize(list.size());
         } catch (Exception e) {
-            log.error(e.getLocalizedMessage());
+            log.error("Something went wrong", e);
             fail(e.getLocalizedMessage());
         }
     }
@@ -38,12 +38,12 @@ public class TestCSV {
         try (var inputStream = CsvFileLayout.csvFile) {
             var list = ReadCSVFile.csvToModel(inputStream, CurrencyRateTest.class);
 
-            log.info(String.valueOf(list.size()));
+            log.debug("Size of list = {}", list.size());
             assertThat(list)
                     .hasSize(list.size());
         } catch (IOException | RuntimeException e) {
             // !!!! не отлавливает исключение, не падает тест !!!!
-            log.error(e.getLocalizedMessage());
+            log.error("Something went wrong", e);
             fail(e.getLocalizedMessage());
         }
         fail("ALL BAD"); // закомментировть для честного теста

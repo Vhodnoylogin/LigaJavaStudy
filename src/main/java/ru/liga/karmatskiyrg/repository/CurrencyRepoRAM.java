@@ -21,13 +21,13 @@ public class CurrencyRepoRAM implements CurrencyTable {
         var type = isCurrencyString.getFirstVariant(rate.getName());
 
         if (type == null) {
-            log.debug(String.format("Type %s not found", rate.getName()));
+            log.debug("Type {} not found", rate.getName());
             return;
         }
 
         var res = this.data.getOrDefault(type, new ArrayList<>());
         if (res.isEmpty()) {
-            log.debug(String.format("Add new type = %s", type));
+            log.debug("Add new type = {}", type);
             this.data.put(type, res);
         }
 
@@ -36,16 +36,15 @@ public class CurrencyRepoRAM implements CurrencyTable {
 
     @Override
     public void save(List<CurrencyRate> rate) {
-        Consumer<CurrencyRate> logInputVar = x -> log.debug(String.valueOf(x));
-        Consumer<CurrencyRate> logTypeOfInputRow =
-                x -> log.debug(String.valueOf(
+        Consumer<CurrencyRate> logInputVar =
+                x -> log.debug("Value is {}. Type of value is {}",
+                        x,
                         IsCurrencyString.getSingleton().getFirstVariant(x.getName())
-                ));
+                );
 
         rate.stream()
                 .filter(x -> IsCurrencyString.getSingleton().isVariant(x.getName()))
 //                .peek(logInputVar)
-//                .peek(logTypeOfInputRow)
                 .forEach(this::save);
     }
 

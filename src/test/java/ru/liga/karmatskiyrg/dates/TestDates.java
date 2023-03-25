@@ -21,7 +21,7 @@ public class TestDates {
         var date = "5/05/2022";
         var res = correct.apply(date);
 
-        log.info(res.toString());
+        log.info("Date is {}", res);
         assertThat(res)
                 .hasDayOfMonth(5)
                 .hasMonthValue(5)
@@ -33,7 +33,7 @@ public class TestDates {
         var date = "04/12/2017";
         var res = incorrect.apply(date);
 
-        log.info(res.toString());
+        log.info("Date is {}", res);
         assertThat(res)
                 .hasDayOfMonth(4)
                 .hasMonthValue(12)

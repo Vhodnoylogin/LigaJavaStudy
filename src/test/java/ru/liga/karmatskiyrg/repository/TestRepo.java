@@ -42,7 +42,7 @@ public class TestRepo extends InitTest {
 
         var res = repo.getAll();
 
-        log.info(String.valueOf(res.size()));
+        log.info("Size of list = {}", res.size());
         assertThat(res)
                 .hasSize(list.size())
                 .containsAll(list);
@@ -82,7 +82,7 @@ public class TestRepo extends InitTest {
 
         var res = repo.getAll();
 
-        log.info(String.valueOf(res.size()));
+        log.info("Size of list = {}", res.size());
         assertThat(res)
                 .hasSizeGreaterThan(5);
     }
@@ -99,7 +99,7 @@ public class TestRepo extends InitTest {
 
         var res = repo.getAll();
 
-        log.info(String.valueOf(res.size()));
+        log.info("Size of list = {}", res.size());
         assertThat(res)
                 .isEmpty();
     }
@@ -117,7 +117,7 @@ public class TestRepo extends InitTest {
 
         var res = repo.getSlice(DCurrencyTypes.EUR);
 
-        log.info(String.valueOf(res.size()));
+        log.info("Size of list = {}", res.size());
         assertThat(res)
                 .isEmpty();
     }
@@ -135,7 +135,7 @@ public class TestRepo extends InitTest {
 
         var res = repo.getSlice(DCurrencyTypes.USD);
 
-        log.info(String.valueOf(res.size()));
+        log.info("Size of list = {}", res.size());
         assertThat(res)
                 .hasSize(1);
     }

@@ -47,11 +47,11 @@ public class SimpleRun {
                     var param = context.getParameter();
                     if (param == DLineParameters.TMR) {
                         var res = predictF.predictToDate(context.getCurrencyType(), LocalDate.now().plusDays(1));
-                        log.debug(String.valueOf(res));
+                        log.debug("Predict rates is {}", res);
                         view = new CurrencyView(res);
                     } else if (param == DLineParameters.WEK) {
                         var res = predictF.predictToDate(context.getCurrencyType(), LocalDate.now().plusDays(7));
-                        log.debug(String.valueOf(res));
+                        log.debug("Predict rates is {}", res);
                         view = new CurrencyView(res);
                     } else {
                         view = View.EMPTY_VIEW;

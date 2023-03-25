@@ -30,7 +30,8 @@ public class TestPredictCurrencyRate extends InitTest {
                 DCurrencyTypes.EUR,
                 LocalDate.now().plusDays(2)
         );
-        log.info(res.toString());
+
+        log.info("Resulting list = {}", res);
         assertThat(res)
                 .isNotNull()
                 .hasSizeGreaterThan(0);
@@ -42,7 +43,8 @@ public class TestPredictCurrencyRate extends InitTest {
                 DCurrencyTypes.TRY,
                 LocalDate.now().plusDays(-1)
         );
-        log.info(res.toString());
+
+        log.info("Resulting list = {}", res);
         assertThat(res)
                 .isNotNull()
                 .hasSizeGreaterThan(0);
@@ -54,7 +56,8 @@ public class TestPredictCurrencyRate extends InitTest {
                 () -> "null",
                 LocalDate.now()
         );
-        log.info(res.toString());
+
+        log.info("Resulting list = {}", res);
         assertThat(res)
                 .isNotNull()
                 .hasSize(0);

@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.util.List;
 
 @Slf4j
-public class CsvToCurrency {
+public final class CsvToCurrency {
     public static List<CurrencyRate> getCurrencyRate(InputStream in) {
         return ReadCSVFile.csvToModel(in, CurrencyRate.class);
     }

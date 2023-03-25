@@ -31,7 +31,7 @@ public class TestTypeChecker extends InitTest {
     public void testCheckingTypes() {
         var res = standardModel.stream()
                 .map(isCurrencyString::isVariant)
-                .peek(x -> log.info(String.valueOf(x)))
+                .peek(x -> log.debug("print type = {}", x))
                 .toList();
         assertThat(res)
                 .containsAnyOf(true, false);
@@ -41,7 +41,7 @@ public class TestTypeChecker extends InitTest {
     public void testFindTypesAndReturnItsValue() {
         var res = standardModel.stream()
                 .map(isCurrencyString::getFirstVariant)
-                .peek(x -> log.info(String.valueOf(x)))
+                .peek(x -> log.debug("print type = {}", x))
                 .toList();
         assertThat(res)
                 .containsNull()
@@ -55,7 +55,7 @@ public class TestTypeChecker extends InitTest {
         var type = DCurrencyTypes.EUR;
         var res = isCurrencyString.getFirstVariant(type.getLongName());
 
-        log.info(String.valueOf(res));
+        log.debug("Result type = {}", res);
         assertThat(res)
                 .isEqualTo(type);
     }
@@ -65,7 +65,7 @@ public class TestTypeChecker extends InitTest {
         var type = DCurrencyTypes.EUR;
         var res = isCurrencyString.getFirstVariant(type.name());
 
-        log.info(String.valueOf(res));
+        log.debug("Result type = {}", res);
         assertThat(res)
                 .isEqualTo(type);
     }
@@ -78,7 +78,7 @@ public class TestTypeChecker extends InitTest {
         isCurrencyString.addVariant("testNewTypeNotInDict", (x) -> Objects.equals(type.getLongName(), x) ? type : null);
         var res = isCurrencyString.getFirstVariant(type.getLongName());
 
-        log.info(String.valueOf(res));
+        log.debug("Result type = {}", res);
         assertThat(res)
                 .isEqualTo(type);
     }
@@ -91,7 +91,7 @@ public class TestTypeChecker extends InitTest {
         isCurrencyString.addVariant("testNewTypeInDictNotEqual", (x) -> Objects.equals(type.getLongName(), x) ? type : null);
         var res = isCurrencyString.getFirstVariant(type.getLongName());
 
-        log.info(String.valueOf(res));
+        log.debug("Result type = {}", res);
         assertThat(res)
                 .isEqualTo(type)
                 .isNotEqualTo(type1);
@@ -105,7 +105,7 @@ public class TestTypeChecker extends InitTest {
         isCurrencyString.addVariant("testNewTypeNotInDictNotEqual", (x) -> Objects.equals(type.getLongName(), x) ? type : null);
         var res = isCurrencyString.getFirstVariant(type1.getLongName());
 
-        log.info(String.valueOf(res));
+        log.debug("Result type = {}", res);
         assertThat(res)
                 .isNull();
     }

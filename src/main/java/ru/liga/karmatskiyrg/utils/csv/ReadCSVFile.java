@@ -25,12 +25,12 @@ public class ReadCSVFile {
                     .withCSVParser(new CSVParserBuilder().withSeparator(SEPARATOR).build())
                     .build()
                     .readAll().stream()
-//                    .peek(x -> log.debug(String.format("Print raw input = %s", (Object[]) x)))
+//                    .peek(x -> log.debug("Print raw input = {}", (Object[]) x))
                     .map(map)
-//                    .peek(x -> log.debug(String.format("Print converted input =  %s", x)))
+//                    .peek(x -> log.debug("Print converted input =  {}", x))
                     .toList();
         } catch (IOException | CsvException e) {
-            log.error(e.getLocalizedMessage());
+            log.error("Error on converting CSV", e);
             return Collections.emptyList();
         }
     }
@@ -44,7 +44,7 @@ public class ReadCSVFile {
                     .build()
                     .parse();
         } catch (Exception e) {
-            log.error(e.getLocalizedMessage());
+            log.error("Error on converting CSV", e);
             return Collections.emptyList();
         }
     }

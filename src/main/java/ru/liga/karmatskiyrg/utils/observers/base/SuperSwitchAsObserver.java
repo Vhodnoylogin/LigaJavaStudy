@@ -7,13 +7,9 @@ import java.util.*;
 import java.util.function.Function;
 
 public abstract class SuperSwitchAsObserver<K, T> implements SwitchAsObserverGet<K, T>, SwitchAsObserverPut<K, T> {
-    protected final List<Object> orderOfVariants = new ArrayList<>();
-    protected final Map<Object, Function<K, Boolean>> checkMap = new HashMap<>();
-    protected final Map<Object, T> variantMap = new HashMap<>();
-
-
-    protected SuperSwitchAsObserver() {
-    }
+    private final List<Object> orderOfVariants = new ArrayList<>();
+    private final Map<Object, Function<K, Boolean>> checkMap = new HashMap<>();
+    private final Map<Object, T> variantMap = new HashMap<>();
 
     @Override
     public boolean addVariant(Object globalVariantId, Function<K, Boolean> keyFunc, T variant) {
