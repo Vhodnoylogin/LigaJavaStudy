@@ -2,8 +2,8 @@ package ru.liga.karmatskiyrg.loop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import ru.liga.karmatskiyrg.controller.initialize.Init;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
-import ru.liga.karmatskiyrg.service.initialize.Init;
 import ru.liga.karmatskiyrg.utils.loop.Context;
 import ru.liga.karmatskiyrg.utils.loop.Loop;
 
@@ -11,8 +11,10 @@ import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @Slf4j
-public class RunTest {
+public class TestLoop {
     private static final Scanner scanner = new Scanner(new ByteArrayInputStream("""
             wrwrw
             USD
@@ -30,17 +32,19 @@ public class RunTest {
 
         var res = IsCurrencyString.getSingleton().getFirstVariant(text);
         log.info(String.valueOf(res));
+
+        assertThat(res);
     }
 
     @Test
     public void main() {
-        var loop = new TestLoop();
-        loop.setInitAction(x -> Init.initDicts());
-        loop.setAction(RunTest::context);
+        var loop = new TestingLoop();
+        loop.setInitAction(x -> Init.initDictionaries());
+        loop.setAction(TestLoop::context);
         loop.run();
     }
 
-    public static class TestLoop extends Loop<Context> {
+    public static class TestingLoop extends Loop<Context> {
         {
             this.context = () -> new LoopControl<>(this);
         }

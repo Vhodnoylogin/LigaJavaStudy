@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
+import ru.liga.karmatskiyrg.init.InitTest;
 import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
 import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
-import ru.liga.karmatskiyrg.service.initialize.Init;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +16,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Slf4j
-public class TestTypeChecker {
+public class TestTypeChecker extends InitTest {
     public static List<String> standardModel = new ArrayList<>();
     protected IsCurrencyString isCurrencyString = IsCurrencyString.getSingleton();
 
     @BeforeAll
     public static void initClass() {
-        Init.initDicts();
         standardModel.add("Турецкая лира");
         standardModel.add("Доллар США");
         standardModel.add("Хрень какя-то");
