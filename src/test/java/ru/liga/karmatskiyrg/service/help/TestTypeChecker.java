@@ -17,8 +17,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 public class TestTypeChecker extends InitTest {
-    public static List<String> standardModel = new ArrayList<>();
-    protected IsCurrencyString isCurrencyString = IsCurrencyString.getSingleton();
+    public static final List<String> standardModel = new ArrayList<>();
+    protected final IsCurrencyString isCurrencyString = IsCurrencyString.getSingleton();
 
     @BeforeAll
     public static void initClass() {

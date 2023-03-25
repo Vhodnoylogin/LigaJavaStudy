@@ -8,7 +8,7 @@ import ru.liga.karmatskiyrg.views.interfaces.View;
 public class ExceptionView implements View {
     private final @NonNull Exception e;
 
-    public ExceptionView(Exception e) {
+    public ExceptionView(@NonNull Exception e) {
         this.e = e;
     }
 

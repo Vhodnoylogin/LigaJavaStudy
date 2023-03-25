@@ -13,8 +13,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Slf4j
 public class TestDates {
-    Function<String, LocalDate> correct = x -> LocalDate.parse(x, DateTimeFormatter.ofPattern("d/M/yyyy"));
-    Function<String, LocalDate> incorrect = x -> LocalDate.parse(x, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    final Function<String, LocalDate> correct = x -> LocalDate.parse(x, DateTimeFormatter.ofPattern("d/M/yyyy"));
+    final Function<String, LocalDate> incorrect = x -> LocalDate.parse(x, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
     @Test
     public void testConvertDate() {

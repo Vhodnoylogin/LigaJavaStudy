@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
 public class TestReadCSVFile {
-    public static List<Model> standardModel = new ArrayList<>();
+    public static final List<Model> standardModel = new ArrayList<>();
     public static InputStream in;
 
     @BeforeAll
