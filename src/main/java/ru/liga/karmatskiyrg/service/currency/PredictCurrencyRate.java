@@ -1,5 +1,7 @@
 package ru.liga.karmatskiyrg.service.currency;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
@@ -13,8 +15,10 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Slf4j
+@RequiredArgsConstructor
 public class PredictCurrencyRate implements CurrencyPredict {
     private final Integer PREDICT_LEVEL = 7;
+    private final Double TOO_BIG_RATE = 100.;
     private final Comparator<CurrencyRate> dateComparator = (x, y) -> {
         if (x.getDate().isAfter(y.getDate())) return -1;
         if (x.getDate().isBefore(y.getDate())) return 1;
@@ -22,21 +26,25 @@ public class PredictCurrencyRate implements CurrencyPredict {
     };
     private final CurrencyTable repo;
 
-    public PredictCurrencyRate(CurrencyTable repo) {
-        this.repo = repo;
-    }
+    private List<CurrencyRate> initPredictList(@NonNull DCurrencyType type, @NonNull LocalDate date) {
+        Predicate<CurrencyRate> notFutureDates = x -> !x.getDate().isAfter(date);
 
-
-    private List<CurrencyRate> initPredictList(DCurrencyType type) {
-        Predicate<CurrencyRate> notFutureDates = x -> !x.getDate().isAfter(LocalDate.now());
         return this.repo.getSlice(type).stream()
                 .filter(notFutureDates)
                 .sorted(dateComparator)
                 .limit(PREDICT_LEVEL)
-//                .peek(x -> log.debug(String.valueOf(x)))
+//                .peek(x -> log.debug("init rate = {}", x))
                 .collect(Collectors.toList());
     }
 
+
+    /**
+     * Предсказание на основании предыдущих значений курса по формуле средневзвешенного
+     * Все курсы перемножить на номиналы, а потом разделить на сумму наминалов.
+     *
+     * @param currencyRateList - список, на основании которого мы предсказывам курс
+     * @return - новое предсказанное значение
+     */
     private CurrencyRate predictNext(List<CurrencyRate> currencyRateList) {
         var rate = currencyRateList.stream()
                 .limit(PREDICT_LEVEL)
@@ -47,25 +55,31 @@ public class PredictCurrencyRate implements CurrencyPredict {
                 .mapToInt(CurrencyRate::getNominal)
                 .sum();
 
-        var prev = currencyRateList.stream()
-                .limit(1)
-                .toList().get(0);
+        var prev = currencyRateList.get(0);
+
+        var newNominal = 1000;
+        var newRate = newNominal * (rate / nominal);
+        while (newRate > TOO_BIG_RATE) {
+            newRate = newRate / 10;
+            newNominal = newNominal / 10;
+        }
 
         return new CurrencyRate(
-                prev.getNominal(),
+                newNominal,
                 prev.getDate().plusDays(1),
-                rate / nominal,
+                newRate,
                 prev.getName()
         );
     }
 
-    public List<CurrencyRate> predictToDate(DCurrencyType type, LocalDate date) {
-        var list = initPredictList(type);
+    public List<CurrencyRate> predictToDate(DCurrencyType type, @NonNull LocalDate date) {
+        var list = initPredictList(type, date);
         if (list.isEmpty()) return List.of();
 
         while (list.get(0).getDate().isBefore(date)) {
             list.add(0, this.predictNext(list));
         }
+
         return list.stream()
                 .sorted(dateComparator)
                 .limit(PREDICT_LEVEL)
