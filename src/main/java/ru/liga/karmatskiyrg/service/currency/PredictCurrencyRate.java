@@ -3,7 +3,7 @@ package ru.liga.karmatskiyrg.service.currency;
 import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
-import ru.liga.karmatskiyrg.repository.interfaces.CurrencyDB;
+import ru.liga.karmatskiyrg.repository.interfaces.CurrencyTable;
 import ru.liga.karmatskiyrg.service.interfaces.CurrencyPredict;
 
 import java.time.LocalDate;
@@ -20,9 +20,9 @@ public class PredictCurrencyRate implements CurrencyPredict {
         if (x.getDate().isBefore(y.getDate())) return 1;
         return 0;
     };
-    private final CurrencyDB repo;
+    private final CurrencyTable repo;
 
-    public PredictCurrencyRate(CurrencyDB repo) {
+    public PredictCurrencyRate(CurrencyTable repo) {
         this.repo = repo;
     }
 

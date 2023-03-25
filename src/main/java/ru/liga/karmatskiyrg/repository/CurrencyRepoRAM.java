@@ -4,13 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
-import ru.liga.karmatskiyrg.repository.interfaces.CurrencyDB;
+import ru.liga.karmatskiyrg.repository.interfaces.CurrencyTable;
 
 import java.util.*;
 import java.util.function.Consumer;
 
 @Slf4j
-public class CurrencyRepoRAM implements CurrencyDB {
+public class CurrencyRepoRAM implements CurrencyTable {
     private final Map<DCurrencyType, List<CurrencyRate>> data = new HashMap<>();
 
     @Override

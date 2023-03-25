@@ -2,7 +2,7 @@ package ru.liga.karmatskiyrg.repository.interfaces;
 
 import java.util.List;
 
-public interface DB<K, V> {
+public interface Table<K, V> {
     void save(V rate);
 
     void save(List<V> rate);
