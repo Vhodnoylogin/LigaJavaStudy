@@ -15,6 +15,6 @@ public class ExceptionView implements View {
     @Override
     public void show() {
 //        e.printStackTrace();
-        log.debug(String.valueOf(e));
+//        log.debug(String.valueOf(e));
     }
 }
