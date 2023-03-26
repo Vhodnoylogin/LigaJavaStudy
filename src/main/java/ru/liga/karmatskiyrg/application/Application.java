@@ -7,16 +7,19 @@ import ru.liga.karmatskiyrg.controller.ParameterController;
 import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
 import ru.liga.karmatskiyrg.controller.observers.CommandLeadAction;
 import ru.liga.karmatskiyrg.controller.observers.ParameterLeadAction;
+import ru.liga.karmatskiyrg.controller.observers.dicts.IsCommandString;
+import ru.liga.karmatskiyrg.model.context.RateContext;
 import ru.liga.karmatskiyrg.model.dicts.DLineCommands;
 import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
+import ru.liga.karmatskiyrg.model.dicts.interfaces.DLineCommand;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
-import ru.liga.karmatskiyrg.service.context.ParseStringToContext;
-import ru.liga.karmatskiyrg.service.context.RateContext;
 import ru.liga.karmatskiyrg.service.currency.CsvToCurrency;
 import ru.liga.karmatskiyrg.service.currency.PredictCurrencyRate;
 import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
+import ru.liga.karmatskiyrg.utils.parse.ParseCommandLine;
 import ru.liga.karmatskiyrg.views.basic.ExceptionView;
 
+import java.util.List;
 import java.util.Scanner;
 
 @Slf4j
@@ -26,19 +29,17 @@ public class Application {
 
     public void context(RateContext context) {
         var text = scanner.hasNextLine() ? scanner.nextLine() : "";
-//        var tokens = ParseCommandLine.parseCommand(text);
 
         try {
-            ParseStringToContext.parseArgs(context, text);
-//            log.info(String.valueOf(context.getCommand()));
+            var tokens = ParseCommandLine.parseCommand(text);
 
-
-//        var command = DLineCommands.getType(tokens.get(0));
-            var command = context.getCommand();
-
+            var command = parseTokens(tokens);
             var action = CommandLeadAction.getSingleton().getFirstVariant(command);
+
+            context.setTokens(tokens);
+
             if (action != null) action.run();
-        } catch (NotValidCommand e) {
+        } catch (Exception e) {
             context.setView(new ExceptionView(e));
         }
 
@@ -65,11 +66,14 @@ public class Application {
         leadParameter.addVariant(DLineParameters.WEK, controller::getCurrencyRateWeek);
     }
 
-//    public DLineCommand parseCommandLine(List<String> tokens){
-//        if(tokens.isEmpty())
-//            throw new NotValidCommand("Invalid number of arguments");
-//
-//        var command = IsCommandString.getSingleton().getFirstVariant(tokens.get(0));
-//
-//    }
+    private DLineCommand parseTokens(List<String> tokens) {
+        if (tokens.isEmpty())
+            throw new NotValidCommand("Invalid number of arguments");
+
+        var command = IsCommandString.getSingleton().getFirstVariant(tokens.get(0));
+        if (command == null)
+            throw new NotValidCommand(String.format("Command %s not found", tokens.get(0)));
+
+        return command;
+    }
 }

@@ -13,6 +13,6 @@ public class ExceptionView implements View {
     @Override
     public void show() {
 //        e.printStackTrace();
-//        log.error("Become exception", e);
+        log.error("Become exception", e);
     }
 }

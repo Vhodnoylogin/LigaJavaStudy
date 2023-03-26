@@ -5,11 +5,11 @@ import ru.liga.karmatskiyrg.views.interfaces.View;
 
 @Slf4j
 public final class ExitView implements View {
-    private static final String MESSAGE = "Good by";
+    private static final String MESSAGE = "Goodbye";
 
     @Override
     public void show() {
 //        System.out.println(MESSAGE);
-//        log.info(MESSAGE);
+        log.info(MESSAGE);
     }
 }

@@ -26,7 +26,7 @@ public abstract class Loop<T extends Context> {
     public void run() {
 //        log.debug("Start init");
         this.initAction.accept(this.context);
-//        log.debug("End init");
+        log.debug("End init");
 
         while (this.continueLoopFunc.get()) {
             this.action.accept(this.context);
@@ -39,9 +39,9 @@ public abstract class Loop<T extends Context> {
         private final Loop<T> loop;
 
         public void exitLoop() {
-            log.debug("Look {}", this.loop.continueLoopFunc);
+//            log.debug("Look {}", this.loop.continueLoopFunc);
             this.loop.setContinueLoopFunc(() -> false);
-            log.debug("Look: {}", this.loop.continueLoopFunc);
+//            log.debug("Look: {}", this.loop.continueLoopFunc);
         }
     }
 }

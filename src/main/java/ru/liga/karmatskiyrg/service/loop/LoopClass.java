@@ -1,7 +1,7 @@
 package ru.liga.karmatskiyrg.service.loop;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.liga.karmatskiyrg.service.context.RateContext;
+import ru.liga.karmatskiyrg.model.context.RateContext;
 import ru.liga.karmatskiyrg.utils.loop.Loop;
 
 @Slf4j

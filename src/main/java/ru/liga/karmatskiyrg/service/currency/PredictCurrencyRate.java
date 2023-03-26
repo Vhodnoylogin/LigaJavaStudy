@@ -58,7 +58,7 @@ public class PredictCurrencyRate implements CurrencyPredict {
         var prev = currencyRateList.get(0);
 
         var newNominal = 1000;
-        var newRate = newNominal * (rate / nominal);
+        var newRate = (newNominal * rate) / nominal;
         while (newRate > TOO_BIG_RATE) {
             newRate = newRate / 10;
             newNominal = newNominal / 10;

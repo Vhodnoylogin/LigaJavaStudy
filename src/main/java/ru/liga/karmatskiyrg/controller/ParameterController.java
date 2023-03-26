@@ -1,9 +1,9 @@
 package ru.liga.karmatskiyrg.controller;
 
 import ru.liga.karmatskiyrg.controller.base.Controller;
+import ru.liga.karmatskiyrg.model.context.RateContext;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
-import ru.liga.karmatskiyrg.service.context.RateContext;
 import ru.liga.karmatskiyrg.service.interfaces.CurrencyPredict;
 
 import java.time.LocalDate;

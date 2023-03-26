@@ -17,7 +17,6 @@ public class CurrencyView implements View {
             log.info("Result is empty");
             return;
         }
-
         log.info("List size = {}", results.size());
         results.forEach(x -> log.info("Element = {}", x));
     }
