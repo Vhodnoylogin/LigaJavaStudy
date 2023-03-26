@@ -3,14 +3,16 @@ package ru.liga.karmatskiyrg;
 import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
 import ru.liga.karmatskiyrg.controller.initialize.Init;
+import ru.liga.karmatskiyrg.controller.observers.dicts.IsCommandString;
+import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
+import ru.liga.karmatskiyrg.controller.observers.dicts.IsParameterString;
 import ru.liga.karmatskiyrg.model.dicts.DLineCommands;
 import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
-import ru.liga.karmatskiyrg.service.context.ParseStringToContext;
-import ru.liga.karmatskiyrg.service.context.RateContext;
 import ru.liga.karmatskiyrg.service.currency.CsvToCurrency;
 import ru.liga.karmatskiyrg.service.currency.PredictCurrencyRate;
 import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
+import ru.liga.karmatskiyrg.utils.parse.ParseCommandLine;
 import ru.liga.karmatskiyrg.views.basic.ExceptionView;
 import ru.liga.karmatskiyrg.views.currency.CurrencyView;
 import ru.liga.karmatskiyrg.views.interfaces.View;
@@ -21,10 +23,8 @@ import java.util.Scanner;
 @Slf4j
 public class SimpleRun {
     public static void main(String[] args) {
-        var scanner = new Scanner(System.in);
 
-        String text;
-        var context = new RateContext(null);
+        var scanner = new Scanner(System.in);
         boolean exit = false;
         Init.initDictionaries();
 
@@ -35,22 +35,32 @@ public class SimpleRun {
         View view;
         while (!exit) {
             try {
-                text = scanner.nextLine();
+                var tokens = ParseCommandLine.parseCommand(scanner.nextLine());
 
-                ParseStringToContext.parseArgs(context, text);
+                if (tokens.size() != 3)
+                    throw new NotValidCommand("Invalid number of arguments");
 
-                var command = context.getCommand();
+                var command = IsCommandString.getSingleton().getFirstVariant(tokens.get(0));
+                var currencyType = IsCurrencyString.getSingleton().getFirstVariant(tokens.get(1));
+                var parameter = IsParameterString.getSingleton().getFirstVariant(tokens.get(2));
+
+                if (command == null)
+                    throw new NotValidCommand(String.format("Command %s not found", tokens.get(0)));
+                if (currencyType == null)
+                    throw new NotValidCommand(String.format("Currency %s not found", tokens.get(1)));
+                if (parameter == null)
+                    throw new NotValidCommand(String.format("Parameter %s not found", tokens.get(2)));
+
                 if (command == DLineCommands.EXIT) {
                     view = View.EXIT_VIEW;
                     exit = true;
                 } else if (command == DLineCommands.RATE) {
-                    var param = context.getParameter();
-                    if (param == DLineParameters.TMR) {
-                        var res = predictF.predictToDate(context.getCurrencyType(), LocalDate.now().plusDays(1));
+                    if (parameter == DLineParameters.TMR) {
+                        var res = predictF.predictToDate(currencyType, LocalDate.now().plusDays(1));
                         log.debug("Predict rates is {}", res);
                         view = new CurrencyView(res);
-                    } else if (param == DLineParameters.WEK) {
-                        var res = predictF.predictToDate(context.getCurrencyType(), LocalDate.now().plusDays(7));
+                    } else if (parameter == DLineParameters.WEK) {
+                        var res = predictF.predictToDate(currencyType, LocalDate.now().plusDays(7));
                         log.debug("Predict rates is {}", res);
                         view = new CurrencyView(res);
                     } else {
