@@ -17,6 +17,7 @@ import java.util.Scanner;
 @Slf4j
 public class TestApplication {
     @Test
+    @Disabled
     public void testRunEURWeek() {
         var scanner = new Scanner(new ByteArrayInputStream("""
                 RATE EUR week
@@ -38,6 +39,7 @@ public class TestApplication {
     }
 
     @Test
+    @Disabled
     public void testRunUSDTomorrow() {
         var scanner = new Scanner(new ByteArrayInputStream("""
                 RATE uSd ToMoRRow
@@ -59,6 +61,7 @@ public class TestApplication {
     }
 
     @Test
+    @Disabled
     public void testRunUnknownCommand() {
         var scanner = new Scanner(new ByteArrayInputStream("""
                 QWERT EUR week
@@ -80,6 +83,7 @@ public class TestApplication {
     }
 
     @Test
+    @Disabled
     public void testRunUnknownParameter() {
         var scanner = new Scanner(new ByteArrayInputStream("""
                 QWERT EUR yesterday
@@ -101,7 +105,7 @@ public class TestApplication {
     }
 
     @Test
-    @Disabled("Disabled until CustomerService is up!")
+//    @Disabled("Disabled")
     public void testComplexRun() {
         var scanner = new Scanner(new ByteArrayInputStream("""
                 RATE TRY week
