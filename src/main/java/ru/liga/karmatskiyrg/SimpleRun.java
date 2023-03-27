@@ -2,12 +2,12 @@ package ru.liga.karmatskiyrg;
 
 import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
-import ru.liga.karmatskiyrg.controller.initialize.Init;
-import ru.liga.karmatskiyrg.controller.observers.dicts.IsCommandString;
-import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
-import ru.liga.karmatskiyrg.controller.observers.dicts.IsParameterString;
+import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
 import ru.liga.karmatskiyrg.model.dicts.DLineCommands;
 import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
+import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
+import ru.liga.karmatskiyrg.model.dicts.interfaces.DLineCommand;
+import ru.liga.karmatskiyrg.model.dicts.interfaces.DLineParameter;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
 import ru.liga.karmatskiyrg.service.currency.CsvToCurrency;
 import ru.liga.karmatskiyrg.service.currency.PredictCurrencyRate;
@@ -23,10 +23,8 @@ import java.util.Scanner;
 @Slf4j
 public class SimpleRun {
     public static void main(String[] args) {
-
         var scanner = new Scanner(System.in);
         boolean exit = false;
-        Init.initDictionaries();
 
         var db = new CurrencyRepoRAM();
         db.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.csvFile));
@@ -40,9 +38,26 @@ public class SimpleRun {
                 if (tokens.size() != 3)
                     throw new NotValidCommand("Invalid number of arguments");
 
-                var command = IsCommandString.getSingleton().getFirstVariant(tokens.get(0));
-                var currencyType = IsCurrencyString.getSingleton().getFirstVariant(tokens.get(1));
-                var parameter = IsParameterString.getSingleton().getFirstVariant(tokens.get(2));
+                DLineCommand command;
+                try {
+                    command = DLineCommands.getType(tokens.get(0));
+                } catch (Exception e) {
+                    command = null;
+                }
+
+                DCurrencyType currencyType;
+                try {
+                    currencyType = DCurrencyTypes.valueOf(tokens.get(1));
+                } catch (Exception e) {
+                    currencyType = null;
+                }
+
+                DLineParameter parameter;
+                try {
+                    parameter = DLineParameters.getType(tokens.get(2));
+                } catch (Exception e) {
+                    parameter = null;
+                }
 
                 if (command == null)
                     throw new NotValidCommand(String.format("Command %s not found", tokens.get(0)));
@@ -56,7 +71,8 @@ public class SimpleRun {
                     exit = true;
                 } else if (command == DLineCommands.RATE) {
                     if (parameter == DLineParameters.TMR) {
-                        var res = predictF.predictToDate(currencyType, LocalDate.now().plusDays(1));
+                        var res = predictF.predictToDate(currencyType, LocalDate.now().plusDays(1))
+                                .stream().limit(1).toList();
                         log.debug("Predict rates is {}", res);
                         view = new CurrencyView(res);
                     } else if (parameter == DLineParameters.WEK) {
