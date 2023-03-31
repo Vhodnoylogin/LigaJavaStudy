@@ -10,7 +10,7 @@ import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
 public class Init {
     public static void initDictionaries() {
         IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class + "1", DCurrencyTypes::getType);
-        IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class, (name) -> {
+        IsCurrencyString.getSingleton().addVariant(DCurrencyTypes.class, name -> {
             try {
                 return DCurrencyTypes.valueOf(name.toUpperCase());
             } catch (IllegalArgumentException e) {

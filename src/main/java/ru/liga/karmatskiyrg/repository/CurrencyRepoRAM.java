@@ -41,10 +41,12 @@ public class CurrencyRepoRAM implements CurrencyTable {
                         x,
                         IsCurrencyString.getSingleton().getFirstVariant(x.getName())
                 );
+        logInputVar = x -> {
+        };
 
         rate.stream()
                 .filter(x -> IsCurrencyString.getSingleton().isVariant(x.getName()))
-//                .peek(logInputVar)
+                .peek(logInputVar)
                 .forEach(this::save);
     }
 

@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 public class PredictCurrencyRate implements CurrencyPredict {
-    private final Integer PREDICT_LEVEL = 7;
-    private final Double TOO_BIG_RATE = 100.;
+    private static final Integer PREDICT_LEVEL = 7;
+    private static final Double TOO_BIG_RATE = 100.;
     private final Comparator<CurrencyRate> dateComparator = (x, y) -> {
         if (x.getDate().isAfter(y.getDate())) return -1;
         if (x.getDate().isBefore(y.getDate())) return 1;
