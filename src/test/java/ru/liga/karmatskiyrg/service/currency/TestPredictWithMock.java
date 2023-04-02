@@ -5,9 +5,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.controller.initialize.Init;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
-import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
+import ru.liga.karmatskiyrg.model.dicts.currencies.DCurrencyTypes;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
-import ru.liga.karmatskiyrg.service.interfaces.CurrencyPredict;
+import ru.liga.karmatskiyrg.service.currency.interfaces.CurrencyPredict;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

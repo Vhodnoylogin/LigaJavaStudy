@@ -5,6 +5,8 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import ru.liga.karmatskiyrg.service.telegram.commands.help.OperationCommand;
 
+import java.util.Arrays;
+
 public class TestCommand extends OperationCommand {
 
     public TestCommand(String identifier, String description) {
@@ -17,6 +19,6 @@ public class TestCommand extends OperationCommand {
         String userName = (user.getUserName() != null) ? user.getUserName() :
                 String.format("%s %s", user.getLastName(), user.getFirstName());
 
-        sendAnswer(absSender, chat.getId(), this.getDescription(), this.getCommandIdentifier(), userName);
+        sendAnswer(absSender, chat.getId(), this.getDescription(), this.getCommandIdentifier(), userName, "QWER" + Arrays.toString(strings));
     }
 }

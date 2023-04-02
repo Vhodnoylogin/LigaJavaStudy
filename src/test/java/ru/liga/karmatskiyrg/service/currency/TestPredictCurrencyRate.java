@@ -4,9 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.init.InitTest;
-import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
+import ru.liga.karmatskiyrg.model.dicts.currencies.DCurrencyTypes;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
-import ru.liga.karmatskiyrg.service.interfaces.CurrencyPredict;
+import ru.liga.karmatskiyrg.service.currency.interfaces.CurrencyPredict;
 import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
 
 import java.time.LocalDate;

@@ -4,7 +4,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
-import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
+import ru.liga.karmatskiyrg.model.dicts.currencies.interfaces.DCurrencyType;
 import ru.liga.karmatskiyrg.repository.interfaces.CurrencyTable;
 
 import java.util.*;

@@ -1,24 +1,24 @@
-package ru.liga.karmatskiyrg.model.dicts;
+package ru.liga.karmatskiyrg.model.dicts.dates;
 
-import ru.liga.karmatskiyrg.model.dicts.interfaces.DLineParameter;
+import ru.liga.karmatskiyrg.model.dicts.dates.interfaces.DDateType;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public enum DLineParameters implements DLineParameter {
+public enum DDateTypes implements DDateType {
     TMR("tomorrow"),
     WEK("week");
-    private final static Map<String, DLineParameter> lib = new HashMap<>() {{
+    private final static Map<String, DDateType> lib = new HashMap<>() {{
         put(TMR.paramName, TMR);
         put(WEK.paramName, WEK);
     }};
     private final String paramName;
 
-    DLineParameters(String s) {
+    DDateTypes(String s) {
         this.paramName = s.toLowerCase();
     }
 
-    public static DLineParameter getType(String name) {
+    public static DDateType getType(String name) {
         return lib.getOrDefault(name.toLowerCase(), null);
     }
 

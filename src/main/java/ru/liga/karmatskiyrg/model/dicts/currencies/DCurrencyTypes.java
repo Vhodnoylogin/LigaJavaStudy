@@ -1,6 +1,6 @@
-package ru.liga.karmatskiyrg.model.dicts;
+package ru.liga.karmatskiyrg.model.dicts.currencies;
 
-import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
+import ru.liga.karmatskiyrg.model.dicts.currencies.interfaces.DCurrencyType;
 
 import java.util.HashMap;
 import java.util.Map;

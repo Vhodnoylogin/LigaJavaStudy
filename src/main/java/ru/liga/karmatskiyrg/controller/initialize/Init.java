@@ -3,9 +3,9 @@ package ru.liga.karmatskiyrg.controller.initialize;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCommandString;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsParameterString;
-import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
-import ru.liga.karmatskiyrg.model.dicts.DLineCommands;
-import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
+import ru.liga.karmatskiyrg.model.dicts.commands.DLineCommands;
+import ru.liga.karmatskiyrg.model.dicts.currencies.DCurrencyTypes;
+import ru.liga.karmatskiyrg.model.dicts.dates.DDateTypes;
 
 public class Init {
     public static void initDictionaries() {
@@ -19,6 +19,6 @@ public class Init {
         });
 
         IsCommandString.getSingleton().addVariant(DLineCommands.class, DLineCommands::getType);
-        IsParameterString.getSingleton().addVariant(DLineCommands.class, DLineParameters::getType);
+        IsParameterString.getSingleton().addVariant(DLineCommands.class, DDateTypes::getType);
     }
 }

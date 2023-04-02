@@ -5,13 +5,13 @@ import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
 import ru.liga.karmatskiyrg.controller.observers.ParameterLeadAction;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsParameterString;
-import ru.liga.karmatskiyrg.model.context.RateContext;
+import ru.liga.karmatskiyrg.model.context.loop.RateLoopContext;
 import ru.liga.karmatskiyrg.views.currency.CurrencyView;
 import ru.liga.karmatskiyrg.views.interfaces.View;
 
 
-public class CommandController extends Controller<RateContext> {
-    public CommandController(RateContext context) {
+public class CommandController extends Controller<RateLoopContext> {
+    public CommandController(RateLoopContext context) {
         this.context = context;
     }
 

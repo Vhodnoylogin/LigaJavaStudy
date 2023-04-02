@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.init.InitTest;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
-import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
+import ru.liga.karmatskiyrg.model.dicts.currencies.DCurrencyTypes;
 import ru.liga.karmatskiyrg.service.currency.CsvToCurrency;
 import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
 import ru.liga.karmatskiyrg.utils.csv.ReadCSVFile;

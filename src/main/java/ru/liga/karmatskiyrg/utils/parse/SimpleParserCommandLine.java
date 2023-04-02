@@ -1,5 +1,7 @@
 package ru.liga.karmatskiyrg.utils.parse;
 
+import ru.liga.karmatskiyrg.utils.parse.interfaces.CommandParser;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -11,10 +13,14 @@ import java.util.regex.Pattern;
  * Если часть строки обрамлена кавычками "", то она не разделяется
  * Пример: АААА "целая строка" раздельная строка => ["АААА", "целая строка", "раздельная", "строка"]
  */
-public class ParseCommandLine {
+public class SimpleParserCommandLine implements CommandParser<String> {
+    public static final SimpleParserCommandLine SIMPLE_COMMAND_PARSER = new SimpleParserCommandLine();
+
+
     private static final Pattern pattern = Pattern.compile("\"([^\"]*)\"|(\\S+)");
 
-    public static List<String> parseCommand(String commandLine) {
+    @Override
+    public List<String> parseCommand(String commandLine) {
         var commandList = new ArrayList<String>();
         var matcher = pattern.matcher(commandLine);
         while (matcher.find()) {

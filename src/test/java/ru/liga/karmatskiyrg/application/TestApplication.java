@@ -25,13 +25,16 @@ public class TestApplication {
                 """.getBytes(StandardCharsets.UTF_8)));
 
         var loop = new LoopClass();
-        var app = new Application(scanner);
+        var app = new ApplicationLoop();
         loop.setInitAction(context -> {
             Init.initDictionaries();
             app.initCommands(context);
             app.initParameters(context);
         });
-        loop.setAction(app::context);
+        loop.setAction(context -> {
+            ApplicationLoop.read(context, scanner);
+            app.context(context);
+        });
         loop.run();
 
 //        assertThatThrownBy(loop::run)
@@ -47,13 +50,16 @@ public class TestApplication {
                 """.getBytes(StandardCharsets.UTF_8)));
 
         var loop = new LoopClass();
-        var app = new Application(scanner);
+        var app = new ApplicationLoop();
         loop.setInitAction(context -> {
             Init.initDictionaries();
             app.initCommands(context);
             app.initParameters(context);
         });
-        loop.setAction(app::context);
+        loop.setAction(context -> {
+            ApplicationLoop.read(context, scanner);
+            app.context(context);
+        });
         loop.run();
 
 //        assertThatThrownBy(loop::run)
@@ -69,13 +75,16 @@ public class TestApplication {
                 """.getBytes(StandardCharsets.UTF_8)));
 
         var loop = new LoopClass();
-        var app = new Application(scanner);
+        var app = new ApplicationLoop();
         loop.setInitAction(context -> {
             Init.initDictionaries();
             app.initCommands(context);
             app.initParameters(context);
         });
-        loop.setAction(app::context);
+        loop.setAction(context -> {
+            ApplicationLoop.read(context, scanner);
+            app.context(context);
+        });
         loop.run();
 
 //        assertThatThrownBy(loop::run)
@@ -91,13 +100,16 @@ public class TestApplication {
                 """.getBytes(StandardCharsets.UTF_8)));
 
         var loop = new LoopClass();
-        var app = new Application(scanner);
+        var app = new ApplicationLoop();
         loop.setInitAction(context -> {
             Init.initDictionaries();
             app.initCommands(context);
             app.initParameters(context);
         });
-        loop.setAction(app::context);
+        loop.setAction(context -> {
+            ApplicationLoop.read(context, scanner);
+            app.context(context);
+        });
         loop.run();
 
 //        assertThatThrownBy(loop::run)
@@ -117,7 +129,7 @@ public class TestApplication {
                 """.getBytes(StandardCharsets.UTF_8)));
 
         var loop = new LoopClass();
-        var app = new Application(scanner);
+        var app = new ApplicationLoop();
         loop.setInitAction(context -> {
             Init.initDictionaries();
             app.initCommands(context);

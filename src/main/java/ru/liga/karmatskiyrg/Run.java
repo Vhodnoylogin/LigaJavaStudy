@@ -1,7 +1,7 @@
 package ru.liga.karmatskiyrg;
 
 import lombok.extern.slf4j.Slf4j;
-import ru.liga.karmatskiyrg.application.Application;
+import ru.liga.karmatskiyrg.application.ApplicationLoop;
 import ru.liga.karmatskiyrg.controller.initialize.Init;
 import ru.liga.karmatskiyrg.service.loop.LoopClass;
 
@@ -13,13 +13,16 @@ public class Run {
 
     public static void main(String[] args) {
         var loop = new LoopClass();
-        var app = new Application(scanner);
+        var app = new ApplicationLoop();
         loop.setInitAction(context -> {
             Init.initDictionaries();
             app.initCommands(context);
             app.initParameters(context);
         });
-        loop.setAction(app::context);
+        loop.setAction(context -> {
+            ApplicationLoop.read(context, scanner);
+            app.context(context);
+        });
         loop.run();
     }
 }

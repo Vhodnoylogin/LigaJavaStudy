@@ -1,6 +1,6 @@
 package ru.liga.karmatskiyrg.controller.observers.dicts;
 
-import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
+import ru.liga.karmatskiyrg.model.dicts.currencies.interfaces.DCurrencyType;
 import ru.liga.karmatskiyrg.utils.observers.base.IfExistsGetAsObserver;
 
 public final class IsCurrencyString extends IfExistsGetAsObserver<String, DCurrencyType> {

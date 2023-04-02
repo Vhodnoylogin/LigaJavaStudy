@@ -4,11 +4,12 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
-import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
+import ru.liga.karmatskiyrg.model.dicts.currencies.interfaces.DCurrencyType;
 import ru.liga.karmatskiyrg.repository.interfaces.CurrencyTable;
-import ru.liga.karmatskiyrg.service.interfaces.CurrencyPredict;
+import ru.liga.karmatskiyrg.service.currency.interfaces.CurrencyPredict;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -72,8 +73,24 @@ public class PredictCurrencyRate implements CurrencyPredict {
         );
     }
 
+    @Override
     public List<CurrencyRate> predictToDate(DCurrencyType type, @NonNull LocalDate date) {
         var list = initPredictList(type, date);
+        if (list.isEmpty()) return List.of();
+
+        while (list.get(0).getDate().isBefore(date)) {
+            list.add(0, this.predictNext(list));
+        }
+
+        return list.stream()
+                .sorted(dateComparator)
+                .limit(PREDICT_LEVEL)
+                .toList();
+    }
+
+    @Override
+    public List<CurrencyRate> predictToDate(DCurrencyType type, @NonNull Period period) {
+        var list = initPredictList(type, period);
         if (list.isEmpty()) return List.of();
 
         while (list.get(0).getDate().isBefore(date)) {

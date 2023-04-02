@@ -1,5 +1,6 @@
 package ru.liga.karmatskiyrg.service.telegram.bot;
 
+import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -9,6 +10,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.liga.karmatskiyrg.service.telegram.commands.StartCommand;
 import ru.liga.karmatskiyrg.service.telegram.commands.TestCommand;
 
+@Slf4j
 public class TelegramBot extends TelegramLongPollingCommandBot {
     private final String BOT_NAME;
     private final String BOT_TOKEN;
@@ -16,13 +18,15 @@ public class TelegramBot extends TelegramLongPollingCommandBot {
     //Класс для обработки сообщений, не являющихся командой
 //    private final NonCommand nonCommand;
 
+//    private final Set<String> names = new HashSet<>();
+
     public TelegramBot(String botName, String botToken) {
         super();
         this.BOT_NAME = botName;
         this.BOT_TOKEN = botToken;
-        //создаём вспомогательный класс для работы с сообщениями, не являющимися командами
+//        создаём вспомогательный класс для работы с сообщениями, не являющимися командами
 //        this.nonCommand = new NonCommand();
-        //регистрируем команды
+//        регистрируем команды
         register(new StartCommand("start", "Старт"));
         register(new TestCommand("test", "ТЕСТ"));
 //        register(new PlusCommand("plus", "Сложение"));
@@ -31,6 +35,10 @@ public class TelegramBot extends TelegramLongPollingCommandBot {
 //        register(new HelpCommand("help","Помощь"));
 //        register(new SettingsCommand("settings", "Мои настройки"));
 //        userSettings = new HashMap<>();
+
+//        this.onClosing();
+
+        // зачем все эти регистрации - непонятно.
     }
 
     @Override
@@ -49,9 +57,17 @@ public class TelegramBot extends TelegramLongPollingCommandBot {
         Long chatId = msg.getChatId();
         String userName = getUserName(msg);
 
+        var text = msg.getText();
+
+
+//        var user = msg.getFrom();
+//        var name = user.getFirstName() + " " + user.getLastName() + " " + user.getId() + " " + user.getUserName();
+//        this.names.add(name);
+//        log.info(name);
+
 //        String answer = nonCommand.nonCommandExecute(chatId, userName, msg.getText());
-        String answer = "TEST";
-        setAnswer(chatId, userName, answer);
+//        var answer = this.names;
+//        setAnswer(chatId, userName, String.valueOf(answer));
 
     }
 

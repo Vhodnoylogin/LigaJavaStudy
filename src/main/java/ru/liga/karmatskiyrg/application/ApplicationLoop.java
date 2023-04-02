@@ -8,15 +8,15 @@ import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
 import ru.liga.karmatskiyrg.controller.observers.CommandLeadAction;
 import ru.liga.karmatskiyrg.controller.observers.ParameterLeadAction;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCommandString;
-import ru.liga.karmatskiyrg.model.context.RateContext;
-import ru.liga.karmatskiyrg.model.dicts.DLineCommands;
-import ru.liga.karmatskiyrg.model.dicts.DLineParameters;
-import ru.liga.karmatskiyrg.model.dicts.interfaces.DLineCommand;
+import ru.liga.karmatskiyrg.model.context.loop.RateLoopContext;
+import ru.liga.karmatskiyrg.model.dicts.commands.DLineCommands;
+import ru.liga.karmatskiyrg.model.dicts.commands.interfaces.DLineCommand;
+import ru.liga.karmatskiyrg.model.dicts.dates.DDateTypes;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
 import ru.liga.karmatskiyrg.service.currency.CsvToCurrency;
 import ru.liga.karmatskiyrg.service.currency.PredictCurrencyRate;
 import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
-import ru.liga.karmatskiyrg.utils.parse.ParseCommandLine;
+import ru.liga.karmatskiyrg.utils.parse.SimpleParserCommandLine;
 import ru.liga.karmatskiyrg.views.basic.ExceptionView;
 
 import java.util.List;
@@ -24,19 +24,17 @@ import java.util.Scanner;
 
 @Slf4j
 @RequiredArgsConstructor
-public class Application {
-    private final Scanner scanner;
-
-    public void context(RateContext context) {
+public class ApplicationLoop {
+    public static void read(RateLoopContext context, Scanner scanner) {
         var text = scanner.hasNextLine() ? scanner.nextLine() : "";
+        var tokens = SimpleParserCommandLine.SIMPLE_COMMAND_PARSER.parseCommand(text);
+        context.setTokens(tokens);
+    }
 
+    public void context(RateLoopContext context) {
         try {
-            var tokens = ParseCommandLine.parseCommand(text);
-
-            var command = parseTokens(tokens);
+            var command = parseTokens(context.getTokens());
             var action = CommandLeadAction.getSingleton().getFirstVariant(command);
-
-            context.setTokens(tokens);
 
             if (action != null) action.run();
         } catch (Exception e) {
@@ -46,24 +44,12 @@ public class Application {
         context.getView().show();
     }
 
-    public void initCommands(RateContext context) {
+    public void initCommands(RateLoopContext context) {
         var leadCommand = CommandLeadAction.getSingleton();
 
         var controller = new CommandController(context);
         leadCommand.addVariant(DLineCommands.EXIT, controller::exit);
         leadCommand.addVariant(DLineCommands.RATE, controller::rate);
-    }
-
-    public void initParameters(RateContext context) {
-        var leadParameter = ParameterLeadAction.getSingleton();
-
-        var db = new CurrencyRepoRAM();
-        db.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.csvFile));
-        var predication = new PredictCurrencyRate(db);
-
-        var controller = new ParameterController(context, predication);
-        leadParameter.addVariant(DLineParameters.TMR, controller::getCurrencyRateTomorrow);
-        leadParameter.addVariant(DLineParameters.WEK, controller::getCurrencyRateWeek);
     }
 
     private DLineCommand parseTokens(List<String> tokens) {
@@ -75,5 +61,17 @@ public class Application {
             throw new NotValidCommand(String.format("Command %s not found", tokens.get(0)));
 
         return command;
+    }
+
+    public void initParameters(RateLoopContext context) {
+        var leadParameter = ParameterLeadAction.getSingleton();
+
+        var db = new CurrencyRepoRAM();
+        db.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.csvFile));
+        var predication = new PredictCurrencyRate(db);
+
+        var controller = new ParameterController(context, predication);
+        leadParameter.addVariant(DDateTypes.TMR, controller::getCurrencyRateTomorrow);
+        leadParameter.addVariant(DDateTypes.WEK, controller::getCurrencyRateWeek);
     }
 }

@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 @Slf4j
 @Setter
-public abstract class Loop<T extends Context> {
+public abstract class Loop<T extends LoopContext> {
     protected Consumer<T> action;
     protected Consumer<T> initAction;
     @Setter(AccessLevel.PROTECTED)
@@ -35,7 +35,7 @@ public abstract class Loop<T extends Context> {
 
     @Slf4j
     @RequiredArgsConstructor
-    public static class LoopControl<T extends Context> {
+    public static class LoopControl<T extends LoopContext> {
         private final Loop<T> loop;
 
         public void exitLoop() {

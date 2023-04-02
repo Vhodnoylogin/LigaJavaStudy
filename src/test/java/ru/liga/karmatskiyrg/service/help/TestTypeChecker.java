@@ -5,8 +5,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.init.InitTest;
-import ru.liga.karmatskiyrg.model.dicts.DCurrencyTypes;
-import ru.liga.karmatskiyrg.model.dicts.interfaces.DCurrencyType;
+import ru.liga.karmatskiyrg.model.dicts.currencies.DCurrencyTypes;
+import ru.liga.karmatskiyrg.model.dicts.currencies.interfaces.DCurrencyType;
 
 import java.util.ArrayList;
 import java.util.List;

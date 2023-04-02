@@ -1,6 +1,6 @@
-package ru.liga.karmatskiyrg.model.dicts;
+package ru.liga.karmatskiyrg.model.dicts.commands;
 
-import ru.liga.karmatskiyrg.model.dicts.interfaces.DLineCommand;
+import ru.liga.karmatskiyrg.model.dicts.commands.interfaces.DLineCommand;
 
 import java.util.HashMap;
 import java.util.Map;
