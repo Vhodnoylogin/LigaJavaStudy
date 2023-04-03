@@ -28,7 +28,7 @@ public class PredictCurrencyRateOld implements PredictCurrencyRate {
     private final CurrencyTable repo;
 
     private List<CurrencyRate> initPredictList(@NonNull DCurrencyType type, @NonNull LocalDate date) {
-        Predicate<CurrencyRate> notFutureDates = x -> !x.getDate().isAfter(date);
+        Predicate<CurrencyRate> notFutureDates = x -> x.getDate().isBefore(date);
 
         return this.repo.getSlice(type).stream()
                 .filter(notFutureDates)
@@ -95,7 +95,7 @@ public class PredictCurrencyRateOld implements PredictCurrencyRate {
         var list = initPredictList(type, period.getStartDate());
         if (list.isEmpty()) return List.of();
 
-        while (period.dateIn(list.get(0).getDate())) {
+        while (!list.get(0).getDate().isAfter(period.getEndDate())) {
             list.add(0, this.predictNext(list));
         }
 

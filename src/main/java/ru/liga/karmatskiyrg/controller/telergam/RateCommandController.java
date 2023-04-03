@@ -1,5 +1,6 @@
 package ru.liga.karmatskiyrg.controller.telergam;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class RateCommandController {
     private static final String ERR_MSG = "Command doesn't contains %s argument";
 
@@ -61,6 +63,10 @@ public class RateCommandController {
             throw new NotValidCommand("Wrong algorithm parameter = " + tokenMap.get(DArgumentTypes.ALG));
         var alg = TelegramAlgorithmLeadAction.getSingleton().getFirstVariant(algType);
         if (alg == null) throw new NotValidCommand("Wrong algorithm parameter = " + tokenMap.get(DArgumentTypes.ALG));
+
+
+//        log.info("{}", currencyType);
+//        log.info("{}", interval);
 
         return alg.predictToDate(currencyType, interval);
     }
