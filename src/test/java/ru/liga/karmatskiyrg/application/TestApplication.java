@@ -3,7 +3,8 @@ package ru.liga.karmatskiyrg.application;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import ru.liga.karmatskiyrg.controller.initialize.Init;
+import ru.liga.karmatskiyrg.application.loop.ApplicationLoop;
+import ru.liga.karmatskiyrg.controller.observers.initialize.Init;
 import ru.liga.karmatskiyrg.service.loop.LoopClass;
 
 import java.io.ByteArrayInputStream;

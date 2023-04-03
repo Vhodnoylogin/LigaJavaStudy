@@ -5,8 +5,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import ru.liga.karmatskiyrg.init.InitTest;
 import ru.liga.karmatskiyrg.model.dicts.currencies.DCurrencyTypes;
+import ru.liga.karmatskiyrg.model.dicts.currencies.interfaces.DCurrencyType;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
-import ru.liga.karmatskiyrg.service.currency.interfaces.CurrencyPredict;
+import ru.liga.karmatskiyrg.service.currency.interfaces.PredictCurrencyRate;
 import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
 
 import java.time.LocalDate;
@@ -14,14 +15,14 @@ import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-public class TestPredictCurrencyRate extends InitTest {
-    protected static CurrencyPredict predict;
+public class TestPredictCurrencyRateOld extends InitTest {
+    protected static PredictCurrencyRate predict;
 
     @BeforeAll
     public static void init() {
         var repo = new CurrencyRepoRAM();
         repo.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.csvFile));
-        predict = new PredictCurrencyRate(repo);
+        predict = new PredictCurrencyRateOld(repo);
     }
 
     @Test
@@ -52,8 +53,10 @@ public class TestPredictCurrencyRate extends InitTest {
 
     @Test
     public void testNonCurrencyType() {
+        DCurrencyType type = () -> "null";
+
         var res = predict.predictToDate(
-                () -> "null",
+                type,
                 LocalDate.now()
         );
 

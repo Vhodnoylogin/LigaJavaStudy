@@ -3,11 +3,11 @@ package ru.liga.karmatskiyrg.service.currency;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.liga.karmatskiyrg.controller.initialize.Init;
+import ru.liga.karmatskiyrg.controller.observers.initialize.Init;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.model.dicts.currencies.DCurrencyTypes;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
-import ru.liga.karmatskiyrg.service.currency.interfaces.CurrencyPredict;
+import ru.liga.karmatskiyrg.service.currency.interfaces.PredictCurrencyRate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 @Slf4j
 public class TestPredictWithMock {
-    protected static CurrencyPredict predict;
+    protected static PredictCurrencyRate predict;
     @BeforeAll
     public static void init() {
         Init.initDictionaries();
@@ -30,7 +30,7 @@ public class TestPredictWithMock {
         }};
         when(repo.getSlice(DCurrencyTypes.EUR))
                 .thenReturn(fake);
-        predict = new PredictCurrencyRate(repo);
+        predict = new PredictCurrencyRateOld(repo);
     }
 
     @Test

@@ -6,10 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.model.dicts.currencies.interfaces.DCurrencyType;
 import ru.liga.karmatskiyrg.repository.interfaces.CurrencyTable;
-import ru.liga.karmatskiyrg.service.currency.interfaces.CurrencyPredict;
+import ru.liga.karmatskiyrg.service.currency.interfaces.PredictCurrencyRate;
+import ru.liga.karmatskiyrg.utils.dates.DateInterval;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
-public class PredictCurrencyRate implements CurrencyPredict {
+public class PredictCurrencyRateOld implements PredictCurrencyRate {
     private static final Integer PREDICT_LEVEL = 7;
     private static final Double TOO_BIG_RATE = 100.;
     private final Comparator<CurrencyRate> dateComparator = (x, y) -> {
@@ -75,31 +75,33 @@ public class PredictCurrencyRate implements CurrencyPredict {
 
     @Override
     public List<CurrencyRate> predictToDate(DCurrencyType type, @NonNull LocalDate date) {
-        var list = initPredictList(type, date);
-        if (list.isEmpty()) return List.of();
+//        var list = initPredictList(type, date);
+//        if (list.isEmpty()) return List.of();
+//
+//        while (list.get(0).getDate().isBefore(date)) {
+//            list.add(0, this.predictNext(list));
+//        }
+//
+//        return list.stream()
+//                .sorted(dateComparator)
+//                .limit(PREDICT_LEVEL)
+//                .toList();
 
-        while (list.get(0).getDate().isBefore(date)) {
-            list.add(0, this.predictNext(list));
-        }
-
-        return list.stream()
-                .sorted(dateComparator)
-                .limit(PREDICT_LEVEL)
-                .toList();
+        return predictToDate(type, DateInterval.of(date, date));
     }
 
     @Override
-    public List<CurrencyRate> predictToDate(DCurrencyType type, @NonNull Period period) {
-        var list = initPredictList(type, period);
+    public List<CurrencyRate> predictToDate(DCurrencyType type, @NonNull DateInterval period) {
+        var list = initPredictList(type, period.getStartDate());
         if (list.isEmpty()) return List.of();
 
-        while (list.get(0).getDate().isBefore(date)) {
+        while (period.dateIn(list.get(0).getDate())) {
             list.add(0, this.predictNext(list));
         }
 
         return list.stream()
                 .sorted(dateComparator)
-                .limit(PREDICT_LEVEL)
+                .limit(period.numberOfDays())
                 .toList();
     }
 }

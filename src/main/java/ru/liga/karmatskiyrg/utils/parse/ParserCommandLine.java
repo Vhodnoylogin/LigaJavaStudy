@@ -13,7 +13,8 @@ import java.util.regex.Pattern;
 public class ParserCommandLine implements CommandParser<Token> {
     public static final ParserCommandLine TOKEN_PARSER = new ParserCommandLine();
 
-    private static final Pattern pattern1 = Pattern.compile("\"([^\"]*)\"|(\\S+)");
+    private static final Pattern pattern1 = Pattern.compile("\\b[^-\\s]\\S*\\b");
+    //    private static final Pattern pattern2 = Pattern.compile("-\\w+\\s+\\S+"); // не понимаю почему, но щаблон работает
     private static final Pattern pattern2 = Pattern.compile("-(\\w+)\\s(\\S+)"); // не понимаю почему, но щаблон работает
 
     @Override
@@ -21,21 +22,17 @@ public class ParserCommandLine implements CommandParser<Token> {
         var listOfTokens = new ArrayList<Token>();
 
         var matcher = pattern1.matcher(commandLine);
-
         if (!matcher.find()) return List.of();
-        var key = matcher.group();
-        if (!matcher.find()) return List.of(Token.of(key, null));
-        var val = matcher.group();
-
+        var firstWord = matcher.group();
         listOfTokens.add(
-                Token.of(key, val)
+                Token.of(firstWord, firstWord)
         );
 
         commandLine = commandLine.substring(matcher.end()).trim();
         matcher = pattern2.matcher(commandLine);
         while (matcher.find()) {
-            key = matcher.group(1);
-            val = matcher.group(2);
+            var key = matcher.group(1);
+            var val = matcher.group(2);
             listOfTokens.add(
                     Token.of(key, val)
             );

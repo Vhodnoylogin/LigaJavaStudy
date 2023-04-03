@@ -2,8 +2,8 @@ package ru.liga.karmatskiyrg.loop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import ru.liga.karmatskiyrg.controller.initialize.Init;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
+import ru.liga.karmatskiyrg.controller.observers.initialize.Init;
 import ru.liga.karmatskiyrg.utils.loop.Loop;
 import ru.liga.karmatskiyrg.utils.loop.LoopContext;
 

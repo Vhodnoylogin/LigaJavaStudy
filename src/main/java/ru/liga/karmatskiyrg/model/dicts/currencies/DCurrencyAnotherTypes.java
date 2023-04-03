@@ -1,27 +1,33 @@
 package ru.liga.karmatskiyrg.model.dicts.currencies;
 
+import lombok.NonNull;
 import ru.liga.karmatskiyrg.model.dicts.currencies.interfaces.DCurrencyType;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public enum DCurrencyAnotherTypes implements DCurrencyType {
-    EUR("Евро"),
-    USD("Доллар США"),
-    TRY("Турецкая лира");
-    private final static Map<String, DCurrencyType> lib = new HashMap<>() {{
-        put(EUR.longName, EUR);
-        put(USD.longName, USD);
-        put(TRY.longName, TRY);
-    }};
+    BGN("Болгарский лев"),
+    AMD("Армянский драм");
     private final String longName;
+    private final String exactlyName;
 
-    DCurrencyAnotherTypes(String s) {
+    DCurrencyAnotherTypes(@NonNull String s) {
         this.longName = s.toLowerCase();
+        this.exactlyName = this.name().toLowerCase();
     }
 
-    public static DCurrencyType getType(String name) {
-        return lib.getOrDefault(name.toLowerCase(), null);
+    public static DCurrencyType getType(@NonNull String name) {
+        for (var type : DCurrencyAnotherTypes.values()) {
+            if (type.getLongName().equals(name.toLowerCase()))
+                return type;
+        }
+        return null;
+    }
+
+    public static DCurrencyType getExactlyNameType(@NonNull String name) {
+        for (var type : DCurrencyAnotherTypes.values()) {
+            if (type.getShortName().equals(name.toLowerCase()))
+                return type;
+        }
+        return null;
     }
 
     @Override
@@ -30,4 +36,8 @@ public enum DCurrencyAnotherTypes implements DCurrencyType {
     }
 
 
+    @Override
+    public String getShortName() {
+        return this.exactlyName;
+    }
 }

@@ -1,22 +1,22 @@
 package ru.liga.karmatskiyrg.model.dicts.arguments;
 
+import lombok.NonNull;
 import ru.liga.karmatskiyrg.model.dicts.arguments.interfaces.DArgumentType;
-import ru.liga.karmatskiyrg.model.dicts.dates.DDateAnotherTypes;
-import ru.liga.karmatskiyrg.model.dicts.dates.interfaces.DDateType;
 
-public enum DDArgumentTypes implements DArgumentType {
+public enum DArgumentTypes implements DArgumentType {
     PERIOD("period"),
     DATE("date"),
     ALG("alg"),
-    OUT("output");
+    OUT("output"),
+    CUR("cur");
     private final String longName;
 
-    DDArgumentTypes(String s) {
+    DArgumentTypes(@NonNull String s) {
         this.longName = s.toLowerCase();
     }
 
-    public static DDateType getType(String name) {
-        for (DDateAnotherTypes type : DDateAnotherTypes.values()) {
+    public static DArgumentType getType(@NonNull String name) {
+        for (var type : DArgumentTypes.values()) {
             if (type.getLongName().equals(name.toLowerCase()))
                 return type;
         }

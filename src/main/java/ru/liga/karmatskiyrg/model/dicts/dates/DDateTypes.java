@@ -1,5 +1,6 @@
 package ru.liga.karmatskiyrg.model.dicts.dates;
 
+import lombok.NonNull;
 import ru.liga.karmatskiyrg.model.dicts.dates.interfaces.DDateType;
 
 import java.util.HashMap;
@@ -14,11 +15,11 @@ public enum DDateTypes implements DDateType {
     }};
     private final String paramName;
 
-    DDateTypes(String s) {
+    DDateTypes(@NonNull String s) {
         this.paramName = s.toLowerCase();
     }
 
-    public static DDateType getType(String name) {
+    public static DDateType getType(@NonNull String name) {
         return lib.getOrDefault(name.toLowerCase(), null);
     }
 

@@ -5,7 +5,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import ru.liga.karmatskiyrg.application.telegram.ApplicationBot;
 
-public class Application {
+public class TelegramApplication {
 
     public static void main(String[] args) {
         try {
