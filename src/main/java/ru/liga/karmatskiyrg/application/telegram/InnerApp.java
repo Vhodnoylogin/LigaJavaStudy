@@ -60,7 +60,7 @@ public class InnerApp {
 
 
         var db = new CurrencyRepoRAM();
-        db.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.csvFile));
+        db.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.CSV_FILE));
         var leadAlgorithm = TelegramAlgorithmLeadAction.getSingleton();
         leadAlgorithm.addVariant(DAlgorithms.OLD,
                 new PredictCurrencyRateOld(db)

@@ -19,6 +19,7 @@ public class CurrencyRate {
     private Integer nominal;
     @CsvBindByName(column = "data")
     @CsvDate("M/d/yyyy")
+//    @CsvDate("d.M.yyyy")
     private LocalDate date;
     @CsvBindByName(column = "curs")
     private Double rate;

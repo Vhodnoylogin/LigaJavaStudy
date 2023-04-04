@@ -9,6 +9,7 @@ import ru.liga.karmatskiyrg.model.dicts.currencies.interfaces.DCurrencyType;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
 import ru.liga.karmatskiyrg.service.currency.interfaces.PredictCurrencyRate;
 import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
+import ru.liga.karmatskiyrg.utils.dates.DateInterval;
 
 import java.time.LocalDate;
 
@@ -21,7 +22,7 @@ public class TestPredictCurrencyRateOld extends InitTest {
     @BeforeAll
     public static void init() {
         var repo = new CurrencyRepoRAM();
-        repo.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.csvFile));
+        repo.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.CSV_FILE));
         predict = new PredictCurrencyRateOld(repo);
     }
 
@@ -64,5 +65,24 @@ public class TestPredictCurrencyRateOld extends InitTest {
         assertThat(res)
                 .isNotNull()
                 .hasSize(0);
+    }
+
+
+    @Test
+    public void testPredictPeriod() {
+        var period = DateInterval.of(
+                LocalDate.now().plusDays(1),
+                LocalDate.now().plusDays(100)
+        );
+
+        var res = predict.predictToDate(
+                DCurrencyTypes.TRY,
+                period
+        );
+
+        log.info("Resulting list = {}", res);
+        assertThat(res)
+                .isNotNull()
+                .hasSizeGreaterThan(0);
     }
 }
