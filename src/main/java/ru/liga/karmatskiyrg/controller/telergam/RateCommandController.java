@@ -4,16 +4,22 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
+import ru.liga.karmatskiyrg.controller.exceptions.NotValidCommand;
+import ru.liga.karmatskiyrg.controller.interfaces.Controller;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsAlgorithmString;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsArgumentString;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsPeriodString;
 import ru.liga.karmatskiyrg.controller.observers.telegram.TelegramAlgorithmLeadAction;
 import ru.liga.karmatskiyrg.controller.observers.telegram.TelegramDateLeadAction;
+import ru.liga.karmatskiyrg.controller.telergam.lowlevel.algorithm.AlgorithmController;
+import ru.liga.karmatskiyrg.controller.telergam.lowlevel.currency.CurrencyController;
+import ru.liga.karmatskiyrg.controller.telergam.lowlevel.period.fabric.DatePeriodFabric;
+import ru.liga.karmatskiyrg.model.context.telegram.TelegramRateContext;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.model.dicts.arguments.DArgumentTypes;
 import ru.liga.karmatskiyrg.model.dicts.arguments.interfaces.DArgumentType;
+import ru.liga.karmatskiyrg.service.parsers.level2.RateParser;
 import ru.liga.karmatskiyrg.utils.dates.DateInterval;
 import ru.liga.karmatskiyrg.utils.parse.tokens.Token;
 
@@ -24,8 +30,18 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class RateCommandController {
+public class RateCommandController implements Controller<TelegramRateContext> {
     private static final String ERR_MSG = "Command doesn't contains %s argument";
+
+    @Override
+    public void action(String commandString, TelegramRateContext context) {
+        var tokens = RateParser.RATE_PARSER.getTokenFromCommandString(commandString).getLeft();
+
+        var curType = new CurrencyController().get(tokens);
+        var datePeriod = DatePeriodFabric.getDatePeriod(tokens).get(tokens);
+        var agl = new AlgorithmController().get(tokens);
+
+    }
 
     private static List<CurrencyRate> predictWithInputParams(Map<DArgumentType, String> tokenMap) {
         if (tokenMap.containsKey(DArgumentTypes.DATE) && tokenMap.containsKey(DArgumentTypes.PERIOD)) {
@@ -97,4 +113,6 @@ public class RateCommandController {
                 .filter(x -> x.getRight() != null)
                 .collect(Collectors.toMap(Pair::getLeft, Pair::getRight));
     }
+
+
 }

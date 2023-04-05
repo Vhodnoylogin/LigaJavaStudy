@@ -1,4 +1,4 @@
-package ru.liga.karmatskiyrg.controller.errors;
+package ru.liga.karmatskiyrg.controller.exceptions;
 
 public class NotValidCommand extends RuntimeException {
     public NotValidCommand() {

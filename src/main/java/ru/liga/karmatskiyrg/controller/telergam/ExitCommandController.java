@@ -1,14 +1,13 @@
 package ru.liga.karmatskiyrg.controller.telergam;
 
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
-import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
-import ru.liga.karmatskiyrg.utils.parse.tokens.Token;
+import ru.liga.karmatskiyrg.controller.interfaces.Controller;
+import ru.liga.karmatskiyrg.model.context.telegram.TelegramRateContext;
 
-import java.util.List;
+public class ExitCommandController implements Controller<TelegramRateContext> {
+    @Override
+    public void action(String commandString, TelegramRateContext context) {
+        var msg = new SendMessage();
 
-public class ExitCommandController {
-    public SendMessage action(List<Token> tokens, Update update) {
-        throw new NotValidCommand("EXIT");
     }
 }

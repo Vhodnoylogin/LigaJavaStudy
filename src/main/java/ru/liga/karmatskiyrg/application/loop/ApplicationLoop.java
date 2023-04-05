@@ -2,7 +2,7 @@ package ru.liga.karmatskiyrg.application.loop;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
+import ru.liga.karmatskiyrg.controller.exceptions.NotValidCommand;
 import ru.liga.karmatskiyrg.controller.loop.CommandController;
 import ru.liga.karmatskiyrg.controller.loop.ParameterController;
 import ru.liga.karmatskiyrg.controller.observers.CommandLeadAction;
@@ -27,7 +27,7 @@ import java.util.Scanner;
 public class ApplicationLoop {
     public static void read(RateLoopContext context, Scanner scanner) {
         var text = scanner.hasNextLine() ? scanner.nextLine() : "";
-        var tokens = SimpleParserCommandLine.SIMPLE_COMMAND_PARSER.parseCommand(text);
+        var tokens = SimpleParserCommandLine.SIMPLE_COMMAND_PARSER.getTokenFromCommandString(text);
         context.setTokens(tokens);
     }
 

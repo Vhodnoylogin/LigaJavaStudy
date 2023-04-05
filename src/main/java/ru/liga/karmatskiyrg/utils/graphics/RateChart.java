@@ -6,10 +6,14 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 public class RateChart extends MyChart<CurrencyRate> {
     {
+        this.title = "Деньги от времени";
         this.axisXName = "Даты";
         this.axisYName = "Деньги";
     }
@@ -17,22 +21,27 @@ public class RateChart extends MyChart<CurrencyRate> {
     @Override
     protected XYDataset createDataset(List<CurrencyRate> sourceData) {
 //        return super.createDataset(sourceData);
+        Function<CurrencyRate, Day> makeDay = x -> new Day(
+                x.getDate().getDayOfMonth(),
+                x.getDate().getMonthValue(),
+                x.getDate().getYear()
+        );
 
-        var priceSeries = new TimeSeries("Price");
-        sourceData
-                .forEach(x ->
-                        priceSeries.addOrUpdate(
-                                new Day(
-                                        x.getDate().getDayOfMonth(),
-                                        x.getDate().getMonthValue(),
-                                        x.getDate().getYear()
-                                ),
-                                x.getRate()
+        Map<String, TimeSeries> curMap = new HashMap<>();
+        sourceData.stream()
+                .peek(x -> curMap.put(
+                        x.getName(),
+                        new TimeSeries(x.getName()))
+                )
+                .forEach(
+                        x -> curMap.get(x.getName()).addOrUpdate(
+                                makeDay.apply(x),
+                                x.getRate() * x.getNominal()
                         )
                 );
 
         var dataset = new TimeSeriesCollection();
-        dataset.addSeries(priceSeries);
+        curMap.forEach((x, y) -> dataset.addSeries(y));
         return dataset;
     }
 }

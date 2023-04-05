@@ -36,7 +36,7 @@ public class TestParser {
     public void testTokenParser() {
         String input = "QWE bgf -command1 value1 n     -command2 value 2";
 //        String input = "-key1 val1 -key2 val2";
-        var res = ParserCommandLine.TOKEN_PARSER.parseCommand(input);
+        var res = ParserCommandLine.TOKEN_PARSER.getTokenFromCommandString(input);
 
         log.info("{}", res);
     }
@@ -44,7 +44,7 @@ public class TestParser {
     @Test
     public void testTokenParser1() {
         String input = "QWE -command1 value1 n     -command2 value 2";
-        var res = ParserCommandLine.TOKEN_PARSER.parseCommand(input);
+        var res = ParserCommandLine.TOKEN_PARSER.getTokenFromCommandString(input);
 
         log.info("{}", res);
 //        assertThat(res)
@@ -54,7 +54,7 @@ public class TestParser {
     @Test
     public void testTokenParserIrr() {
         String input = "-key1 val1 -key2 val2";
-        var res = ParserCommandLine.TOKEN_PARSER.parseCommand(input);
+        var res = ParserCommandLine.TOKEN_PARSER.getTokenFromCommandString(input);
 
         log.info("{}", res);
 //        assertThat(res)

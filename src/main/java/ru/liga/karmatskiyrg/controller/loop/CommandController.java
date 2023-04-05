@@ -1,7 +1,7 @@
 package ru.liga.karmatskiyrg.controller.loop;
 
 import ru.liga.karmatskiyrg.controller.base.Controller;
-import ru.liga.karmatskiyrg.controller.errors.NotValidCommand;
+import ru.liga.karmatskiyrg.controller.exceptions.NotValidCommand;
 import ru.liga.karmatskiyrg.controller.observers.ParameterLeadAction;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsPeriodString;
