@@ -19,17 +19,26 @@ public class CommandApplication implements CommandStringToExecutionEgg<TelegramR
         try {
             var token = CommandParser.COMMAND_PARSER.getTokenFromCommandString(commandText);
 
-            var command = DCommands.getType(token.getRight());
+            var command = token.getLeft();
             if (DCommands.RATE == command) {
-                var res = new RateCommandController().action(token.getLeft(), context);
+//                var res = new RateCommandController().action(token.getRight(), context);
+                var res = new RateCommandController().action(
+                        token.getRight(),
+                        context.getUpdate().getMessage().getChatId()
+                );
                 view = new TextView(context.getBot(), res);
             } else {
-                log.debug("No such command = {}", token.getRight());
+                log.debug("No such command = {}", token.getLeft());
                 throw new NotValidCommand(commandText);
             }
         } catch (Exception e) {
-            view = new ExceptionView(context.getBot(), e, context.getUpdate().getMessage().getChatId());
+            view = new ExceptionView(
+                    context.getBot(),
+                    e,
+                    context.getUpdate().getMessage().getChatId()
+            );
         }
+        view.show();
     }
 
 

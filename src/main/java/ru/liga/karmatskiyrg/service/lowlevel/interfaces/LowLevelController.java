@@ -1,4 +1,4 @@
-package ru.liga.karmatskiyrg.controller.telergam.lowlevel.interfaces;
+package ru.liga.karmatskiyrg.service.lowlevel.interfaces;
 
 import ru.liga.karmatskiyrg.model.dicts.arguments.interfaces.DArgumentType;
 

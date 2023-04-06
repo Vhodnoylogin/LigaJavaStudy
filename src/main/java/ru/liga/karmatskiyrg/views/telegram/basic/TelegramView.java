@@ -13,10 +13,6 @@ public abstract class TelegramView implements View {
     private final TelegramLongPollingCommandBot bot;
 
     protected abstract SendMessage prepareMsg();
-//
-//    protected Long getChatId() {
-//        return this.chatId;
-//    }
 
 
     @Override

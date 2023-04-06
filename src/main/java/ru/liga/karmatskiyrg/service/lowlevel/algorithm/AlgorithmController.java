@@ -1,12 +1,12 @@
-package ru.liga.karmatskiyrg.controller.telergam.lowlevel.algorithm;
+package ru.liga.karmatskiyrg.service.lowlevel.algorithm;
 
 import ru.liga.karmatskiyrg.controller.exceptions.NotValidCommand;
-import ru.liga.karmatskiyrg.controller.telergam.lowlevel.algorithm.fabric.AlgorithmFabric;
-import ru.liga.karmatskiyrg.controller.telergam.lowlevel.interfaces.LowLevelController;
 import ru.liga.karmatskiyrg.model.dicts.algorithms.DAlgorithms;
 import ru.liga.karmatskiyrg.model.dicts.arguments.DArgumentTypes;
 import ru.liga.karmatskiyrg.model.dicts.arguments.interfaces.DArgumentType;
 import ru.liga.karmatskiyrg.service.currency.interfaces.PredictCurrencyRate;
+import ru.liga.karmatskiyrg.service.lowlevel.algorithm.fabric.AlgorithmFabric;
+import ru.liga.karmatskiyrg.service.lowlevel.interfaces.LowLevelController;
 
 import java.util.Map;
 

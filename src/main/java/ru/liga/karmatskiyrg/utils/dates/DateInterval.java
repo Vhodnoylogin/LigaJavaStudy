@@ -1,5 +1,6 @@
 package ru.liga.karmatskiyrg.utils.dates;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
@@ -9,6 +10,7 @@ import java.time.temporal.ChronoUnit;
 
 @Getter
 @ToString
+@EqualsAndHashCode
 public class DateInterval {
     private final @NonNull LocalDate startDate;
     private final @NonNull LocalDate endDate;

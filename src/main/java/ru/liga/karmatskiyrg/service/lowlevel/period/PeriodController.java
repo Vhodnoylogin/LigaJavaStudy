@@ -1,14 +1,13 @@
-package ru.liga.karmatskiyrg.controller.telergam.lowlevel.period;
+package ru.liga.karmatskiyrg.service.lowlevel.period;
 
 import ru.liga.karmatskiyrg.controller.exceptions.NotValidCommand;
-import ru.liga.karmatskiyrg.controller.telergam.lowlevel.period.interfaces.DatePeriodController;
 import ru.liga.karmatskiyrg.model.dicts.arguments.DArgumentTypes;
 import ru.liga.karmatskiyrg.model.dicts.arguments.interfaces.DArgumentType;
 import ru.liga.karmatskiyrg.model.dicts.dates.DDateTypes;
+import ru.liga.karmatskiyrg.service.lowlevel.period.interfaces.DatePeriodController;
 import ru.liga.karmatskiyrg.utils.dates.DateInterval;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 public class PeriodController implements DatePeriodController {
@@ -26,11 +25,17 @@ public class PeriodController implements DatePeriodController {
             throw new NotValidCommand(MESSAGE_VAL.formatted(row));
         }
 
-        var date = LocalDate.parse(
-                map.get(DArgumentTypes.DATE),
-                DateTimeFormatter.ofPattern("dd.MM.yyyy")
-        );
-        return DateInterval.of(date, date);
+        if (DDateTypes.TMR == res) {
+            var date = LocalDate.now().plusDays(1);
+            return DateInterval.of(date, date);
+        } else if (DDateTypes.WEK == res) {
+            return DateInterval.of(
+                    LocalDate.now().plusDays(1),
+                    LocalDate.now().plusDays(7)
+            );
+        } else {
+            throw new NotValidCommand(MESSAGE_VAL.formatted(row));
+        }
     }
 
 }

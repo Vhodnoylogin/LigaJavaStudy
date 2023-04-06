@@ -11,7 +11,7 @@ public class TelegramApplication {
         try {
             var botsApi = new TelegramBotsApi(DefaultBotSession.class);
             var bot = new ApplicationBot();
-            var session = botsApi.registerBot(bot);
+            botsApi.registerBot(bot);
         } catch (TelegramApiException e) {
             System.exit(0);
         }

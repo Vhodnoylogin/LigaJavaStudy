@@ -4,6 +4,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
+import ru.liga.karmatskiyrg.model.dicts.currencies.DCurrencyTypes;
 import ru.liga.karmatskiyrg.model.dicts.currencies.interfaces.DCurrencyType;
 import ru.liga.karmatskiyrg.repository.interfaces.CurrencyTable;
 
@@ -18,7 +19,8 @@ public class CurrencyRepoRAM implements CurrencyTable {
     public void save(@NonNull CurrencyRate rate) {
         var isCurrencyString = IsCurrencyString.getSingleton();
 
-        var type = isCurrencyString.getFirstVariant(rate.getName());
+//        var type = isCurrencyString.getFirstVariant(rate.getName());
+        var type = DCurrencyTypes.getType(rate.getName());
 
         if (type == null) {
             log.debug("Type {} not found", rate.getName());
@@ -45,7 +47,7 @@ public class CurrencyRepoRAM implements CurrencyTable {
         };
 
         rate.stream()
-                .filter(x -> IsCurrencyString.getSingleton().isVariant(x.getName()))
+//                .filter(x -> IsCurrencyString.getSingleton().isVariant(x.getName()))
                 .peek(logInputVar)
                 .forEach(this::save);
     }

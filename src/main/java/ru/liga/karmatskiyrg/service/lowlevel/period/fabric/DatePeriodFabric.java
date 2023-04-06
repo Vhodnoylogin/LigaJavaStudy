@@ -1,11 +1,11 @@
-package ru.liga.karmatskiyrg.controller.telergam.lowlevel.period.fabric;
+package ru.liga.karmatskiyrg.service.lowlevel.period.fabric;
 
 import ru.liga.karmatskiyrg.controller.exceptions.NotValidCommand;
-import ru.liga.karmatskiyrg.controller.telergam.lowlevel.period.DateController;
-import ru.liga.karmatskiyrg.controller.telergam.lowlevel.period.PeriodController;
-import ru.liga.karmatskiyrg.controller.telergam.lowlevel.period.interfaces.DatePeriodController;
 import ru.liga.karmatskiyrg.model.dicts.arguments.DArgumentTypes;
 import ru.liga.karmatskiyrg.model.dicts.arguments.interfaces.DArgumentType;
+import ru.liga.karmatskiyrg.service.lowlevel.period.DateController;
+import ru.liga.karmatskiyrg.service.lowlevel.period.PeriodController;
+import ru.liga.karmatskiyrg.service.lowlevel.period.interfaces.DatePeriodController;
 
 import java.util.Map;
 

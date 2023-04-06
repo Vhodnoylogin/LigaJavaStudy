@@ -1,4 +1,4 @@
-package ru.liga.karmatskiyrg.controller.telergam.lowlevel.algorithm.fabric;
+package ru.liga.karmatskiyrg.service.lowlevel.algorithm.fabric;
 
 import ru.liga.karmatskiyrg.controller.exceptions.NotValidCommand;
 import ru.liga.karmatskiyrg.model.dicts.algorithms.DAlgorithms;
