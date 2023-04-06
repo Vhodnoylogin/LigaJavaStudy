@@ -7,8 +7,6 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.liga.karmatskiyrg.service.telegram.commands.StartCommand;
-import ru.liga.karmatskiyrg.service.telegram.commands.TestCommand;
 
 @Slf4j
 public class TelegramBot extends TelegramLongPollingCommandBot {
@@ -27,8 +25,8 @@ public class TelegramBot extends TelegramLongPollingCommandBot {
 //        создаём вспомогательный класс для работы с сообщениями, не являющимися командами
 //        this.nonCommand = new NonCommand();
 //        регистрируем команды
-        register(new StartCommand("start", "Старт"));
-        register(new TestCommand("test", "ТЕСТ"));
+//        register(new StartCommand("start", "Старт"));
+//        register(new TestCommand("test", "ТЕСТ"));
 //        register(new PlusCommand("plus", "Сложение"));
 //        register(new MinusCommand("minus", "Вычитание"));
 //        register(new PlusMinusCommand("plusminus", "Сложение и вычитание"));

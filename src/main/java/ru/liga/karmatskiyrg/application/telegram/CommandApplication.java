@@ -1,25 +1,34 @@
 package ru.liga.karmatskiyrg.application.telegram;
 
 import lombok.extern.slf4j.Slf4j;
+import ru.liga.karmatskiyrg.controller.exceptions.NotValidCommand;
 import ru.liga.karmatskiyrg.controller.telergam.RateCommandController;
 import ru.liga.karmatskiyrg.model.context.telegram.TelegramRateContext;
 import ru.liga.karmatskiyrg.model.dicts.commands.DCommands;
 import ru.liga.karmatskiyrg.service.parsers.CommandParser;
 import ru.liga.karmatskiyrg.utils.egg.CommandStringToExecutionEgg;
+import ru.liga.karmatskiyrg.views.interfaces.View;
+import ru.liga.karmatskiyrg.views.telegram.TextView;
+import ru.liga.karmatskiyrg.views.telegram.basic.ExceptionView;
 
 @Slf4j
 public class CommandApplication implements CommandStringToExecutionEgg<TelegramRateContext> {
     @Override
     public void execute(String commandText, TelegramRateContext context) {
-        var token = CommandParser.COMMAND_PARSER.getTokenFromCommandString(commandText);
+        View view;
+        try {
+            var token = CommandParser.COMMAND_PARSER.getTokenFromCommandString(commandText);
 
-        var command = DCommands.getType(token.getRight());
-        if (DCommands.RATE == command) {
-            new RateCommandController().action(token.getLeft(), context);
-        } else if (DCommands.EXIT == command) {
-            log.info("EXIT");
-        } else {
-            log.info("No such command = {}", token.getRight());
+            var command = DCommands.getType(token.getRight());
+            if (DCommands.RATE == command) {
+                var res = new RateCommandController().action(token.getLeft(), context);
+                view = new TextView(context.getBot(), res);
+            } else {
+                log.debug("No such command = {}", token.getRight());
+                throw new NotValidCommand(commandText);
+            }
+        } catch (Exception e) {
+            view = new ExceptionView(context.getBot(), e, context.getUpdate().getMessage().getChatId());
         }
     }
 

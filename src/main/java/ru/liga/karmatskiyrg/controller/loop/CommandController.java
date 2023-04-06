@@ -1,6 +1,6 @@
 package ru.liga.karmatskiyrg.controller.loop;
 
-import ru.liga.karmatskiyrg.controller.base.Controller;
+import ru.liga.karmatskiyrg.controller.base.LoopController;
 import ru.liga.karmatskiyrg.controller.exceptions.NotValidCommand;
 import ru.liga.karmatskiyrg.controller.observers.ParameterLeadAction;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
@@ -10,7 +10,7 @@ import ru.liga.karmatskiyrg.views.currency.CurrencyView;
 import ru.liga.karmatskiyrg.views.interfaces.View;
 
 
-public class CommandController extends Controller<RateLoopContext> {
+public class CommandController extends LoopController<RateLoopContext> {
     public CommandController(RateLoopContext context) {
         this.context = context;
     }

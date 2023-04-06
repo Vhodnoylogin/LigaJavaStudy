@@ -1,6 +1,6 @@
 package ru.liga.karmatskiyrg.controller.loop;
 
-import ru.liga.karmatskiyrg.controller.base.Controller;
+import ru.liga.karmatskiyrg.controller.base.LoopController;
 import ru.liga.karmatskiyrg.model.context.loop.RateLoopContext;
 import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.model.dicts.currencies.interfaces.DCurrencyType;
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class ParameterController extends Controller<RateLoopContext> {
+public class ParameterController extends LoopController<RateLoopContext> {
     private final PredictCurrencyRate prediction;
 
     private final Predicate<CurrencyRate> notPastDates = x -> LocalDate.now().isBefore(x.getDate());

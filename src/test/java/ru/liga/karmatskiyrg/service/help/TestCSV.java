@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.fail;
 public class TestCSV {
     @Test
     public void testFunctionReturnsNotEmptyList() {
-        try (var inputStream = CsvFileLayout.CSV_FILE) {
+        try (var inputStream = CsvFileLayout.getCsvFile()) {
             var list = ReadCSVFile.csvToModel(inputStream, CurrencyRate.class);
 
             log.debug("Size of list = {}", list.size());
@@ -37,7 +37,7 @@ public class TestCSV {
     @Test
     @Disabled
     public void testFailCatchException() {
-        try (var inputStream = CsvFileLayout.CSV_FILE) {
+        try (var inputStream = CsvFileLayout.getCsvFile()) {
             var list = ReadCSVFile.csvToModel(inputStream, CurrencyRateTest.class);
 
             log.debug("Size of list = {}", list.size());

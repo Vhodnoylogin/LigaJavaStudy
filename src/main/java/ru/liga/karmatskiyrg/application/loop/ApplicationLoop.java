@@ -67,7 +67,7 @@ public class ApplicationLoop {
         var leadParameter = ParameterLeadAction.getSingleton();
 
         var db = new CurrencyRepoRAM();
-        db.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.CSV_FILE));
+        db.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.getCsvFile()));
         var predication = new PredictCurrencyRateOld(db);
 
         var controller = new ParameterController(context, predication);

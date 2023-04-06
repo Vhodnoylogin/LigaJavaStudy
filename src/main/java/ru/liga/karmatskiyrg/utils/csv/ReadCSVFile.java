@@ -5,12 +5,12 @@ import com.opencsv.CSVReaderBuilder;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvException;
 import lombok.extern.slf4j.Slf4j;
+import ru.liga.karmatskiyrg.utils.csv.exceptions.CantConvertCSV;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 
@@ -31,7 +31,8 @@ public class ReadCSVFile {
                     .toList();
         } catch (IOException | CsvException e) {
             log.error("Error on converting CSV", e);
-            return Collections.emptyList();
+//            return Collections.emptyList();
+            throw new CantConvertCSV(e);
         }
     }
 
@@ -45,7 +46,8 @@ public class ReadCSVFile {
                     .parse();
         } catch (Exception e) {
             log.error("Error on converting CSV", e);
-            return Collections.emptyList();
+//            return Collections.emptyList();
+            throw new CantConvertCSV(e);
         }
     }
 }

@@ -11,19 +11,17 @@ import ru.liga.karmatskiyrg.views.interfaces.View;
 @RequiredArgsConstructor
 public abstract class TelegramView implements View {
     private final TelegramLongPollingCommandBot bot;
-    private final Long chatId;
 
     protected abstract SendMessage prepareMsg();
-
-    protected Long getChatId() {
-        return this.chatId;
-    }
+//
+//    protected Long getChatId() {
+//        return this.chatId;
+//    }
 
 
     @Override
     public void show() {
         try {
-
             this.bot.execute(this.prepareMsg());
         } catch (TelegramApiException e) {
 //            throw new RuntimeException(e);

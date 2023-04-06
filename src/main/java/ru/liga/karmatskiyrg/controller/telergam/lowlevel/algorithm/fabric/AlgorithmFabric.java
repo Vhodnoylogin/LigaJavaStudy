@@ -14,7 +14,7 @@ public class AlgorithmFabric {
 
     public static PredictCurrencyRate get(DAlgorithm algType) {
         var repo = new CurrencyRepoRAM();
-        repo.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.CSV_FILE));
+        repo.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.getCsvFile()));
         if (DAlgorithms.OLD == algType) {
             return new PredictCurrencyRateOld(repo);
         } else {

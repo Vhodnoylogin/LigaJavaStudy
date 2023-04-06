@@ -25,7 +25,7 @@ public class TestMyChart extends InitTest {
     @BeforeAll
     public static void init() {
         var repo = new CurrencyRepoRAM();
-        repo.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.CSV_FILE));
+        repo.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.getCsvFile()));
         predict = new PredictCurrencyRateOld(repo);
     }
 

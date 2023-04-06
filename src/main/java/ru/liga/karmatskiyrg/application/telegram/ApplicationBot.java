@@ -32,8 +32,7 @@ public class ApplicationBot extends TelegramLongPollingCommandBot {
     @Override
     public void processNonCommandUpdate(Update update) {
 //        this.context.setUpdate(update);
-        var context = new TelegramRateContext(this);
-
+        var context = new TelegramRateContext(this, update);
         var text = update.getMessage().getText();
         app.execute(text, context);
     }

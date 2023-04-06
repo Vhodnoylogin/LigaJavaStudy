@@ -27,7 +27,7 @@ public class TestRepo extends InitTest {
 
     @BeforeAll
     static void init() {
-        try (var inputStream = CsvFileLayout.CSV_FILE) {
+        try (var inputStream = CsvFileLayout.getCsvFile()) {
             list = CsvToCurrency.getCurrencyRate(inputStream);
         } catch (IOException e) {
             log.error(e.getLocalizedMessage());

@@ -14,5 +14,5 @@ public class TelegramRateContext {
     private View view = View.EMPTY_VIEW;
     //    private List<Token> tokens;
     private final TelegramLongPollingCommandBot bot;
-    private Update update;
+    private final Update update;
 }

@@ -5,7 +5,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import ru.liga.karmatskiyrg.controller.exceptions.NotValidCommand;
-import ru.liga.karmatskiyrg.controller.interfaces.Controller;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsAlgorithmString;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsArgumentString;
 import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
@@ -30,17 +29,23 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class RateCommandController implements Controller<TelegramRateContext> {
+public class RateCommandController {
     private static final String ERR_MSG = "Command doesn't contains %s argument";
 
-    @Override
-    public void action(String commandString, TelegramRateContext context) {
+
+    public SendMessage action(String commandString, TelegramRateContext context) {
         var tokens = RateParser.RATE_PARSER.getTokenFromCommandString(commandString).getLeft();
 
         var curType = new CurrencyController().get(tokens);
         var datePeriod = DatePeriodFabric.getDatePeriod(tokens).get(tokens);
-        var agl = new AlgorithmController().get(tokens);
+        var alg = new AlgorithmController().get(tokens);
 
+        var res = alg.predictToDate(curType, datePeriod);
+
+        var msg = new SendMessage();
+        msg.setText(res.toString());
+        msg.setChatId(context.getUpdate().getMessage().getChatId());
+        return msg;
     }
 
     private static List<CurrencyRate> predictWithInputParams(Map<DArgumentType, String> tokenMap) {
