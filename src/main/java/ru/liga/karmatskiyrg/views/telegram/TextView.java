@@ -1,19 +1,18 @@
 package ru.liga.karmatskiyrg.views.telegram;
 
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import ru.liga.karmatskiyrg.views.telegram.basic.TelegramView;
 
 public class TextView extends TelegramView {
-    private final SendMessage msg;
+    private final Object msg;
 
-    public TextView(TelegramLongPollingCommandBot bot, SendMessage msg) {
+    public TextView(TelegramLongPollingCommandBot bot, Object msg) {
         super(bot);
         this.msg = msg;
     }
 
     @Override
-    protected SendMessage prepareMsg() {
+    protected Object prepareMsg() {
         return this.msg;
     }
 }

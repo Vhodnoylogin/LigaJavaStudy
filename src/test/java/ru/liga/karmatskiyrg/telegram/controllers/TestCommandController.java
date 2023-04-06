@@ -2,6 +2,7 @@ package ru.liga.karmatskiyrg.telegram.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import ru.liga.karmatskiyrg.controller.telergam.RateCommandController;
 import ru.liga.karmatskiyrg.model.dicts.currencies.DCurrencyTypes;
 import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
@@ -20,7 +21,7 @@ public class TestCommandController {
     public void testRateController() {
         var commandText = "-cur eur -period week -alg old";
         var res = new RateCommandController().action(commandText, 1L);
-        var text = res.getText();
+        var text = ((SendMessage) res).getText();
         log.info("{}", text);
 
         var repo = new CurrencyRepoRAM();

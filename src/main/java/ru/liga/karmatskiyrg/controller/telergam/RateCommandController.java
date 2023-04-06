@@ -1,7 +1,7 @@
 package ru.liga.karmatskiyrg.controller.telergam;
 
 import lombok.extern.slf4j.Slf4j;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import ru.liga.karmatskiyrg.controller.telergam.output.fabric.OutputFabric;
 import ru.liga.karmatskiyrg.service.lowlevel.algorithm.AlgorithmController;
 import ru.liga.karmatskiyrg.service.lowlevel.currency.CurrencyController;
 import ru.liga.karmatskiyrg.service.lowlevel.period.fabric.DatePeriodFabric;
@@ -13,7 +13,8 @@ public class RateCommandController {
 
 
     //    public SendMessage action(String commandString, TelegramRateContext context) {
-    public SendMessage action(String commandString, Long chatId) {
+//    public SendMessage action(String commandString, Long chatId) {
+    public Object action(String commandString, Long chatId) {
         var tokens = RateParser.RATE_PARSER.getTokenFromCommandString(commandString).getLeft();
 
         var curType = new CurrencyController().get(tokens);
@@ -22,11 +23,12 @@ public class RateCommandController {
 
         var res = alg.predictToDate(curType, datePeriod);
 
-        var msg = new SendMessage();
-        msg.setText(res.toString());
-//        msg.setChatId(context.getUpdate().getMessage().getChatId());
-        msg.setChatId(chatId);
-        return msg;
+//        var msg = new SendMessage();
+//        msg.setText(res.toString());
+////        msg.setChatId(context.getUpdate().getMessage().getChatId());
+//        msg.setChatId(chatId);
+//        return msg;
+        return OutputFabric.get(tokens).get(res, chatId);
     }
 
 //    private static List<CurrencyRate> predictWithInputParams(Map<DArgumentType, String> tokenMap) {
