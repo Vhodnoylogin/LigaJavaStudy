@@ -8,9 +8,9 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
-import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
-import ru.liga.karmatskiyrg.utils.csv.ReadCSVFile;
+import ru.liga.karmatskiyrg.distributed.app.client.model.currency.CurrencyRate;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.csv.CsvFileLayout;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.csv.ReadCSVFile;
 
 import java.io.IOException;
 import java.time.LocalDate;

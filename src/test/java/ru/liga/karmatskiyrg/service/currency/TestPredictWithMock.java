@@ -3,11 +3,12 @@ package ru.liga.karmatskiyrg.service.currency;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.liga.karmatskiyrg.controller.observers.initialize.Init;
-import ru.liga.karmatskiyrg.model.currency.CurrencyRate;
-import ru.liga.karmatskiyrg.model.dicts.currencies.DCurrencyTypes;
-import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
-import ru.liga.karmatskiyrg.service.currency.interfaces.PredictCurrencyRate;
+import ru.liga.karmatskiyrg.distributed.app.client.controller.observers.initialize.Init;
+import ru.liga.karmatskiyrg.distributed.app.client.model.currency.CurrencyRate;
+import ru.liga.karmatskiyrg.distributed.app.client.model.dicts.currencies.DCurrencyTypes;
+import ru.liga.karmatskiyrg.distributed.app.client.repository.CurrencyRepoRAM;
+import ru.liga.karmatskiyrg.distributed.app.client.service.currency.PredictCurrencyRateOld;
+import ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

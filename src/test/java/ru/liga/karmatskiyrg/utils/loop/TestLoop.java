@@ -2,8 +2,10 @@ package ru.liga.karmatskiyrg.utils.loop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import ru.liga.karmatskiyrg.controller.observers.dicts.IsCurrencyString;
-import ru.liga.karmatskiyrg.controller.observers.initialize.Init;
+import ru.liga.karmatskiyrg.distributed.app.client.controller.observers.dicts.IsCurrencyString;
+import ru.liga.karmatskiyrg.distributed.app.client.controller.observers.initialize.Init;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.loop.Loop;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.loop.LoopContext;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;

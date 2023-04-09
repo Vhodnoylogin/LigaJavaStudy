@@ -3,13 +3,13 @@ package ru.liga.karmatskiyrg.telegram.controllers;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import ru.liga.karmatskiyrg.controller.telergam.RateCommandController;
-import ru.liga.karmatskiyrg.model.dicts.currencies.DCurrencyTypes;
-import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
-import ru.liga.karmatskiyrg.service.currency.CsvToCurrency;
-import ru.liga.karmatskiyrg.service.currency.PredictCurrencyRateOld;
-import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
-import ru.liga.karmatskiyrg.utils.dates.DateInterval;
+import ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.RateCommandController;
+import ru.liga.karmatskiyrg.distributed.app.client.model.dicts.currencies.DCurrencyTypes;
+import ru.liga.karmatskiyrg.distributed.app.client.repository.CurrencyRepoRAM;
+import ru.liga.karmatskiyrg.distributed.app.client.service.currency.CsvToCurrency;
+import ru.liga.karmatskiyrg.distributed.app.client.service.currency.PredictCurrencyRateOld;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.csv.CsvFileLayout;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval;
 
 import java.time.LocalDate;
 

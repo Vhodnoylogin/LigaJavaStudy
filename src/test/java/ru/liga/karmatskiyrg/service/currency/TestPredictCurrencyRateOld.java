@@ -3,13 +3,15 @@ package ru.liga.karmatskiyrg.service.currency;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import ru.liga.karmatskiyrg.distributed.app.client.model.dicts.currencies.DCurrencyTypes;
+import ru.liga.karmatskiyrg.distributed.app.client.model.dicts.currencies.interfaces.DCurrencyType;
+import ru.liga.karmatskiyrg.distributed.app.client.repository.CurrencyRepoRAM;
+import ru.liga.karmatskiyrg.distributed.app.client.service.currency.CsvToCurrency;
+import ru.liga.karmatskiyrg.distributed.app.client.service.currency.PredictCurrencyRateOld;
+import ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.csv.CsvFileLayout;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval;
 import ru.liga.karmatskiyrg.init.InitTest;
-import ru.liga.karmatskiyrg.model.dicts.currencies.DCurrencyTypes;
-import ru.liga.karmatskiyrg.model.dicts.currencies.interfaces.DCurrencyType;
-import ru.liga.karmatskiyrg.repository.CurrencyRepoRAM;
-import ru.liga.karmatskiyrg.service.currency.interfaces.PredictCurrencyRate;
-import ru.liga.karmatskiyrg.utils.csv.CsvFileLayout;
-import ru.liga.karmatskiyrg.utils.dates.DateInterval;
 
 import java.time.LocalDate;
 

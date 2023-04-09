@@ -3,8 +3,8 @@ package ru.liga.karmatskiyrg.telegram.parsers;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
-import ru.liga.karmatskiyrg.model.dicts.commands.DCommands;
-import ru.liga.karmatskiyrg.service.parsers.CommandParser;
+import ru.liga.karmatskiyrg.distributed.app.client.model.dicts.commands.DCommands;
+import ru.liga.karmatskiyrg.distributed.app.client.service.parsers.CommandParser;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

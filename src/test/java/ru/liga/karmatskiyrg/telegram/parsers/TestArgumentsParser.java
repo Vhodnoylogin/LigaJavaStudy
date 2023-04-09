@@ -3,8 +3,8 @@ package ru.liga.karmatskiyrg.telegram.parsers;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.jupiter.api.Test;
-import ru.liga.karmatskiyrg.model.dicts.arguments.DArgumentTypes;
-import ru.liga.karmatskiyrg.service.parsers.level2.RateParser;
+import ru.liga.karmatskiyrg.distributed.app.client.model.dicts.arguments.DArgumentTypes;
+import ru.liga.karmatskiyrg.distributed.app.client.service.parsers.level2.RateParser;
 
 import java.util.HashMap;
 

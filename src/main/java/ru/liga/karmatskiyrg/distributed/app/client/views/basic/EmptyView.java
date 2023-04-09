@@ -1,0 +1,15 @@
+package ru.liga.karmatskiyrg.distributed.app.client.views.basic;
+
+import lombok.extern.slf4j.Slf4j;
+import ru.liga.karmatskiyrg.distributed.app.client.views.interfaces.View;
+
+@Slf4j
+public final class EmptyView implements View {
+    private static final String MESSAGE = "Empty request";
+
+    @Override
+    public void show() {
+//        System.out.println(MESSAGE);
+        log.info(MESSAGE);
+    }
+}

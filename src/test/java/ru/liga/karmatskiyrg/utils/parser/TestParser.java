@@ -2,7 +2,7 @@ package ru.liga.karmatskiyrg.utils.parser;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
-import ru.liga.karmatskiyrg.utils.parse.ParserCommandLine;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.parse.ParserCommandLine;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
