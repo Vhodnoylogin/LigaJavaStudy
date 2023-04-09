@@ -10,13 +10,13 @@ public class ApplicationBot extends TelegramLongPollingCommandBot {
     private static final String BOT_NAME = "Vhodnoylogin_tst_bot";
     private static final String BOT_TOKEN = "6130241804:AAH0icUms3upX96vuFUl8eWQtwBelCM7BsM";
 
-    private final CommandApplication app;
+    private final CommandApplication router;
 //    private final TelegramRateContext context;
 
     public ApplicationBot() {
         super();
 //        super(BOT_NAME, BOT_TOKEN);
-        app = new CommandApplication();
+        router = new CommandApplication();
 //        context = new TelegramRateContext(this);
 //        app.initCommands();
     }
@@ -37,7 +37,7 @@ public class ApplicationBot extends TelegramLongPollingCommandBot {
         var context = new TelegramRateContext(this, update);
         var text = update.getMessage().getText();
         log.debug("{}", text);
-        app.execute(text, context);
+        router.execute(text, context);
     }
 
 }

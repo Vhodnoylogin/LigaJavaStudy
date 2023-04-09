@@ -10,7 +10,7 @@
 
     <!-- Файловый аппендер для ошибок -->
     <appender name="errorFile" class="ch.qos.logback.core.FileAppender">
-        <file>/logs/errors/file.log</file>
+        <file>./logs/errors/file.log</file>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
@@ -26,7 +26,7 @@
         <appender-ref ref="errorFile"/>
     </root>
 
-    <logger name="ru.liga" level="DEBUG">
+    <logger name="ru.liga.karmatskiyrg" level="DEBUG">
         <appender-ref ref="null"/>
         <!--        <appender-ref ref="console" />-->
     </logger>
