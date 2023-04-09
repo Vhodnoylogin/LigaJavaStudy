@@ -1,4 +1,4 @@
-package ru.liga.karmatskiyrg.distributed.app.client.utils.parse.exceptions;
+package ru.liga.karmatskiyrg.distributed.app.lib.parsers.exceptions;
 
 public class CantParseString extends RuntimeException {
     public CantParseString(String commandLine) {

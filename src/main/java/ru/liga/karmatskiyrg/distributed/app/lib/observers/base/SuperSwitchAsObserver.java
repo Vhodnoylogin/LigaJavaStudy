@@ -1,7 +1,7 @@
-package ru.liga.karmatskiyrg.distributed.app.client.utils.observers.base;
+package ru.liga.karmatskiyrg.distributed.app.lib.observers.base;
 
-import ru.liga.karmatskiyrg.distributed.app.client.utils.observers.interfaces.SwitchAsObserverGet;
-import ru.liga.karmatskiyrg.distributed.app.client.utils.observers.interfaces.SwitchAsObserverPut;
+import ru.liga.karmatskiyrg.distributed.app.lib.observers.interfaces.SwitchAsObserverGet;
+import ru.liga.karmatskiyrg.distributed.app.lib.observers.interfaces.SwitchAsObserverPut;
 
 import java.util.*;
 import java.util.function.Function;

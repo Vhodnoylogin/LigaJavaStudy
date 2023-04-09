@@ -1,4 +1,4 @@
-package ru.liga.karmatskiyrg.distributed.app.client.utils.observers.base;
+package ru.liga.karmatskiyrg.distributed.app.lib.observers.base;
 
 import java.util.List;
 import java.util.Map;

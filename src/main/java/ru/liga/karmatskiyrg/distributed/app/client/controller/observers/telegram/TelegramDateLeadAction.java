@@ -2,7 +2,7 @@ package ru.liga.karmatskiyrg.distributed.app.client.controller.observers.telegra
 
 import ru.liga.karmatskiyrg.distributed.app.client.model.dicts.dates.interfaces.DDateType;
 import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval;
-import ru.liga.karmatskiyrg.distributed.app.client.utils.observers.base.SuperSwitchAsObserver;
+import ru.liga.karmatskiyrg.distributed.app.lib.observers.base.SuperSwitchAsObserver;
 
 import java.util.function.Supplier;
 

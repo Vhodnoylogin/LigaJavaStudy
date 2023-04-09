@@ -1,4 +1,4 @@
-package ru.liga.karmatskiyrg.distributed.app.client.utils.observers.interfaces;
+package ru.liga.karmatskiyrg.distributed.app.lib.observers.interfaces;
 
 import java.util.function.Function;
 

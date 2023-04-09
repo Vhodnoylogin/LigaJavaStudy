@@ -9,8 +9,8 @@ import ru.liga.karmatskiyrg.distributed.app.client.service.currency.PredictCurre
 import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.AlgorithmController;
 import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.currency.CurrencyController;
 import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.fabric.DatePeriodFabric;
-import ru.liga.karmatskiyrg.distributed.app.client.service.parsers.level2.RateParser;
 import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval;
+import ru.liga.karmatskiyrg.distributed.app.lib.parsers.ArgumentsParser;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -24,7 +24,7 @@ public class TestLowLevelControllers {
     @BeforeAll
     public static void init() {
         var commandText = "-cur eur -period week -alg old";
-        tokens = RateParser.RATE_PARSER.getTokenFromCommandString(commandText).getLeft();
+        tokens = ArgumentsParser.RATE_PARSER.getTokenFromCommandString(commandText).getLeft();
     }
 
     @Test
