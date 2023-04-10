@@ -1,13 +1,10 @@
 package ru.liga.karmatskiyrg.distributed.app.lib.router;
 
+import ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.RateCommandController;
 import ru.liga.karmatskiyrg.distributed.app.lib.adapters.Adapter;
 import ru.liga.karmatskiyrg.distributed.app.lib.parsers.interfaces.CommandParser;
 import ru.liga.karmatskiyrg.distributed.app.lib.router.interfaces.Router;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,42 +20,68 @@ public class Egg implements Router {
     private static final Map<String, Adapter> adapters = new HashMap<>();
 
     @Override
-    public void execute(String commandString) {
+    public Adapter execute(String commandString) {
         var map = COMMAND_WITH_ARGS_PARSER.parseCommand(commandString);
         var command = map.get(SUPER_COMMAND);
 
-        var controllerClass = controllers.get(command);
-        var methodList = controllerClass.getDeclaredMethods();
-        for (Method method : methodList) {
-            if (!method.getName().equals(command)) {
-                continue;
-            }
-            var paramList = method.getParameters();
+//        var controllerClass = controllers.get(command);
+//        var methodList = controllerClass.getDeclaredMethods();
+//        for (Method method : methodList) {
+//            if (!method.getName().equals(command)) {
+//                continue;
+//            }
+//            var paramList = method.getParameters();
+//
+//            if (paramList.length != map.size() - 1) {
+//                continue;
+//            }
+//
+//            for (Parameter parameter : paramList) {
+//                parameter.getName()
+//
+//            }
+//
+//        }
+//
+//        var args = new ArrayList<String>();
+//        args.add(map.get("cur"));
+//        args.add(map.get("period"));
+//
+//
+//        try {
+//            met.invoke(controllers.get(command), )
+//        } catch (IllegalAccessException | InvocationTargetException e) {
+//            throw new RuntimeException(e);
+//        }
 
-            if (paramList.length != map.size() - 1) {
-                continue;
-            }
 
-            for (Parameter parameter : paramList) {
-                parameter.getName()
-
-            }
-
+        var res = imitateReflection(map);
+        if (res.getClass().isAssignableFrom(Double.class)) {
+            System.out.println("Double res = " + res);
+        } else {
+            System.out.println("String res = " + res);
         }
-
-        var args = new ArrayList<String>();
-        args.add(map.get("cur"));
-        args.add(map.get("period"));
-
-
-        try {
-            met.invoke(controllers.get(command), )
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException(e);
-        }
+        return null;
     }
 
     private void scanClasses() {
 
+    }
+
+    private Object imitateReflection(Map<String, String> map) {
+        if (!map.get(SUPER_COMMAND).equals("rate")) {
+            throw new RuntimeException(new NoSuchMethodException(map.get(SUPER_COMMAND)));
+        }
+        var cur = map.get("cur");
+        var period = map.get("period");
+        var date = map.get("date");
+        var alg = map.get("alg");
+        var output = map.get("output");
+
+        if (output == null) {
+            return new RateCommandController().action(cur, period, alg);
+        } else {
+            return new RateCommandController().action(cur, period, alg, output);
+        }
     }
 }

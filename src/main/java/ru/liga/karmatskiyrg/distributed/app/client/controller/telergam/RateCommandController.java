@@ -1,7 +1,6 @@
 package ru.liga.karmatskiyrg.distributed.app.client.controller.telergam;
 
 import lombok.extern.slf4j.Slf4j;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import ru.liga.karmatskiyrg.distributed.app.lib.annotations.Controller;
 import ru.liga.karmatskiyrg.distributed.app.lib.annotations.ControllerMethod;
 
@@ -34,8 +33,15 @@ public class RateCommandController {
 //    }
 
     @ControllerMethod("rate")
-    public SendMessage action(String cur, String period, String alg) {
-        EGG
+    public String action(String cur, String period, String alg) {
+        return "Simple rate action without output parameter";
     }
 
+    @ControllerMethod("rate")
+    public Object action(String cur, String period, String alg, String output) {
+        if (output.equals("graph")) {
+            return 7.4;
+        }
+        return "Simple rate action with output parameter = " + output;
+    }
 }

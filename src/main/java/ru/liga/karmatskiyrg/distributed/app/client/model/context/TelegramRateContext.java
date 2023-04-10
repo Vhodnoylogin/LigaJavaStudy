@@ -1,4 +1,4 @@
-package ru.liga.karmatskiyrg.distributed.app.client.model.context.telegram;
+package ru.liga.karmatskiyrg.distributed.app.client.model.context;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

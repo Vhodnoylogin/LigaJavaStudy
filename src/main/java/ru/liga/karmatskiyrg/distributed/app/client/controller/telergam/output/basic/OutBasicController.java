@@ -2,7 +2,7 @@ package ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.output.b
 
 import lombok.RequiredArgsConstructor;
 import ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.output.interfaces.OutController;
-import ru.liga.karmatskiyrg.distributed.app.client.model.context.telegram.TelegramRateContext;
+import ru.liga.karmatskiyrg.distributed.app.client.model.context.TelegramRateContext;
 import ru.liga.karmatskiyrg.distributed.app.client.model.currency.CurrencyRate;
 
 import java.util.List;
