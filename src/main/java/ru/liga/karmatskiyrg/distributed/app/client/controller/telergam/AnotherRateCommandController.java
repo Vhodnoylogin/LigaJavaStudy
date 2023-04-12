@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.distributed.app.client.model.dicts.currencies.DCurrencyTypes;
 import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.interfaces.AlgorithmController;
+import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.DateController;
 import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.interfaces.PeriodController;
 import ru.liga.karmatskiyrg.distributed.app.lib.annotations.Controller;
 import ru.liga.karmatskiyrg.distributed.app.lib.annotations.ControllerMethod;
@@ -27,11 +28,11 @@ public class AnotherRateCommandController {
         return res.toString();
     }
 
-//    @ControllerMethod("rate")
-//    public String actionDate(@ArgName("cur")String cur, @ArgName("date")String date, @ArgNameController("alg") PredictCurrencyRate alg) {
-//        var curr = DCurrencyTypes.getShortNameType(cur);
-//        var localDate = DateController.toDateInterval(date);
-//        var res = alg.predictToDate(curr, localDate);
-//        return res.toString();
-//    }
+    @ControllerMethod("rate")
+    public String actionDate(@ArgName("cur") String cur, @ArgName("date") String date, @ArgNameController("alg") AlgorithmController alg) {
+        var curr = DCurrencyTypes.getShortNameType(cur);
+        var localDate = DateController.toDateInterval(date);
+        var res = alg.get().predictToDate(curr, localDate);
+        return res.toString();
+    }
 }

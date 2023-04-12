@@ -154,7 +154,6 @@ public class Egg implements Router {
         log.debug("args = {}", args);
         try {
             var object = method.getDeclaringClass().getConstructor().newInstance();
-            log.debug("object = {}", object);
             return method.invoke(object, args);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                  NoSuchMethodException e) {
