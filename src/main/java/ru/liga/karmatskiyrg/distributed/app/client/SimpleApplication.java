@@ -7,6 +7,9 @@ public class SimpleApplication {
     public static void main(String[] args) {
         var egg = new Egg();
 
+//        var input = "test --cur EUR";
+//        egg.execute(input);
+
         var input = "rate --cur EUR --period week --alg old";
         egg.execute(input);
 

@@ -36,14 +36,28 @@ public class Egg implements Router {
         controllers.put("week", WeekController.class);
         controllers.put("old", OldAlgorithmController.class);
 
-        controllerMethods.put("rate", new ArrayList<>());
-        var list = controllerMethods.get("rate");
-        for (Method method : AnotherRateCommandController.class.getDeclaredMethods()) {
-            if (!method.isAnnotationPresent(ControllerMethod.class)) {
-                continue;
-            }
-            list.add(method);
-        }
+        controllerMethods.put(
+                "rate",
+                Arrays.stream(AnotherRateCommandController.class.getDeclaredMethods())
+                        .filter(method -> method.isAnnotationPresent(ControllerMethod.class))
+                        .filter(method -> Objects.equals(method.getAnnotation(ControllerMethod.class).value(), "rate"))
+                        .toList()
+        );
+
+//        for (Method method : AnotherRateCommandController.class.getDeclaredMethods()) {
+//            if (!method.isAnnotationPresent(ControllerMethod.class)) {
+//                continue;
+//            }
+//            list.add(method);
+//        }
+
+        controllerMethods.put(
+                "test",
+                Arrays.stream(AnotherRateCommandController.class.getDeclaredMethods())
+                        .filter(method -> method.isAnnotationPresent(ControllerMethod.class))
+                        .filter(method -> Objects.equals(method.getAnnotation(ControllerMethod.class).value(), "test"))
+                        .toList()
+        );
 
     }
 
@@ -89,37 +103,26 @@ public class Egg implements Router {
                 .collect(Collectors.toList());
     }
 
-//    public static <T> T getObject(String name, Class<T> clazz){
-//        System.out.println(name);
-//        try {
-//            var cl = controllers.get(name.toLowerCase());
-//            var obj = cl.getConstructor().newInstance();
-//            return clazz.cast(obj);
-//        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-    private static Pair<Method, List<Object>> proccessed(Map<String, String> map) {
+    private static Pair<Method, Object[]> proccessed(Map<String, String> map) {
         var command = map.get(SUPER_COMMAND);
 
         var listOfMethods = controllerMethods.get(command);
-//        log.debug("{}", listOfMethods);
+        log.debug("listOfMethods = {}", listOfMethods);
 
         for (Method method : listOfMethods) {
-//            log.debug("method = {}", method);
-//            log.debug("Parameters = {}", method.getParameters());
+            log.debug("method = {}", method);
+            log.debug("Parameters = {}", method.getParameters());
             var args = alignmentParams(map, method.getParameters());
-//            log.debug("args = {}", args);
+            log.debug("args = {}", args);
             var argTypes = varTypes(args);
-//            log.debug("argTypes = {}, and method types = {}, and they compare = {}",
-//                    argTypes,
-//                    method.getParameterTypes(),
-//                    paramTypesCompare(argTypes, method.getParameterTypes())
-//            );
+            log.debug("argTypes = {}, and method types = {}, and they compare = {}",
+                    argTypes,
+                    method.getParameterTypes(),
+                    paramTypesCompare(argTypes, method.getParameterTypes())
+            );
 
             if (paramTypesCompare(argTypes, method.getParameterTypes())) {
-                return Pair.of(method, args);
+                return Pair.of(method, args.toArray());
             }
         }
         return null;
@@ -151,6 +154,7 @@ public class Egg implements Router {
         log.debug("args = {}", args);
         try {
             var object = method.getDeclaringClass().getConstructor().newInstance();
+            log.debug("object = {}", object);
             return method.invoke(object, args);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                  NoSuchMethodException e) {

@@ -14,6 +14,12 @@ import ru.liga.karmatskiyrg.distributed.app.lib.annotations.aruments.ArgNameCont
 @Controller("AnotherRateCommandController")
 @RequiredArgsConstructor
 public class AnotherRateCommandController {
+
+    @ControllerMethod("test")
+    public String tezd(@ArgName("cur") String cur) {
+        return cur + " " + cur;
+    }
+
     @ControllerMethod("rate")
     public String actionPeriod(@ArgName("cur") String cur, @ArgNameController("period") PeriodController period, @ArgNameController("alg") AlgorithmController alg) {
         var curr = DCurrencyTypes.getShortNameType(cur);
