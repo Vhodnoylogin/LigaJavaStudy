@@ -10,7 +10,7 @@ import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.interfaces.L
 
 import java.util.Map;
 
-public class AlgorithmController implements LowLevelController<PredictCurrencyRate> {
+public class AlgorithmController1 implements LowLevelController<PredictCurrencyRate> {
     private static final String MESSAGE_KEY = "No -ALG argument among %s";
     private static final String MESSAGE_VAL = "No such algorithm = %s";
 

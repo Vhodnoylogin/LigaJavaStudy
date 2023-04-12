@@ -10,10 +10,10 @@ public class SimpleApplication {
         var input = "rate --cur EUR --period week --alg old";
         egg.execute(input);
 
-        input = "rate --cur EUR --period week --alg old --output list";
-        egg.execute(input);
-
-        input = "rate --cur EUR --period week --alg old --output graph";
-        egg.execute(input);
+//        input = "rate --cur EUR --period week --alg old --output list";
+//        egg.execute(input);
+//
+//        input = "rate --cur EUR --period week --alg old --output graph";
+//        egg.execute(input);
     }
 }

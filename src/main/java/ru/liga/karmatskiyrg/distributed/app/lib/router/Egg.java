@@ -1,87 +1,217 @@
 package ru.liga.karmatskiyrg.distributed.app.lib.router;
 
-import ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.RateCommandController;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
+import ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController;
+import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController;
+import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.TomorrowController;
+import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController;
 import ru.liga.karmatskiyrg.distributed.app.lib.adapters.Adapter;
+import ru.liga.karmatskiyrg.distributed.app.lib.annotations.ControllerMethod;
+import ru.liga.karmatskiyrg.distributed.app.lib.annotations.aruments.ArgName;
+import ru.liga.karmatskiyrg.distributed.app.lib.annotations.aruments.ArgNameController;
 import ru.liga.karmatskiyrg.distributed.app.lib.parsers.interfaces.CommandParser;
 import ru.liga.karmatskiyrg.distributed.app.lib.router.interfaces.Router;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static ru.liga.karmatskiyrg.distributed.app.lib.parsers.CommandWithArgsParser.COMMAND_WITH_ARGS_PARSER;
 import static ru.liga.karmatskiyrg.distributed.app.lib.parsers.CommandWithArgsParser.SUPER_COMMAND;
 
+@Slf4j
 public class Egg implements Router {
     public static final Egg EGG = new Egg();
 
     private static final Map<String, Class<? extends CommandParser>> parsers = new HashMap<>();
     private static final Map<String, Class<?>> controllers = new HashMap<>();
-    //    private static final Map<String, Method> controllerMethods = new HashMap<>();
+    private static final Map<String, List<Method>> controllerMethods = new HashMap<>();
     private static final Map<String, Adapter> adapters = new HashMap<>();
+
+    static {
+        controllers.put("tomorrow", TomorrowController.class);
+        controllers.put("week", WeekController.class);
+        controllers.put("old", OldAlgorithmController.class);
+
+        controllerMethods.put("rate", new ArrayList<>());
+        var list = controllerMethods.get("rate");
+        for (Method method : AnotherRateCommandController.class.getDeclaredMethods()) {
+            if (!method.isAnnotationPresent(ControllerMethod.class)) {
+                continue;
+            }
+            list.add(method);
+        }
+
+    }
+
+    private static List<Object> alignmentParams(Map<String, String> mapInputParams, Parameter[] listFuncParams) {
+        var resArgsList = new ArrayList<>();
+        for (Parameter param : listFuncParams) {
+            var argName = "";
+            if (param.isAnnotationPresent(ArgNameController.class)) {
+                argName = param.getAnnotation(ArgNameController.class).value();
+            } else if (param.isAnnotationPresent(ArgName.class)) {
+                argName = param.getAnnotation(ArgName.class).value();
+            } else {
+                continue;
+            }
+
+            if (!mapInputParams.containsKey(argName)) {
+                continue;
+            }
+            var arg = mapInputParams.get(argName);
+//            log.debug("arg name = {}, agr value = {}", argName, arg);
+
+            if (param.isAnnotationPresent(ArgNameController.class)) {
+                try {
+                    var ctrl = controllers.get(arg);
+                    var argOb = ctrl.getConstructor().newInstance();
+//                    log.debug("{}", argOb);
+                    resArgsList.add(argOb);
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                         NoSuchMethodException e) {
+//                    throw new RuntimeException(e);
+                    log.error("", e);
+                }
+            } else {
+                resArgsList.add(arg);
+            }
+        }
+        return resArgsList;
+    }
+
+    private static List<Class<?>> varTypes(List<Object> vars) {
+        return vars.stream()
+                .map(Object::getClass)
+                .collect(Collectors.toList());
+    }
+
+//    public static <T> T getObject(String name, Class<T> clazz){
+//        System.out.println(name);
+//        try {
+//            var cl = controllers.get(name.toLowerCase());
+//            var obj = cl.getConstructor().newInstance();
+//            return clazz.cast(obj);
+//        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+    private static Pair<Method, List<Object>> proccessed(Map<String, String> map) {
+        var command = map.get(SUPER_COMMAND);
+
+        var listOfMethods = controllerMethods.get(command);
+//        log.debug("{}", listOfMethods);
+
+        for (Method method : listOfMethods) {
+//            log.debug("method = {}", method);
+//            log.debug("Parameters = {}", method.getParameters());
+            var args = alignmentParams(map, method.getParameters());
+//            log.debug("args = {}", args);
+            var argTypes = varTypes(args);
+//            log.debug("argTypes = {}, and method types = {}, and they compare = {}",
+//                    argTypes,
+//                    method.getParameterTypes(),
+//                    paramTypesCompare(argTypes, method.getParameterTypes())
+//            );
+
+            if (paramTypesCompare(argTypes, method.getParameterTypes())) {
+                return Pair.of(method, args);
+            }
+        }
+        return null;
+    }
+
+    private static boolean paramTypesCompare(List<Class<?>> myParamTypes, Class<?>[] methodParamTypes) {
+        if (myParamTypes.size() != methodParamTypes.length) {
+            return false;
+        }
+        var listMethodParamTypes = Arrays.asList(methodParamTypes);
+
+        for (int i = 0; i < listMethodParamTypes.size(); i++) {
+            var myType = myParamTypes.get(i);
+            var methodType = listMethodParamTypes.get(i);
+            if (!methodType.isAssignableFrom(myType)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static Object doAllIt(Map<String, String> map) {
+        var q = proccessed(map);
+
+        var method = q.getLeft();
+        var args = q.getRight();
+
+        log.debug("method = {}", method);
+        log.debug("args = {}", args);
+        try {
+            var object = method.getDeclaringClass().getConstructor().newInstance();
+            return method.invoke(object, args);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+
+
+//        var listObj =new ArrayList<>();
+//                var fields = obClass.getDeclaredFields();
+//        for (Field field : fields) {
+//            if (field.isAnnotationPresent(ResolveVariable.class)) {
+//                var anno = field.getDeclaredAnnotation(ResolveVariable.class);
+//                var keyName = anno.value() == null ? field.getName() : anno.value();
+//                var fObClass = controllers.get(keyName);
+//
+//
+//                if(fObClass.isEnum()){
+//                    var obj = Arrays.stream(fObClass.getEnumConstants())
+//                            .filter(x -> x.toString().equals(keyName))
+//                            .findFirst()
+//                            .get();
+//                    listObj.add(obj);
+//
+//                }else {
+//                    try {
+//                        var obj = fObClass. getConstructor().newInstance();
+//                        listObj.add(obj);
+//                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+//                             NoSuchMethodException e) {
+////                        throw new RuntimeException(e);
+//                        listObj.add(null);
+//                    }
+//                }
+//            }
+//        }
+//
+//        try {
+//            var listObjType = listObj.stream().map(Object::getClass).toList().toArray(new Class<?>[listObj.size()]);
+//            var res = obClass. getConstructor(listObjType).newInstance(listObj);
+//            return res;
+//        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+//                 NoSuchMethodException e) {
+//            throw new RuntimeException(e);
+//        }
+    }
 
     @Override
     public Adapter execute(String commandString) {
         var map = COMMAND_WITH_ARGS_PARSER.parseCommand(commandString);
-        var command = map.get(SUPER_COMMAND);
 
-//        var controllerClass = controllers.get(command);
-//        var methodList = controllerClass.getDeclaredMethods();
-//        for (Method method : methodList) {
-//            if (!method.getName().equals(command)) {
-//                continue;
-//            }
-//            var paramList = method.getParameters();
-//
-//            if (paramList.length != map.size() - 1) {
-//                continue;
-//            }
-//
-//            for (Parameter parameter : paramList) {
-//                parameter.getName()
-//
-//            }
-//
-//        }
-//
-//        var args = new ArrayList<String>();
-//        args.add(map.get("cur"));
-//        args.add(map.get("period"));
-//
-//
-//        try {
-//            met.invoke(controllers.get(command), )
-//        } catch (IllegalAccessException | InvocationTargetException e) {
-//            throw new RuntimeException(e);
-//        }
+        log.info("{}", map);
 
 
-        var res = imitateReflection(map);
-        if (res.getClass().isAssignableFrom(Double.class)) {
-            System.out.println("Double res = " + res);
-        } else {
-            System.out.println("String res = " + res);
-        }
+        var res = doAllIt(map);
+
+        System.out.println(res);
+
         return null;
     }
 
     private void scanClasses() {
 
-    }
-
-    private Object imitateReflection(Map<String, String> map) {
-        if (!map.get(SUPER_COMMAND).equals("rate")) {
-            throw new RuntimeException(new NoSuchMethodException(map.get(SUPER_COMMAND)));
-        }
-        var cur = map.get("cur");
-        var period = map.get("period");
-        var date = map.get("date");
-        var alg = map.get("alg");
-        var output = map.get("output");
-
-        if (output == null) {
-            return new RateCommandController().action(cur, period, alg);
-        } else {
-            return new RateCommandController().action(cur, period, alg, output);
-        }
     }
 }

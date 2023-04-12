@@ -1,0 +1,168 @@
+22:13:23.936 [main] INFO  r.l.k.t.parsers.TestCommandParser - {SUPER_COMMAND=rate}
+22:14:00.945 [main] INFO  r.l.k.t.parsers.TestCommandParser - {SUPER_COMMAND=rate}
+23:02:50.244 [main] INFO  r.l.k.t.parsers.TestCommandParser - {SUPER_COMMAND=rate}
+23:03:55.517 [main] INFO  r.l.k.d.a.l.p.CommandWithArgsParser - -cur eur -period week -alg old
+23:03:55.523 [main] INFO  r.l.k.t.parsers.TestCommandParser - {SUPER_COMMAND=rate}
+23:05:02.404 [main] INFO  r.l.k.d.a.l.p.CommandWithArgsParser - -cur eur -period week -alg old
+23:05:02.412 [main] INFO  r.l.k.t.parsers.TestCommandParser - {SUPER_COMMAND=rate}
+23:05:51.661 [main] INFO  r.l.k.t.parsers.TestArgumentsParser - {cur=eur, period=week, alg=old}
+23:06:17.166 [main] INFO  r.l.k.t.parsers.TestArgumentsParser - {cur=eur, period=week, alg=old}
+23:06:43.897 [main] INFO  r.l.k.t.parsers.TestArgumentsParser - {cur=eur, period=week, alg=old}
+23:07:17.262 [main] INFO  r.l.k.t.parsers.TestArgumentsParser - {cur=eur, period=week, alg=old}
+23:07:35.725 [main] INFO  r.l.k.t.parsers.TestCommandParser - {SUPER_COMMAND=rate, cur=eur, period=week, alg=old}
+23:09:01.204 [main] INFO  r.l.k.t.parsers.TestCommandParser - {SUPER_COMMAND=rate, cur=eur, period=week, alg=old}
+13:18:09.494 [main] DEBUG r.l.k.d.a.c.r.CurrencyRepoRAM - Add new type = TRY
+13:18:09.506 [main] DEBUG r.l.k.d.a.c.r.CurrencyRepoRAM - Add new type = USD
+13:18:09.510 [main] DEBUG r.l.k.d.a.c.r.CurrencyRepoRAM - Add new type = EUR
+13:19:36.964 [main] DEBUG r.l.k.d.a.c.r.CurrencyRepoRAM - Add new type = TRY
+13:19:36.978 [main] DEBUG r.l.k.d.a.c.r.CurrencyRepoRAM - Add new type = USD
+13:19:36.982 [main] DEBUG r.l.k.d.a.c.r.CurrencyRepoRAM - Add new type = EUR
+13:20:25.048 [main] DEBUG r.l.k.d.a.c.r.CurrencyRepoRAM - Add new type = TRY
+13:20:25.062 [main] DEBUG r.l.k.d.a.c.r.CurrencyRepoRAM - Add new type = USD
+13:20:25.067 [main] DEBUG r.l.k.d.a.c.r.CurrencyRepoRAM - Add new type = EUR
+17:55:05.520 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+17:55:05.542 [main] INFO  r.l.k.distributed.app.lib.router.Egg - rate
+17:55:05.542 [main] INFO  r.l.k.distributed.app.lib.router.Egg - [public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionDate(java.lang.String,java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate), public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionPeriod(java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate)]
+17:55:05.543 [main] INFO  r.l.k.distributed.app.lib.router.Egg - []
+17:55:05.544 [main] INFO  r.l.k.distributed.app.lib.router.Egg - []
+17:55:05.545 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+00:17:45.617 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+00:18:27.939 [main] INFO  r.l.k.distributed.app.lib.router.Egg - rate
+00:18:33.971 [main] INFO  r.l.k.distributed.app.lib.router.Egg - [public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionDate(java.lang.String,java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate), public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionPeriod(java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate)]
+00:18:41.341 [main] INFO  r.l.k.distributed.app.lib.router.Egg - []
+00:18:41.347 [main] INFO  r.l.k.distributed.app.lib.router.Egg - []
+00:18:41.349 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+00:19:59.842 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+00:19:59.847 [main] INFO  r.l.k.distributed.app.lib.router.Egg - rate
+00:19:59.848 [main] INFO  r.l.k.distributed.app.lib.router.Egg - [public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionDate(java.lang.String,java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate), public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionPeriod(java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate)]
+00:19:59.849 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = []
+00:19:59.850 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [], and method types = [class java.lang.String, class java.lang.String, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate]
+00:19:59.851 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = []
+00:19:59.851 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [], and method types = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate]
+00:19:59.851 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+00:27:19.951 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+00:27:19.959 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg0
+00:27:19.959 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg1
+00:27:19.959 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg2
+00:27:19.960 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg0
+00:27:19.960 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg1
+00:27:19.960 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg2
+00:27:19.961 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+00:35:00.302 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+00:35:00.310 [main] INFO  r.l.k.distributed.app.lib.router.Egg - method = public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionPeriod(java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate)
+00:35:00.311 [main] INFO  r.l.k.distributed.app.lib.router.Egg - Parameters = java.lang.String arg0
+00:35:00.311 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg0
+00:35:00.311 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg1
+00:35:00.311 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg2
+00:35:00.312 [main] INFO  r.l.k.distributed.app.lib.router.Egg - method = public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionDate(java.lang.String,java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate)
+00:35:00.313 [main] INFO  r.l.k.distributed.app.lib.router.Egg - Parameters = java.lang.String arg0
+00:35:00.313 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg0
+00:35:00.313 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg1
+00:35:00.313 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg2
+00:35:00.313 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+00:40:55.839 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+00:40:55.844 [main] INFO  r.l.k.distributed.app.lib.router.Egg - method = public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionPeriod(java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate)
+00:40:55.845 [main] INFO  r.l.k.distributed.app.lib.router.Egg - Parameters = java.lang.String arg0
+00:40:55.845 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg0
+00:40:55.845 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg1
+00:40:55.845 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg2
+00:40:55.846 [main] INFO  r.l.k.distributed.app.lib.router.Egg - method = public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionDate(java.lang.String,java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate)
+00:40:55.846 [main] INFO  r.l.k.distributed.app.lib.router.Egg - Parameters = java.lang.String arg0
+00:40:55.847 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg0
+00:40:55.847 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg1
+00:40:55.847 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg2
+00:40:55.847 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+00:53:54.919 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+00:53:54.923 [main] INFO  r.l.k.distributed.app.lib.router.Egg - method = public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionDate(java.lang.String,java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate)
+00:53:54.924 [main] INFO  r.l.k.distributed.app.lib.router.Egg - Parameters = java.lang.String arg0
+00:53:54.924 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg0
+00:53:54.925 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg1
+00:53:54.925 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg2
+00:53:54.926 [main] INFO  r.l.k.distributed.app.lib.router.Egg - method = public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionPeriod(java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate)
+00:53:54.926 [main] INFO  r.l.k.distributed.app.lib.router.Egg - Parameters = java.lang.String arg0
+00:53:54.926 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg0
+00:53:54.927 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg1
+00:53:54.927 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg2
+00:53:54.927 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+01:00:16.008 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+01:00:16.015 [main] INFO  r.l.k.distributed.app.lib.router.Egg - method = public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionDate(java.lang.String,java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate)
+01:00:16.017 [main] INFO  r.l.k.distributed.app.lib.router.Egg - Parameters = java.lang.String arg0
+01:00:16.021 [main] INFO  r.l.k.distributed.app.lib.router.Egg - class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController
+01:00:16.023 [main] INFO  r.l.k.distributed.app.lib.router.Egg - method = public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionPeriod(java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval,ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate)
+01:00:16.023 [main] INFO  r.l.k.distributed.app.lib.router.Egg - Parameters = java.lang.String arg0
+01:00:16.023 [main] INFO  r.l.k.distributed.app.lib.router.Egg - class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController
+01:00:16.024 [main] INFO  r.l.k.distributed.app.lib.router.Egg - class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController
+01:00:16.024 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+01:01:58.507 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+01:01:58.516 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg name = cur, agr value = EUR
+01:01:58.516 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg name = period, agr value = week
+01:01:58.516 [main] INFO  r.l.k.distributed.app.lib.router.Egg - class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController
+01:01:58.517 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg name = alg, agr value = old
+01:01:58.517 [main] INFO  r.l.k.distributed.app.lib.router.Egg - class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController
+01:01:58.519 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg name = cur, agr value = EUR
+01:01:58.519 [main] INFO  r.l.k.distributed.app.lib.router.Egg - arg name = alg, agr value = old
+01:01:58.519 [main] INFO  r.l.k.distributed.app.lib.router.Egg - class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController
+01:01:58.520 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+01:03:50.271 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+01:03:50.278 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - arg name = cur, agr value = EUR
+01:03:50.279 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - arg name = period, agr value = week
+01:03:50.279 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController
+01:03:50.280 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - arg name = alg, agr value = old
+01:03:50.280 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController
+01:03:50.281 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController@12d3a4e9, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@240237d2]
+01:03:50.282 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController], and method types = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate]
+01:03:50.283 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - arg name = cur, agr value = EUR
+01:03:50.283 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - arg name = alg, agr value = old
+01:03:50.283 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController
+01:03:50.284 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@2aece37d]
+01:03:50.284 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController], and method types = [class java.lang.String, class java.lang.String, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate]
+01:03:50.284 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+01:14:16.835 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+01:14:16.842 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - arg name = cur, agr value = EUR
+01:14:16.843 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - arg name = period, agr value = week
+01:14:16.843 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController
+01:14:16.843 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - arg name = alg, agr value = old
+01:14:16.843 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController
+01:14:16.844 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController@12d3a4e9, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@240237d2]
+01:14:16.845 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController], and method types = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate]
+01:14:16.846 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - arg name = cur, agr value = EUR
+01:14:16.847 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - arg name = alg, agr value = old
+01:14:16.847 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController
+01:14:16.847 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@212bf671]
+01:14:16.847 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController], and method types = [class java.lang.String, class java.lang.String, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate]
+01:14:16.847 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+01:18:05.896 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+01:21:20.121 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController@11dc3715, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@69930714]
+01:22:16.634 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController], and method types = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate], and they compare = false
+01:22:16.640 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@8909f18]
+01:22:16.641 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController], and method types = [class java.lang.String, class java.lang.String, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate], and they compare = false
+01:22:16.642 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+01:22:54.215 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+01:22:54.223 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController@12d3a4e9, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@240237d2]
+01:22:54.225 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController], and method types = [class java.lang.String, interface ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.interfaces.PeriodController, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate], and they compare = false
+01:22:54.226 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@212bf671]
+01:22:54.226 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController], and method types = [class java.lang.String, class java.lang.String, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate], and they compare = false
+01:22:54.226 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+01:23:34.901 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+01:23:34.909 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController@12d3a4e9, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@240237d2]
+01:23:34.910 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController], and method types = [class java.lang.String, interface ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.interfaces.PeriodController, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate], and they compare = false
+01:23:34.910 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+01:27:02.510 [main] DEBUG r.l.k.utils.test.TestCompClasses - false
+01:30:21.805 [main] DEBUG r.l.k.utils.test.TestCompClasses - true
+01:31:35.742 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+01:31:35.751 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController@12d3a4e9, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@240237d2]
+01:31:35.752 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController], and method types = [class java.lang.String, interface ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.interfaces.PeriodController, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate], and they compare = false
+01:31:35.753 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+01:36:36.231 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+01:36:36.240 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController@240237d2, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@25a65b77]
+01:36:36.241 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController], and method types = [class java.lang.String, interface ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.interfaces.PeriodController, interface ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate], and they compare = false
+01:36:36.241 [main] INFO  r.l.k.distributed.app.lib.router.Egg - null
+01:37:04.541 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+01:37:04.552 [main] INFO  r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController@240237d2, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@25a65b77]
+01:37:04.553 [main] INFO  r.l.k.distributed.app.lib.router.Egg - argTypes = [class java.lang.String, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController, class ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController], and method types = [class java.lang.String, interface ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.interfaces.PeriodController, interface ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.interfaces.AlgorithmController], and they compare = true
+01:37:04.553 [main] INFO  r.l.k.distributed.app.lib.router.Egg - (public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionPeriod(java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.interfaces.PeriodController,ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.interfaces.AlgorithmController),[EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController@240237d2, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@25a65b77])
+01:38:51.989 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+01:38:51.998 [main] INFO  r.l.k.distributed.app.lib.router.Egg - (public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionPeriod(java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.interfaces.PeriodController,ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.interfaces.AlgorithmController),[EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController@14a2f921, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@3c87521])
+01:39:50.606 [main] INFO  r.l.k.distributed.app.lib.router.Egg - {SUPER_COMMAND=rate, cur=EUR, period=week, alg=old}
+01:39:50.615 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - method = public java.lang.String ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController.actionPeriod(java.lang.String,ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.interfaces.PeriodController,ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.interfaces.AlgorithmController)
+01:39:50.617 [main] DEBUG r.l.k.distributed.app.lib.router.Egg - args = [EUR, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController@14a2f921, ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController@3c87521]

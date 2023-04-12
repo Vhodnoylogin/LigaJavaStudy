@@ -1,5 +1,6 @@
 package ru.liga.karmatskiyrg.distributed.app.lib.parsers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import ru.liga.karmatskiyrg.distributed.app.lib.parsers.exceptions.CantParseString;
 import ru.liga.karmatskiyrg.distributed.app.lib.parsers.interfaces.CommandParser;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+@Slf4j
 public class CommandWithArgsParser implements CommandParser {
     public static final CommandParser COMMAND_WITH_ARGS_PARSER = new CommandWithArgsParser();
     public static final String SUPER_COMMAND = "SUPER_COMMAND";
@@ -25,7 +27,6 @@ public class CommandWithArgsParser implements CommandParser {
 
         var command = matcher1.group();
         var argsString = commandLine.substring(matcher1.end()).trim();
-
         var matcher2 = pattern2.matcher(argsString);
 
         var res = new HashMap<String, String>();
