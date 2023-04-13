@@ -2,11 +2,12 @@ package ru.liga.karmatskiyrg.distributed.app.client.repository;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import ru.liga.karmatskiyrg.distributed.app.client.controller.observers.dicts.IsCurrencyString;
 import ru.liga.karmatskiyrg.distributed.app.client.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.distributed.app.client.model.dicts.currencies.DCurrencyTypes;
 import ru.liga.karmatskiyrg.distributed.app.client.model.dicts.currencies.interfaces.DCurrencyType;
 import ru.liga.karmatskiyrg.distributed.app.client.repository.interfaces.CurrencyTable;
+import ru.liga.karmatskiyrg.distributed.app.client.service.currency.CsvToCurrency;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.csv.CsvFileLayout;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -15,9 +16,13 @@ import java.util.function.Consumer;
 public class CurrencyRepoRAM implements CurrencyTable {
     private final Map<DCurrencyType, List<CurrencyRate>> data = new HashMap<>();
 
+    public CurrencyRepoRAM() {
+        this.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.getCsvFile()));
+    }
+
     @Override
     public void save(@NonNull CurrencyRate rate) {
-        var isCurrencyString = IsCurrencyString.getSingleton();
+//        var isCurrencyString = IsCurrencyString.getSingleton();
 
 //        var type = isCurrencyString.getFirstVariant(rate.getName());
         var type = DCurrencyTypes.getType(rate.getName());
@@ -41,7 +46,7 @@ public class CurrencyRepoRAM implements CurrencyTable {
         Consumer<CurrencyRate> logInputVar =
                 x -> log.debug("Value is {}. Type of value is {}",
                         x,
-                        IsCurrencyString.getSingleton().getFirstVariant(x.getName())
+                        x.getName()
                 );
         logInputVar = x -> {
         };

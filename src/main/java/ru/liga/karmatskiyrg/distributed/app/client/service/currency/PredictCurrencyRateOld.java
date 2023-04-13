@@ -5,9 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ru.liga.karmatskiyrg.distributed.app.client.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.distributed.app.client.model.dicts.currencies.interfaces.DCurrencyType;
+import ru.liga.karmatskiyrg.distributed.app.client.repository.CurrencyRepoRAM;
 import ru.liga.karmatskiyrg.distributed.app.client.repository.interfaces.CurrencyTable;
 import ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate;
-import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DatePeriod;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.interfaces.DateInterval;
 
 import java.time.LocalDate;
 import java.util.Comparator;
@@ -26,6 +28,12 @@ public class PredictCurrencyRateOld implements PredictCurrencyRate {
         return 0;
     };
     private final CurrencyTable repo;
+
+    public PredictCurrencyRateOld() {
+        var repo = new CurrencyRepoRAM();
+//        repo.save(CsvToCurrency.getCurrencyRate(CsvFileLayout.getCsvFile()));
+        this.repo = repo;
+    }
 
     private List<CurrencyRate> initPredictList(@NonNull DCurrencyType type, @NonNull LocalDate date) {
         Predicate<CurrencyRate> notFutureDates = x -> x.getDate().isBefore(date);
@@ -87,15 +95,15 @@ public class PredictCurrencyRateOld implements PredictCurrencyRate {
 //                .limit(PREDICT_LEVEL)
 //                .toList();
 
-        return predictToDate(type, DateInterval.of(date, date));
+        return predictToDate(type, DatePeriod.of(date, date));
     }
 
     @Override
     public List<CurrencyRate> predictToDate(DCurrencyType type, @NonNull DateInterval period) {
-        var list = initPredictList(type, period.getStartDate());
+        var list = initPredictList(type, period.startDate());
         if (list.isEmpty()) return List.of();
 
-        while (!list.get(0).getDate().isAfter(period.getEndDate())) {
+        while (!list.get(0).getDate().isAfter(period.endDate())) {
             list.add(0, this.predictNext(list));
         }
 

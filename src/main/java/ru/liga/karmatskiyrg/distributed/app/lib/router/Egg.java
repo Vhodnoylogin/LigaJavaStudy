@@ -2,14 +2,14 @@ package ru.liga.karmatskiyrg.distributed.app.lib.router;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
-import ru.liga.karmatskiyrg.distributed.app.client.controller.telergam.AnotherRateCommandController;
-import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.algorithm.OldAlgorithmController;
-import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.TomorrowController;
-import ru.liga.karmatskiyrg.distributed.app.client.service.lowlevel.period.WeekController;
-import ru.liga.karmatskiyrg.distributed.app.lib.adapters.Adapter;
+import ru.liga.karmatskiyrg.distributed.app.client.controller.RateCommandController;
+import ru.liga.karmatskiyrg.distributed.app.client.service.currency.PredictCurrencyRateOld;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.TomorrowPeriod;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.WeekPeriod;
+import ru.liga.karmatskiyrg.distributed.app.lib.adapters.interfaces.Adapter;
 import ru.liga.karmatskiyrg.distributed.app.lib.annotations.ControllerMethod;
 import ru.liga.karmatskiyrg.distributed.app.lib.annotations.aruments.ArgName;
-import ru.liga.karmatskiyrg.distributed.app.lib.annotations.aruments.ArgNameController;
+import ru.liga.karmatskiyrg.distributed.app.lib.annotations.aruments.ArgNameService;
 import ru.liga.karmatskiyrg.distributed.app.lib.parsers.interfaces.CommandParser;
 import ru.liga.karmatskiyrg.distributed.app.lib.router.interfaces.Router;
 
@@ -32,28 +32,22 @@ public class Egg implements Router {
     private static final Map<String, Adapter> adapters = new HashMap<>();
 
     static {
-        controllers.put("tomorrow", TomorrowController.class);
-        controllers.put("week", WeekController.class);
-        controllers.put("old", OldAlgorithmController.class);
+        controllers.put("tomorrow", TomorrowPeriod.class);
+        controllers.put("week", WeekPeriod.class);
+        controllers.put("old", PredictCurrencyRateOld.class);
 
         controllerMethods.put(
                 "rate",
-                Arrays.stream(AnotherRateCommandController.class.getDeclaredMethods())
+                Arrays.stream(RateCommandController.class.getDeclaredMethods())
                         .filter(method -> method.isAnnotationPresent(ControllerMethod.class))
                         .filter(method -> Objects.equals(method.getAnnotation(ControllerMethod.class).value(), "rate"))
                         .toList()
         );
 
-//        for (Method method : AnotherRateCommandController.class.getDeclaredMethods()) {
-//            if (!method.isAnnotationPresent(ControllerMethod.class)) {
-//                continue;
-//            }
-//            list.add(method);
-//        }
 
         controllerMethods.put(
                 "test",
-                Arrays.stream(AnotherRateCommandController.class.getDeclaredMethods())
+                Arrays.stream(RateCommandController.class.getDeclaredMethods())
                         .filter(method -> method.isAnnotationPresent(ControllerMethod.class))
                         .filter(method -> Objects.equals(method.getAnnotation(ControllerMethod.class).value(), "test"))
                         .toList()
@@ -65,8 +59,8 @@ public class Egg implements Router {
         var resArgsList = new ArrayList<>();
         for (Parameter param : listFuncParams) {
             var argName = "";
-            if (param.isAnnotationPresent(ArgNameController.class)) {
-                argName = param.getAnnotation(ArgNameController.class).value();
+            if (param.isAnnotationPresent(ArgNameService.class)) {
+                argName = param.getAnnotation(ArgNameService.class).value();
             } else if (param.isAnnotationPresent(ArgName.class)) {
                 argName = param.getAnnotation(ArgName.class).value();
             } else {
@@ -79,7 +73,7 @@ public class Egg implements Router {
             var arg = mapInputParams.get(argName);
 //            log.debug("arg name = {}, agr value = {}", argName, arg);
 
-            if (param.isAnnotationPresent(ArgNameController.class)) {
+            if (param.isAnnotationPresent(ArgNameService.class)) {
                 try {
                     var ctrl = controllers.get(arg);
                     var argOb = ctrl.getConstructor().newInstance();
@@ -159,45 +153,6 @@ public class Egg implements Router {
                  NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-
-
-//        var listObj =new ArrayList<>();
-//                var fields = obClass.getDeclaredFields();
-//        for (Field field : fields) {
-//            if (field.isAnnotationPresent(ResolveVariable.class)) {
-//                var anno = field.getDeclaredAnnotation(ResolveVariable.class);
-//                var keyName = anno.value() == null ? field.getName() : anno.value();
-//                var fObClass = controllers.get(keyName);
-//
-//
-//                if(fObClass.isEnum()){
-//                    var obj = Arrays.stream(fObClass.getEnumConstants())
-//                            .filter(x -> x.toString().equals(keyName))
-//                            .findFirst()
-//                            .get();
-//                    listObj.add(obj);
-//
-//                }else {
-//                    try {
-//                        var obj = fObClass. getConstructor().newInstance();
-//                        listObj.add(obj);
-//                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-//                             NoSuchMethodException e) {
-////                        throw new RuntimeException(e);
-//                        listObj.add(null);
-//                    }
-//                }
-//            }
-//        }
-//
-//        try {
-//            var listObjType = listObj.stream().map(Object::getClass).toList().toArray(new Class<?>[listObj.size()]);
-//            var res = obClass. getConstructor(listObjType).newInstance(listObj);
-//            return res;
-//        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-//                 NoSuchMethodException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 
     @Override

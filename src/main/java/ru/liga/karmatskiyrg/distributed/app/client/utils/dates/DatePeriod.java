@@ -1,21 +1,20 @@
 package ru.liga.karmatskiyrg.distributed.app.client.utils.dates;
 
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NonNull;
 import lombok.ToString;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.interfaces.DateInterval;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-@Getter
 @ToString
 @EqualsAndHashCode
-public class DateInterval {
+public class DatePeriod implements DateInterval {
     private final @NonNull LocalDate startDate;
     private final @NonNull LocalDate endDate;
 
-    public DateInterval(@NonNull LocalDate startDate, @NonNull LocalDate endDate) {
+    public DatePeriod(@NonNull LocalDate startDate, @NonNull LocalDate endDate) {
         if (startDate.isBefore(endDate)) {
             this.startDate = startDate;
             this.endDate = endDate;
@@ -27,30 +26,40 @@ public class DateInterval {
 
 
     public static DateInterval of(@NonNull LocalDate start, @NonNull LocalDate end) {
-        return new DateInterval(start, end);
+        return new DatePeriod(start, end);
     }
 
-    public static boolean isIntersect(@NonNull DateInterval interval1, @NonNull DateInterval interval2) {
-        return interval1.isIntersect(interval2);
-    }
 
+    @Override
     public boolean dateIn(@NonNull LocalDate date) {
         return
                 !(date.isBefore(this.startDate) ||
                         date.isAfter(this.endDate));
     }
 
+    @Override
     public long numberOfDays() {
         return ChronoUnit.DAYS.between(this.startDate, this.endDate) + 1;
     }
 
+    @Override
     public boolean isIntersect(@NonNull DateInterval dateInterval) {
         if (dateInterval == this) return true;
-        if (dateInterval.getEndDate().isBefore(this.startDate)) return false;
-        return !dateInterval.getStartDate().isAfter(this.endDate);
+        if (dateInterval.endDate().isBefore(this.startDate)) return false;
+        return !dateInterval.startDate().isAfter(this.endDate);
     }
 
     public boolean isIntersect(@NonNull LocalDate date) {
         return this.dateIn(date);
+    }
+
+    @Override
+    public LocalDate startDate() {
+        return this.startDate;
+    }
+
+    @Override
+    public LocalDate endDate() {
+        return this.endDate;
     }
 }
