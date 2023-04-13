@@ -2,6 +2,7 @@ package ru.liga.karmatskiyrg.distributed.app.lib.router;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
+import ru.liga.karmatskiyrg.distributed.app.client.adapters.TelegramTextAdapter;
 import ru.liga.karmatskiyrg.distributed.app.client.controller.RateCommandController;
 import ru.liga.karmatskiyrg.distributed.app.client.service.currency.PredictCurrencyRateOld;
 import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.TomorrowPeriod;
@@ -23,7 +24,7 @@ import static ru.liga.karmatskiyrg.distributed.app.lib.parsers.CommandWithArgsPa
 import static ru.liga.karmatskiyrg.distributed.app.lib.parsers.CommandWithArgsParser.SUPER_COMMAND;
 
 @Slf4j
-public class Egg implements Router {
+public class Egg<C> implements Router<C> {
     public static final Egg EGG = new Egg();
 
     private static final Map<String, Class<? extends CommandParser>> parsers = new HashMap<>();
@@ -52,6 +53,8 @@ public class Egg implements Router {
                         .filter(method -> Objects.equals(method.getAnnotation(ControllerMethod.class).value(), "test"))
                         .toList()
         );
+
+        TelegramTextAdapter q = new TelegramTextAdapter();
 
     }
 
