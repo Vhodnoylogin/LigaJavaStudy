@@ -9,7 +9,6 @@ import ru.liga.karmatskiyrg.distributed.app.client.repository.CurrencyRepoRAM;
 import ru.liga.karmatskiyrg.distributed.app.client.service.currency.CsvToCurrency;
 import ru.liga.karmatskiyrg.distributed.app.client.utils.csv.CsvFileLayout;
 import ru.liga.karmatskiyrg.distributed.app.client.utils.csv.ReadCSVFile;
-import ru.liga.karmatskiyrg.init.InitTest;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -22,7 +21,7 @@ import static org.assertj.core.api.Assertions.fail;
 
 
 @Slf4j
-public class TestRepo extends InitTest {
+public class TestRepo {
     protected static List<CurrencyRate> list;
 
     @BeforeAll

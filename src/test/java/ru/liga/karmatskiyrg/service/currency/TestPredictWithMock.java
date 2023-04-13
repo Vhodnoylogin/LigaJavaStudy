@@ -3,7 +3,6 @@ package ru.liga.karmatskiyrg.service.currency;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import ru.liga.karmatskiyrg.distributed.app.client.controller.observers.initialize.Init;
 import ru.liga.karmatskiyrg.distributed.app.client.model.currency.CurrencyRate;
 import ru.liga.karmatskiyrg.distributed.app.client.model.dicts.currencies.DCurrencyTypes;
 import ru.liga.karmatskiyrg.distributed.app.client.repository.CurrencyRepoRAM;
@@ -22,7 +21,6 @@ public class TestPredictWithMock {
     protected static PredictCurrencyRate predict;
     @BeforeAll
     public static void init() {
-        Init.initDictionaries();
 
         var repo = mock(CurrencyRepoRAM.class);
         var fake = new ArrayList<CurrencyRate>() {{

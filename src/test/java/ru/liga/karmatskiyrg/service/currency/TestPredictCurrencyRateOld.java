@@ -10,15 +10,14 @@ import ru.liga.karmatskiyrg.distributed.app.client.service.currency.CsvToCurrenc
 import ru.liga.karmatskiyrg.distributed.app.client.service.currency.PredictCurrencyRateOld;
 import ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate;
 import ru.liga.karmatskiyrg.distributed.app.client.utils.csv.CsvFileLayout;
-import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval;
-import ru.liga.karmatskiyrg.init.InitTest;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DatePeriod;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Slf4j
-public class TestPredictCurrencyRateOld extends InitTest {
+public class TestPredictCurrencyRateOld {
     protected static PredictCurrencyRate predict;
 
     @BeforeAll
@@ -72,7 +71,7 @@ public class TestPredictCurrencyRateOld extends InitTest {
 
     @Test
     public void testPredictPeriod() {
-        var period = DateInterval.of(
+        var period = DatePeriod.of(
                 LocalDate.now().plusDays(1),
                 LocalDate.now().plusDays(100)
         );

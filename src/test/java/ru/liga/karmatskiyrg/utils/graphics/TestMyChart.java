@@ -11,16 +11,15 @@ import ru.liga.karmatskiyrg.distributed.app.client.service.currency.CsvToCurrenc
 import ru.liga.karmatskiyrg.distributed.app.client.service.currency.PredictCurrencyRateOld;
 import ru.liga.karmatskiyrg.distributed.app.client.service.currency.interfaces.PredictCurrencyRate;
 import ru.liga.karmatskiyrg.distributed.app.client.utils.csv.CsvFileLayout;
-import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DateInterval;
+import ru.liga.karmatskiyrg.distributed.app.client.utils.dates.DatePeriod;
 import ru.liga.karmatskiyrg.distributed.app.client.utils.graphics.RateChart;
-import ru.liga.karmatskiyrg.init.InitTest;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 
 @Slf4j
-public class TestMyChart extends InitTest {
+public class TestMyChart {
     protected static PredictCurrencyRate predict;
 
     @BeforeAll
@@ -32,7 +31,7 @@ public class TestMyChart extends InitTest {
 
     @Test
     public void testMyChart() {
-        var period = DateInterval.of(
+        var period = DatePeriod.of(
                 LocalDate.now().plusDays(1),
                 LocalDate.now().plusDays(100)
         );
