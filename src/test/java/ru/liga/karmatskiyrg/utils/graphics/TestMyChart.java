@@ -33,7 +33,8 @@ public class TestMyChart {
     public void testMyChart() {
         var period = DatePeriod.of(
                 LocalDate.now().plusDays(1),
-                LocalDate.now().plusDays(100)
+//                LocalDate.now().plusDays(100)
+                LocalDate.now().plusDays(30)
         );
 
         var list = predict.predictToDate(
@@ -47,7 +48,7 @@ public class TestMyChart {
 
         File output = new File("C:\\Users\\Radimir\\Downloads\\test.png");
         try {
-            ChartUtils.saveChartAsPNG(output, res, 1000, 1000);
+            ChartUtils.saveChartAsPNG(output, res, 360, 360);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
