@@ -101,7 +101,10 @@ public class Egg implements Router {
                 resArgsList.add(arg);
             }
         }
-        return resArgsList;
+        if (resArgsList.size() == mapInputParams.size()) {
+            return resArgsList;
+        }
+        return List.of();
     }
 
     private static List<Class<?>> varTypes(List<Object> vars) {
@@ -112,23 +115,27 @@ public class Egg implements Router {
 
     private static Pair<Method, Object[]> proccessed(Map<String, String> map) {
         var command = map.get(SUPER_COMMAND);
+        var newMap = new HashMap<>(map);
+        newMap.remove(SUPER_COMMAND);
 
         var listOfMethods = controllerMethods.get(command);
-        log.debug("listOfMethods = {}", listOfMethods);
+//        log.debug("listOfMethods = {}", listOfMethods);
 
         for (Method method : listOfMethods) {
-            log.debug("method = {}", method);
-            log.debug("Parameters = {}", method.getParameters());
-            var args = alignmentParams(map, method.getParameters());
-            log.debug("args = {}", args);
+//            log.debug("method = {}", method);
+//            log.debug("Parameters = {}", method.getParameters());
+            var args = alignmentParams(newMap, method.getParameters());
+//            log.debug("args = {}", args);
             var argTypes = varTypes(args);
-            log.debug("argTypes = {}, and method types = {}, and they compare = {}",
-                    argTypes,
-                    method.getParameterTypes(),
-                    paramTypesCompare(argTypes, method.getParameterTypes())
-            );
+//            log.debug("argTypes = {}, and method types = {}, and they compare = {}",
+//                    argTypes,
+//                    method.getParameterTypes(),
+//                    paramTypesCompare(argTypes, method.getParameterTypes())
+//            );
 
-            if (paramTypesCompare(argTypes, method.getParameterTypes())) {
+//            if (paramTypesCompare(argTypes, method.getParameterTypes())) {
+            if (!args.isEmpty()) {
+                log.debug("method = {}, args = {}", method, args);
                 return Pair.of(method, args.toArray());
             }
         }
@@ -157,8 +164,8 @@ public class Egg implements Router {
         var method = q.getLeft();
         var args = q.getRight();
 
-        log.debug("method = {}", method);
-        log.debug("args = {}", args);
+//        log.debug("method = {}", method);
+//        log.debug("args = {}", args);
         try {
             var object = method.getDeclaringClass().getConstructor().newInstance();
             return method.invoke(object, args);
