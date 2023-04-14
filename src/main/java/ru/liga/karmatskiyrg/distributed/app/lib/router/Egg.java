@@ -101,7 +101,7 @@ public class Egg implements Router {
                 resArgsList.add(arg);
             }
         }
-        if (resArgsList.size() == mapInputParams.size()) {
+        if (resArgsList.size() == listFuncParams.length) {
             return resArgsList;
         }
         return List.of();
