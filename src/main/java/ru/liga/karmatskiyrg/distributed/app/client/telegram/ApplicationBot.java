@@ -3,6 +3,7 @@ package ru.liga.karmatskiyrg.distributed.app.client.telegram;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import ru.liga.karmatskiyrg.distributed.app.client.adapters.context.TelegramContext;
 import ru.liga.karmatskiyrg.distributed.app.lib.router.Egg;
 import ru.liga.karmatskiyrg.distributed.app.lib.router.interfaces.Router;
 
@@ -33,7 +34,7 @@ public class ApplicationBot extends TelegramLongPollingCommandBot {
         var text = update.getMessage().getText();
         log.debug("{}", text);
         var adapter = router.execute(text);
-        adapter.doIt();
+        adapter.doIt(new TelegramContext(this, update.getMessage().getChatId()));
     }
 
 }

@@ -1,7 +1,6 @@
 package ru.liga.karmatskiyrg.distributed.app.client.adapters;
 
-import ru.liga.karmatskiyrg.distributed.app.client.adapters.context.TelegramContext;
-import ru.liga.karmatskiyrg.distributed.app.lib.adapters.AbstractAdapter;
+import ru.liga.karmatskiyrg.distributed.app.lib.adapters.Adapter;
 
-public abstract class TelegramAdapter<D> extends AbstractAdapter<TelegramContext, D> {
+public abstract class TelegramAdapter implements Adapter {
 }
